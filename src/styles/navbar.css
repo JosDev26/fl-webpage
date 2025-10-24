@@ -1,0 +1,69 @@
+p, h1, h2, button, ul, li, a{
+  font-family: "Cal Sans", sans-serif;
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale; 
+  font-weight: lighter;
+}
+
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    color: #FAD02c;
+    gap: 6rem;
+}
+ul:hover{
+    color: #FAD02C;
+}
+li{
+    float: left;
+    color: #FAD02C;
+    text-decoration: none;
+    width: 13rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid #fad12c00;
+}
+li:hover{
+    color: #FAD02C;
+    cursor: pointer;
+    background-color: #19304B;
+    border: 3px solid #FAD02C;   
+}
+a{
+    text-decoration: none;
+    color: #FAD02C;
+}
+a:hover{
+    text-decoration: none;
+    color: #FAD02C;
+}
+
+.menu-escalonado{
+    padding: 8vw 0;
+
+}
+.menu-escalonado ul li a{
+    color: #FAD02c;
+    
+}
+.menu-escalonado a:visited {
+  color: #FAD02c;
+  text-decoration: none; /* Y sin subrayado */
+}
+.menu-escalonado ul li:hover a {
+  color: #FAD02C;
+  text-decoration: none;
+}
+.menu-escalonado li.active {
+  background-color: #FAD02C;
+}
+.menu-escalonado li.active a {
+    color: #19304B;
+}

@@ -1,0 +1,94 @@
+---
+import Header from '../components/Header.astro';
+import Navbar from '../components/Navbar.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <Header />
+
+  <Navbar />
+
+  <main class="tab-container">
+    
+    <div id="sobre-nosotros" class="tab-content active">
+      <h2>Contenido de Sobre Nosotros</h2>
+      <p>Aquí va el texto, imágenes, etc., de "Sobre nosotros".</p>
+    </div>
+    
+    <div id="nuestro-equipo" class="tab-content">
+      <h2>Contenido de Nuestro Equipo</h2>
+      <p>Aquí va el texto, imágenes, etc., de "Nuestro equipo".</p>
+    </div>
+    
+    <div id="servicios" class="tab-content">
+      <h2>Contenido de Servicios</h2>
+      <p>Aquí va el texto, imágenes, etc., de "Servicios".</p>
+    </div>
+    
+    <div id="contacto" class="tab-content">
+      <h2>Contenido de Contacto</h2>
+      <p>Aquí va el texto, imágenes, etc., de "Contacto".</p>
+    </div>
+    
+  </main>
+</Layout>
+
+<style>
+  .tab-content {
+    /* Oculta todas las pestañas por defecto */
+    display: none; 
+    
+    /* Estilos para que se vea bien */
+    color: white; 
+    padding: 2em;
+  }
+  
+  .tab-content.active {
+    /* Muestra SOLO la pestaña activa */
+    display: block; 
+  }
+</style>
+
+<script>
+  // Selecciona todos los 'li' del menú
+  const navItems = document.querySelectorAll('.menu-escalonado li');
+  // Selecciona todos los 'div' de contenido
+  const contentItems = document.querySelectorAll('.tab-content');
+
+  // Añade un 'listener' a cada 'li' del menú
+  navItems.forEach(navItem => {
+    navItem.addEventListener('click', (e) => {
+      // Evita que el enlace '#' recargue o salte la página
+      e.preventDefault(); 
+      
+      // --- CORRECCIÓN 1: Validar el enlace ---
+      const link = navItem.querySelector('a');
+      // Si no hay 'a' o no tiene 'data-target', no hagas nada.
+      if (!link || !link.getAttribute('data-target')) {
+        return; 
+      }
+      
+      const targetId = link.getAttribute('data-target'); // Ej: "#sobre-nosotros"
+
+      // 1. Quita la clase 'active' de TODOS los 'li'
+      navItems.forEach(item => item.classList.remove('active'));
+      
+      // 2. Añade 'active' SOLO al 'li' que clickeaste
+      navItem.classList.add('active');
+      
+      // 3. Oculta TODOS los 'div' de contenido
+      contentItems.forEach(content => content.classList.remove('active'));
+      
+      // --- CORRECCIÓN 2: Validar el contenido ---
+      if (targetId) {
+        const targetContent = document.querySelector(targetId);
+        
+        // 4. Muestra el contenido SÓLO SI se encontró
+        if (targetContent) {
+          targetContent.classList.add('active');
+        }
+      }
+    });
+  });
+</script>

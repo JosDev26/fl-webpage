@@ -1,0 +1,132 @@
+
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #19304B;
+  
+  align-items: center; /* centra horizontalmente */
+}
+
+p, h1, h2, button {
+  font-family: "Cal Sans", sans-serif;
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale; 
+}
+
+/* Título */
+h1 {
+  color: #FAD02C;
+  font-size: clamp(2.5rem, 5vw, 8rem);
+  font-weight: 100;
+  text-align: center;
+  margin: 0 auto 0;
+  display: block;
+}
+
+/* Subtítulo o texto */
+p {
+  color: #fff;
+  font-size: clamp(0.8rem, 1vw, 7rem);
+  font-weight: 100;
+  text-align: center;
+  margin: 0 auto;
+  padding-bottom: 1.5rem;
+  width: clamp(10rem, 80vw, 46rem);
+  line-height: 1.4;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  display: block; /* importante para Safari */
+}
+
+/* Espaciado adicional del subtítulo */
+.subtext-hero {
+  padding-top: 1.2rem;
+}
+
+/* Logo */
+img {
+  width: clamp(8rem, 20vw, 10rem);
+  height: auto;
+  display: block;
+  margin: 0 auto 1.5em;
+}
+
+/* Botón CTA */
+.cta-hero {
+  display: flex;
+  background: none;
+  font-size: 1rem;
+  color: #FAD02C;
+  border: 3px solid #FAD02C;
+  padding: 1em 10vw;
+  display: inline-block;
+  margin: 0 auto;
+  transition: ease-in-out 0.2s;
+  text-wrap: nowrap;
+  
+}
+
+.cta-hero:hover {
+  cursor: pointer;
+  background-color: #FAD02C;
+  color: #19304B;
+  transition: ease-in-out 0.2s;
+}
+.info-hero{
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+.circle-hero {
+  margin-top: 5vw;
+  width: clamp(23rem, 60vw, 40rem);
+  height: clamp(23rem, 60vw, 40rem);
+  border-radius: 50%;
+  background-color: #ffffff05;
+  display: flex;
+  position: absolute;
+  z-index: 1;
+  justify-self: center;
+  align-self: center;
+}
+.hero{
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  place-content: center;
+}
+
+.border1-hero {
+  border-top: #FAD02C solid clamp(2vw, 5vh, 2vw);
+  border-left: #FAD02C solid clamp(2vw, 5vh, 2vw);
+  left: 14vw;
+  bottom: 65vh;
+  
+}
+.border2-hero {
+  border-bottom: #FAD02C solid clamp(1vw, 5vh, 2vw);
+  border-right: #FAD02C solid clamp(1vw, 5vh, 2vw);
+  left: 80vw;
+  top: 65vh;
+
+} 
+.border-hero{
+  width: 5vw;
+  height: 5vw;
+  display: flex;
+  position: absolute;
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .no-mobile {
+    display: none;
+  }
+}
+.hidden-initial {
+  /* Set initial opacity to 0. The JS animation will handle the transition to 1. */
+  opacity: 0; 
+}
