@@ -1,0 +1,16 @@
+/* Sobre nosotros */
+h2{
+    font-size: 3.5vw;
+}
+h2 span {
+  color: #FAD02C;
+}
+h3{
+    color: #FAD02C;
+}
+
+.main-info{
+    & h2{
+        background-color: rebeccapurple;
+    }
+}

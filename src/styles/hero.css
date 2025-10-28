@@ -1,34 +1,36 @@
-
-body {
-  margin: 0;
+/* Scoped to the hero component to avoid global leaks */
+.hero {
+  margin: 0 auto;
   width: 100%;
   min-height: 100vh;
   background-color: #19304B;
-  
   align-items: center; /* centra horizontalmente */
+  font-family: 'Nunito Sans Variable', sans-serif;
 }
 
-p, h1, h2, button {
-  font-family: "Cal Sans", sans-serif;
+/* Element rules scoped under .hero to avoid affecting other modules */
+.hero p, .hero h1, .hero h2, .hero button {
   -webkit-font-smoothing: antialiased; 
   -moz-osx-font-smoothing: grayscale; 
 }
 
 /* Título */
-h1 {
+/* Título */
+.hero h1 {
   color: #FAD02C;
   font-size: clamp(2.5rem, 5vw, 8rem);
-  font-weight: 100;
+  font-weight: 900;
   text-align: center;
   margin: 0 auto 0;
   display: block;
 }
 
 /* Subtítulo o texto */
-p {
+/* Subtítulo o texto */
+.hero p {
   color: #fff;
   font-size: clamp(0.8rem, 1vw, 7rem);
-  font-weight: 100;
+  font-weight: 500;
   text-align: center;
   margin: 0 auto;
   padding-bottom: 1.5rem;
@@ -45,7 +47,8 @@ p {
 }
 
 /* Logo */
-img {
+/* Logo */
+.hero img {
   width: clamp(8rem, 20vw, 10rem);
   height: auto;
   display: block;
@@ -53,7 +56,8 @@ img {
 }
 
 /* Botón CTA */
-.cta-hero {
+.hero .cta-hero {
+  font-family: 'Nunito Sans Variable', sans-serif;
   display: flex;
   background: none;
   font-size: 1rem;
@@ -64,21 +68,21 @@ img {
   margin: 0 auto;
   transition: ease-in-out 0.2s;
   text-wrap: nowrap;
-  
+  font-weight: 500;
 }
 
-.cta-hero:hover {
+.hero .cta-hero:hover {
   cursor: pointer;
   background-color: #FAD02C;
   color: #19304B;
   transition: ease-in-out 0.2s;
 }
-.info-hero{
-    display: flex;
-    flex-direction: column;
-    z-index: 2;
+.hero .info-hero{
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
 }
-.circle-hero {
+.hero .circle-hero {
   margin-top: 5vw;
   width: clamp(23rem, 60vw, 40rem);
   height: clamp(23rem, 60vw, 40rem);
@@ -91,11 +95,10 @@ img {
   align-self: center;
 }
 .hero{
-  margin: 0 auto;
+  /* keep layout-related rules here (merged with top .hero) */
   display: flex;
   flex-direction: column;
   height: 100vh;
-
   place-content: center;
 }
 
@@ -104,15 +107,13 @@ img {
   border-left: #FAD02C solid clamp(2vw, 5vh, 2vw);
   left: 14vw;
   bottom: 65vh;
-  
 }
 .border2-hero {
   border-bottom: #FAD02C solid clamp(1vw, 5vh, 2vw);
   border-right: #FAD02C solid clamp(1vw, 5vh, 2vw);
   left: 80vw;
   top: 65vh;
-
-} 
+}
 .border-hero{
   width: 5vw;
   height: 5vw;
@@ -122,11 +123,11 @@ img {
 }
 
 @media (max-width: 768px) {
-  .no-mobile {
+  .hero .no-mobile {
     display: none;
   }
 }
-.hidden-initial {
+.hero .hidden-initial {
   /* Set initial opacity to 0. The JS animation will handle the transition to 1. */
   opacity: 0; 
 }

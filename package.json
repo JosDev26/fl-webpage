@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource-variable/nunito-sans": "^5.2.7",
     "animejs": "^4.2.2",
     "astro": "^5.14.8"
   }

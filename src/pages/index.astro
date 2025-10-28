@@ -2,6 +2,9 @@
 import Header from '../components/Header.astro';
 import Navbar from '../components/Navbar.astro';
 import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { Image }  from 'astro:assets';
+import '../styles/mainpage.css';
 ---
 
 <Layout>
@@ -12,26 +15,62 @@ import Layout from '../layouts/Layout.astro';
   <main class="tab-container">
     
     <div id="sobre-nosotros" class="tab-content active">
-      <h2>Contenido de Sobre Nosotros</h2>
-      <p>Aquí va el texto, imágenes, etc., de "Sobre nosotros".</p>
+      <div class="main-info">
+        <h2>CUANDO LA <span>DISRUPCIÓN</span> Y EL <span>DERECHO</span> SE FUSIONAN</h2>
+        <p>Fusión Legal es una firma de abogados y abogadas, comprometida con poder brindar los mejores servicios legales a través de una atención individualizada, con el propósito de proveer de excelencia, calidad, e integridad, las necesidades de nuestros clientes. Fusión Legal cuenta con profesionales de un alto perfil académico, los cuales no limitan su conocimiento a las diferentes áreas del derecho, lo que les permita abordar los conflictos de una manera integral.</p>
+      </div>
+      <div class="testimonials">
+        <h2>QUE LOS <span>CLIENTES</span> HABLEN POR NOSOTROS</h2>
+        <div class="testimonial-item">
+          <h3>STUDIO SAXE</h3>
+          <p>“Nuestra experiencia con el equipo legal ha sido altamente satisfactoria. Consideramos que existe una verdadera alianza estratégica, donde podemos recurrir al equipo ante cualquier situación específica y siempre recibimos respuestas oportunas y fundamentadas en un conocimiento experto. Su enfoque proactivo y compromiso con la resolución efectiva de nuestros desafíos legales nos ha brindado un gran valor.”</p>
+        </div>
+        <div class="testimonial-item">
+          <h3>MATADERO DEL VALLE</h3>
+          <p>“Fusión Legales un equipo legal que en el tiempo que hemos laborado con ellos son muy eficientes y muy rapidos en su actuar. Destacamos la atención personalizada, constante comunicación, excelente orden de las solicitudes”</p>
+        </div>
+        <div class="testimonial-item">
+          <h3>PROSE ON PIXELS</h3>
+          <p>“La capacidad de ofrecer soluciones personalizadas y prácticas, siempre con un enfoque claro y eficiente. Además, su accesibilidad y rapidez para responder a nuestras necesidades son aspectos que realmente marcan la diferencia.”</p>
+        </div>
+        <div class="testimonial-item">
+          <h3>TENERÍA PIRRO</h3>
+          <p>“Excelentes profesionales, destacamos su eficiencia y eficacia.”</p>
+        </div>
+      </div>
     </div>
     
     <div id="nuestro-equipo" class="tab-content">
-      <h2>Contenido de Nuestro Equipo</h2>
-      <p>Aquí va el texto, imágenes, etc., de "Nuestro equipo".</p>
+      <h2>EL EQUIPO QUE <span>TRANSFORMA</span> TU SITUACIÓN LEGAL</h2>
+      <div class="team-item">
+        <h3>Carlos Eduardo Mena Arce</h3>
+        <p>Socio Director. Abogado Especialista</p>
+        <p>Nuestro Socio Fundador, el señor Mena, posee experiencia en el área de litigio, y asesoría contractual a empresas del sector inmobiliario y comercial. Trabajó para el Poder Judicial de Costa Rica, en donde se desempeñó en el Organismo de Investigación Judicial y el Juzgado Penal. Es profesor universitario, tiene un Máster en Criminología, Especialista en Derecho Notarial y Registral, y especialista en Asesoría y Práctica Tributaria.</p>
+      </div>
+      <div class="team-item">
+        <h3>Rebeca Chacón Montero</h3>
+        <p>Socia Directora. Abogada y Notaria</p>
+        <p>La señora Chacón, tiene más de 12 años de trabajar para el sector privado, desempeñándose en áreas como el derecho administrativo, alianzas público-privadas, consultoría, asesoría corporativa y propiedad intelectual. Es Notaria Pública y cuenta con un Máster Especializado en Compliance.</p>
+      </div>
+      <div class="team-item">
+        <h3>Silvia Vanegas Vindas </h3>
+        <p>Asistente Legal</p>
+        <p>La señorita Vindas es nuestra asistente legal, responsable de la gestión eficiente de documentos, apoyo en la preparación de escritos y coordinación de plazos judiciales. Destaca por su organización, atención al detalle y manejo de herramientas jurídicas, brindando un soporte clave al equipo legal y asegurando una comunicación fluida con los clientes. Su compromiso con la confidencialidad y la ética profesional refuerza la calidad del servicio que ofrecemos.</p>
+      </div>
     </div>
     
     <div id="servicios" class="tab-content">
-      <h2>Contenido de Servicios</h2>
+      <h2>LO LEGAL NO TIENE QUE SER COMPLICADO, SOLO <span>BIEN HECHO</span></h2>
       <p>Aquí va el texto, imágenes, etc., de "Servicios".</p>
     </div>
     
     <div id="contacto" class="tab-content">
-      <h2>Contenido de Contacto</h2>
-      <p>Aquí va el texto, imágenes, etc., de "Contacto".</p>
+      <h2>¿AÚN CON <span>DUDAS</span>?</h2>
+      <p>Rellená este formulario y te vamos a responder....</p>
     </div>
     
   </main>
+  <Footer></Footer>
 </Layout>
 
 <style>
@@ -50,6 +89,7 @@ import Layout from '../layouts/Layout.astro';
   }
 </style>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
 <script>
   // Selecciona todos los 'li' del menú
   const navItems = document.querySelectorAll('.menu-escalonado li');
@@ -59,34 +99,27 @@ import Layout from '../layouts/Layout.astro';
   // Añade un 'listener' a cada 'li' del menú
   navItems.forEach(navItem => {
     navItem.addEventListener('click', (e) => {
-      // Evita que el enlace '#' recargue o salte la página
       e.preventDefault(); 
-      
-      // --- CORRECCIÓN 1: Validar el enlace ---
       const link = navItem.querySelector('a');
-      // Si no hay 'a' o no tiene 'data-target', no hagas nada.
       if (!link || !link.getAttribute('data-target')) {
         return; 
       }
-      
-      const targetId = link.getAttribute('data-target'); // Ej: "#sobre-nosotros"
-
-      // 1. Quita la clase 'active' de TODOS los 'li'
+      const targetId = link.getAttribute('data-target');
       navItems.forEach(item => item.classList.remove('active'));
-      
-      // 2. Añade 'active' SOLO al 'li' que clickeaste
       navItem.classList.add('active');
-      
-      // 3. Oculta TODOS los 'div' de contenido
       contentItems.forEach(content => content.classList.remove('active'));
-      
-      // --- CORRECCIÓN 2: Validar el contenido ---
       if (targetId) {
         const targetContent = document.querySelector(targetId);
-        
-        // 4. Muestra el contenido SÓLO SI se encontró
         if (targetContent) {
           targetContent.classList.add('active');
+          // Animación minimalista y profesional
+          anime({
+            targets: targetContent,
+            opacity: [0, 1],
+            translateY: [24, 0],
+            duration: 420,
+            easing: 'easeOutCubic',
+          });
         }
       }
     });

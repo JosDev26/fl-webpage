@@ -1,9 +1,9 @@
 ---
 import '../styles/hero.css';
 import { Image } from 'astro:assets';
+import '@fontsource-variable/nunito-sans';
 
 ---
-
 <div class="hero">
         <div class="circle-hero hidden-initial"></div>
         <div class="border-hero border1-hero no-mobile hidden-initial"></div>
@@ -31,7 +31,7 @@ import { Image } from 'astro:assets';
 
     // --- Elementos de Fondo ---
     tl.add({
-      targets: '.circle-hero',
+      targets: '.hero .circle-hero',
       scale: [0.1, 1],
       opacity: [0, 1],
       easing: 'easeInOutQuad',
@@ -39,7 +39,7 @@ import { Image } from 'astro:assets';
     }, 0);
 
     tl.add({
-      targets: '.border-hero',
+      targets: '.hero .border-hero',
       translateX: (el, i) => (i === 0 ? ['-100%', '0%'] : ['100%', '0%']),
       translateY: (el, i) => (i === 0 ? ['-100%', '0%'] : ['100%', '0%']),
       opacity: [0, 1],
@@ -49,14 +49,14 @@ import { Image } from 'astro:assets';
 
     // --- Contenido ---
     tl.add({
-      targets: '.logo-hero',
+      targets: '.hero .logo-hero',
       opacity: [0, 1],
       translateY: ['-20px', '0px'],
       duration: 500,
     }, 500);
 
     tl.add({
-      targets: 'h1',
+      targets: '.hero h1',
       opacity: [0, 1],
       translateY: ['-20px', '0px'],
       easing: 'easeOutElastic(1, .6)', // Usamos strings
@@ -64,7 +64,7 @@ import { Image } from 'astro:assets';
     }, 700);
 
     tl.add({
-      targets: '.subtext-hero',
+      targets: '.hero .subtext-hero',
       opacity: [0, 1],
       translateY: ['20px', '0px'],
       duration: 700,
@@ -72,7 +72,7 @@ import { Image } from 'astro:assets';
 
     // --- Botón CTA ---
     tl.add({
-      targets: '.cta-hero',
+      targets: '.hero .cta-hero',
       opacity: [0, 1],
       scale: [0.8, 1],
       easing: 'easeInOutCirc',
