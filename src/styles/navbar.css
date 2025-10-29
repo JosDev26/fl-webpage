@@ -1,140 +1,62 @@
+/* TODO: Hacer responsive la barra de navegación */
+/* TODO: Hacer animación de la barra de navegación */
+:root{
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+.item-menu{
+    
+    margin-left: -8px;
+}
+/*Parte de los bordes*/
+.item-menu:nth-child(even){
+    border-bottom: 10px solid var(--yellow-color);
+    border-left: 10px solid var(--yellow-color);
+    border-right: 10px solid var(--yellow-color);
+    padding: 0em 1em 1em 1em;
+}
+.item-menu:nth-child(odd){
+    border-top: 10px solid var(--yellow-color);
+    border-left: 10px solid var(--yellow-color);
+    border-right: 10px solid var(--yellow-color);
+    padding: 1em 1em 0em 1em;
+}
 
-body{
-    background-color: #19304B;
-}
-.menu-escalonado, .menu-escalonado p, .menu-escalonado h1, .menu-escalonado h2, .menu-escalonado button, .menu-escalonado ul, .menu-escalonado li, .menu-escalonado a{
-    font-family: 'Nunito Sans Variable', sans-serif;
-    font-weight: 700;
-    transition: ease-in-out 0.2s;
-    -webkit-font-smoothing: antialiased; 
-    -moz-osx-font-smoothing: grayscale; 
-}
-.menu-escalonado ul{
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    display: flex;
-    justify-items: center;
-    gap: 6em;
-}
-.menu-escalonado li{
-    width: 13em;
-    min-height: 3em; /* keep visual height on desktop */
+/*Fin de los bordes*/
+.menu-escalonado-container{
+    width: 85vw;
+    justify-self: center;
+    align-content: center;
     display: flex;
     justify-content: center;
-    align-items: center;
-    border: 3px solid #fad12c00;
-    position: relative;
-}
-.menu-escalonado li:hover{
-    cursor: pointer;
-    border: 3px solid #FAD02C;   
-}
-.menu-escalonado a{
-    text-decoration: none;
 }
 .menu-escalonado{
-    padding: 3em 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    width: 90%;
+    padding: 0;
 }
-.menu-escalonado ul li:nth-child(odd){
-    position: relative;
+.menu-escalonado .item-menu li{
+    list-style: none;
+    border: 1px solid rgba(255, 255, 0, 0);
+    text-align: center;
+    font-weight: 700;
+    width: 80%;
+    margin: 0 auto;
+    padding: 0.7em ;
+    cursor: pointer;
+    
 }
-.menu-escalonado ul li:nth-child(odd)::before {
-    content: "";
-    position: absolute;
-    top: -2em;
-    left: -3.5em;
-    right: -3.5em;
-    height: calc(100% + 1.5vw); /* Solo cubre arriba y lados */
-    border-top: 0.7rem solid #FAD02C;
-    border-left: 0.7rem solid #FAD02C;
-    border-right: 0.7rem solid #FAD02C;
-    border-bottom: none;
-    pointer-events: none; /* No interfiere con el mouse */
-    z-index: 1;
+.menu-escalonado .item-menu li a:link, .menu-escalonado .item-menu li a:visited {
+    color: var(--yellow-color);
+    text-decoration: none;
 }
-.menu-escalonado ul li:nth-child(even){
-    bottom: 1.8em;
-}
-.menu-escalonado ul li:nth-child(even)::before {
-    content: "";
-    position: absolute;
-    left: -3.55em;
-    right: -3.6em;
-    bottom: -2.5em;
-    height: calc(100% + 1.5vw); /* Solo cubre arriba y lados */
-    border-bottom: 0.7rem solid #FAD02C;
-    pointer-events: none; /* No interfiere con el mouse */
-    z-index: 1;
-}
-.menu-escalonado ul li:nth-last-child(1)::before {
-    content: "";
-    position: absolute;
-    border-right: 0.7rem solid #FAD02C;
-    height: calc(100% + 2.1vw); /* Solo cubre arriba y lados */
-}
-.menu-escalonado ul li a{
-    color: #FAD02c;
-}
-.menu-escalonado a:visited {
-  color: #FAD02c;
-  text-decoration: none; /* Y sin subrayado */
-}
-.menu-escalonado ul li:hover a {
-  color: #FAD02C;
-  text-decoration: none;
-}
-.menu-escalonado li.active {
-  background-color: #FAD02C;
-}
-.menu-escalonado li.active a {
-    color: #19304B;
+.menu-escalonado .item-menu li.active{
+    background-color: var(--yellow-color);
+    border: 1px solid var(--yellow-color);
+    & a{
+        color: var(--dark-blue-color);
+    }
 }
 
-/* Mobile adjustments: stack menu items and increase padding for touch
-     Keep desktop appearance unchanged due to media query scope. */
-@media (max-width: 768px) {
-    .menu-escalonado {
-        padding: 4vw 0;
-    }
-    .menu-escalonado ul {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-    }
-    .menu-escalonado li {
-        float: none;
-        width: 100%;
-        min-height: 3.6rem;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: none;
-        background-color: #19304B;
-        position: static !important;
-        bottom: auto !important;
-    }
-    .menu-escalonado ul li a {
-        display: flex;
-        width: 100%;
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        padding: 0.9rem 1.25rem;
-    }
-    /* Quita los bordes decorativos y posición en móvil */
-    .menu-escalonado ul li::before {
-        display: none !important;
-        position: static !important;
-    }
-    .menu-escalonado ul li.active {
-        background-color: #FAD02C;
-    }
-    .menu-escalonado ul li.active a {
-        color: #19304B;
-    }
-}
-.menu-escalonado li.active:hover a{
-    color: #19304B;
-}
