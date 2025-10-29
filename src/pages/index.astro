@@ -93,3 +93,30 @@ import '../styles/mainpage.css';
     display: block; 
   }
 </style>
+<script>
+  // Selecciona todos los 'li' del menú
+  const navItems = document.querySelectorAll('.menu-escalonado li');
+  // Selecciona todos los 'div' de contenido
+  const contentItems = document.querySelectorAll('.tab-content');
+
+  // Añade un 'listener' a cada 'li' del menú
+  navItems.forEach(navItem => {
+    navItem.addEventListener('click', (e) => {
+      e.preventDefault(); 
+      const link = navItem.querySelector('a');
+      if (!link || !link.getAttribute('data-target')) {
+        return; 
+      }
+      const targetId = link.getAttribute('data-target');
+      navItems.forEach(item => item.classList.remove('active'));
+      navItem.classList.add('active');
+      contentItems.forEach(content => content.classList.remove('active'));
+      if (targetId) {
+        const targetContent = document.querySelector(targetId);
+        if (targetContent) {
+          targetContent.classList.add('active');
+        }
+      }
+    });
+  });
+</script>
