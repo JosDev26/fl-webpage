@@ -1,133 +1,111 @@
-/* Scoped to the hero component to avoid global leaks */
-.hero {
-  margin: 0 auto;
-  width: 100%;
-  min-height: 100vh;
-  background-color: #19304B;
-  align-items: center; /* centra horizontalmente */
-  font-family: 'Nunito Sans Variable', sans-serif;
+:root{
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
 }
 
-/* Element rules scoped under .hero to avoid affecting other modules */
-.hero p, .hero h1, .hero h2, .hero button {
-  -webkit-font-smoothing: antialiased; 
-  -moz-osx-font-smoothing: grayscale; 
+/* Clase para elementos inicialmente ocultos */
+.hidden-initial {
+  opacity: 0;
 }
 
-/* Título */
-/* Título */
-.hero h1 {
-  color: #FAD02C;
-  font-size: clamp(2.5rem, 5vw, 8rem);
-  font-weight: 900;
-  text-align: center;
-  margin: 0 auto 0;
-  display: block;
+/* #region Parte de enfrente*/
+.hero{
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  width: 85vw;
+  justify-self: center;
+  align-content: center;
+  min-height: 100dvh;
+  margin-top: -1vw;
 }
-
-/* Subtítulo o texto */
-/* Subtítulo o texto */
-.hero p {
-  color: #fff;
-  font-size: clamp(0.8rem, 1vw, 7rem);
-  font-weight: 500;
-  text-align: center;
-  margin: 0 auto;
-  padding-bottom: 1.5rem;
-  width: clamp(10rem, 80vw, 46rem);
-  line-height: 1.4;
-  word-break: keep-all;
-  overflow-wrap: break-word;
-  display: block; /* importante para Safari */
-}
-
-/* Espaciado adicional del subtítulo */
-.subtext-hero {
-  padding-top: 1.2rem;
-}
-
-/* Logo */
-/* Logo */
-.hero img {
-  width: clamp(8rem, 20vw, 10rem);
+.hero .logo-hero{
+  width: calc(7em + 5%);
   height: auto;
   display: block;
-  margin: 0 auto 1.5em;
-}
-
-/* Botón CTA */
-.hero .cta-hero {
-  font-family: 'Nunito Sans Variable', sans-serif;
-  display: flex;
-  background: none;
-  font-size: 1rem;
-  color: #FAD02C;
-  border: 3px solid #FAD02C;
-  padding: 1em 10vw;
-  display: inline-block;
   margin: 0 auto;
-  transition: ease-in-out 0.2s;
-  text-wrap: nowrap;
-  font-weight: 500;
+  margin-bottom: 1.5em;
 }
-
-.hero .cta-hero:hover {
-  cursor: pointer;
-  background-color: #FAD02C;
-  color: #19304B;
-  transition: ease-in-out 0.2s;
+.hero h1{
+  font-size: calc(1.3rem + 3.5vw);
+  font-weight: 800;
+  text-align: center;
+  color: var(--yellow-color);
+  margin: 0;
+  word-spacing: -0.2ch;
 }
-.hero .info-hero{
-  display: flex;
-  flex-direction: column;
-  z-index: 2;
-}
-.hero .circle-hero {
-  margin-top: 5vw;
-  width: clamp(23rem, 60vw, 40rem);
-  height: clamp(23rem, 60vw, 40rem);
-  border-radius: 50%;
-  background-color: #ffffff05;
-  display: flex;
-  position: absolute;
-  z-index: 1;
+.hero p{
+  color: white;
+  font-size: calc(0.7rem + 0.5vw);
+  width: 60%;
+  text-align: center;
   justify-self: center;
-  align-self: center;
+  text-wrap: wrap;
+  text-wrap-style: balance;
 }
-.hero{
-  /* keep layout-related rules here (merged with top .hero) */
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  place-content: center;
+.hero button{
+  background-color: transparent;
+  border: 4px solid var(--yellow-color);
+  padding: 0.7em 12%;
+  font-size: calc(0.7rem + 0.5vw);
+  font-weight: 700;
+  color: var(--yellow-color);
+  cursor: pointer;
+  font-family: 'Nunito Sans Variable', sans-serif;
+  display: block;
+  margin: 1.5em auto 0 auto;
 }
-
-.border1-hero {
-  border-top: #FAD02C solid clamp(2vw, 5vh, 2vw);
-  border-left: #FAD02C solid clamp(2vw, 5vh, 2vw);
-  left: 14vw;
-  bottom: 65vh;
+/*#endregion*/
+.hero .circle-hero{
+  position: absolute;
+  border-radius: 50%;
+  width: clamp(43vh, 40vw, 600px);
+  height: clamp(43vh, 40vw, 600px);
+  z-index: -1;
+  background-color: rgba(255, 255, 255, 0.034);
 }
-.border2-hero {
-  border-bottom: #FAD02C solid clamp(1vw, 5vh, 2vw);
-  border-right: #FAD02C solid clamp(1vw, 5vh, 2vw);
-  left: 80vw;
-  top: 65vh;
-}
-.border-hero{
-  width: 5vw;
-  height: 5vw;
+.hero .rectangle-border{
   display: flex;
   position: absolute;
-  z-index: 2;
+  box-sizing: border-box;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(50%, 73%, 85%);
+  height: clamp(40%, 63%, 75%);
+  z-index: -1;
+  pointer-events: none;
+  /* variables para controlar el tamaño de los bordes de forma responsiva */
+  --border-thickness: clamp(8px, 1.5vw, 25px);
+  --corner-w: clamp(6%, 7vw, 9%);
+  --corner-h: clamp(12%, 15vh, 20%);
 }
 
-@media (max-width: 768px) {
-  .hero .no-mobile {
-    display: none;
-  }
+.hero .rectangle-border .border1-hero{
+  position: absolute;
+  border-top: var(--border-thickness) solid var(--yellow-color);
+  border-left: var(--border-thickness) solid var(--yellow-color);
+  width: var(--corner-w);
+  height: var(--corner-h);
+  top: calc(var(--border-thickness) * -0.5);
+  left: calc(var(--border-thickness) * -0.5);
+  box-sizing: border-box;
 }
-.hero .hidden-initial {
-  /* Set initial opacity to 0. The JS animation will handle the transition to 1. */
-  opacity: 0; 
+
+.hero .rectangle-border .border2-hero{
+  position: absolute;
+  border-bottom: var(--border-thickness) solid var(--yellow-color);
+  border-right: var(--border-thickness) solid var(--yellow-color);
+  width: var(--corner-w);
+  height: var(--corner-h);
+  bottom: calc(var(--border-thickness) * -0.5);
+  right: calc(var(--border-thickness) * -0.5);
+  box-sizing: border-box;
+}
+
+/* ocultar completamente en pantallas pequeñas/medianas (mobile/tablet) */
+@media (max-width: 900px) {
+  .hero .rectangle-border { display: none; }
 }

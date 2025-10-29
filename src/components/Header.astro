@@ -6,8 +6,11 @@ import '@fontsource-variable/nunito-sans';
 ---
 <div class="hero">
         <div class="circle-hero hidden-initial"></div>
-        <div class="border-hero border1-hero no-mobile hidden-initial"></div>
-        <div class="border-hero border2-hero no-mobile hidden-initial"></div>
+        <div class="rectangle-border">
+          <div class="border-hero border1-hero no-mobile hidden-initial"></div>
+          <div class="border-hero border2-hero no-mobile hidden-initial"></div>
+        </div>
+        
         <div class="info-hero">
             <Image src={import.meta.env.BASE_URL + '../../fllogocropped.webp'} alt="Logo Fusión Legal" class="logo-hero" width="100" height="100" />
             <h1>Experiencia que resuelve problemas</h1> 
@@ -15,74 +18,63 @@ import '@fontsource-variable/nunito-sans';
             <button class="cta-hero" id="enviarCorreo" onclick="window.location.href='mailto:carlos.mena@fusionlegalcr.com?subject=Consulta&body=Hola,%20quiero%20más%20información.'">Agenda una cita</button>
         </div>
     </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
-
-<script is:inline>
-  // Define tu función de animación
-  const runHeroAnimation = () => {
-    
-    // "is:inline" garantiza que este código se ejecuta DESPUÉS
-    // de que el script anterior haya cargado el objeto "anime".
-    const tl = anime.timeline({
-      duration: 800,
+<script>
+  declare const anime: any;
+  document.addEventListener('DOMContentLoaded', () => {
+    // Timeline para coordinar las animaciones
+    const timeline = anime.timeline({
       easing: 'easeOutExpo',
     });
 
-    // --- Elementos de Fondo ---
-    tl.add({
-      targets: '.hero .circle-hero',
-      scale: [0.1, 1],
+    // Animación del círculo
+    timeline.add({
+      targets: '.circle-hero',
+      scale: [0.5, 1],
       opacity: [0, 1],
-      easing: 'easeInOutQuad',
-      duration: 900,
-    }, 0);
-
-    tl.add({
-      targets: '.hero .border-hero',
-      translateX: (el, i) => (i === 0 ? ['-100%', '0%'] : ['100%', '0%']),
-      translateY: (el, i) => (i === 0 ? ['-100%', '0%'] : ['100%', '0%']),
+      duration: 1200,
+    })
+    // Animación de los bordes
+    .add({
+      targets: ['.border1-hero', '.border2-hero'],
       opacity: [0, 1],
-      easing: 'easeInOutExpo',
-      duration: 2000,
-    }, 200);
-
-    // --- Contenido ---
-    tl.add({
-      targets: '.hero .logo-hero',
+      translateX: {
+        value: ['-30%', '0%'],
+        duration: 800,
+      },
+      translateY: {
+        value: ['-30%', '0%'],
+        duration: 800,
+      },
+      delay: anime.stagger(150),
+    }, '-=800')
+    // Animación del logo
+    .add({
+      targets: '.logo-hero',
       opacity: [0, 1],
-      translateY: ['-20px', '0px'],
-      duration: 500,
-    }, 500);
-
-    tl.add({
-      targets: '.hero h1',
+      translateY: [20, 0],
+      duration: 800,
+    }, '-=400')
+    // Animación del título
+    .add({
+      targets: '.info-hero h1',
       opacity: [0, 1],
-      translateY: ['-20px', '0px'],
-      easing: 'easeOutElastic(1, .6)', // Usamos strings
-      duration: 1000,
-    }, 700);
-
-    tl.add({
-      targets: '.hero .subtext-hero',
+      translateY: [20, 0],
+      duration: 800,
+    }, '-=600')
+    // Animación del subtexto
+    .add({
+      targets: '.subtext-hero',
       opacity: [0, 1],
-      translateY: ['20px', '0px'],
-      duration: 700,
-    }, 900);
-
-    // --- Botón CTA ---
-    tl.add({
-      targets: '.hero .cta-hero',
+      translateY: [20, 0],
+      duration: 800,
+    }, '-=600')
+    // Animación del botón
+    .add({
+      targets: '.cta-hero',
       opacity: [0, 1],
-      scale: [0.8, 1],
-      easing: 'easeInOutCirc',
-      duration: 500,
-    }, 800);
-  };
-
-  // Llama a la función en la carga inicial de la página
-  runHeroAnimation();
-  
-  // Añade el listener para las navegaciones de Astro (View Transitions)
-  document.addEventListener('astro:page-load', runHeroAnimation);
+      translateY: [20, 0],
+      duration: 600,
+    }, '-=400');
+  });
 </script>

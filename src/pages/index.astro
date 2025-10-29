@@ -10,14 +10,19 @@ import '../styles/mainpage.css';
 <Layout>
   <Header />
 
-  <Navbar />
 
-  <main class="tab-container">
+  <!-- <main class="tab-container">
     
     <div id="sobre-nosotros" class="tab-content active">
       <div class="main-info">
-        <h2>CUANDO LA <span>DISRUPCIÓN</span> Y EL <span>DERECHO</span> SE FUSIONAN</h2>
-        <p>Fusión Legal es una firma de abogados y abogadas, comprometida con poder brindar los mejores servicios legales a través de una atención individualizada, con el propósito de proveer de excelencia, calidad, e integridad, las necesidades de nuestros clientes. Fusión Legal cuenta con profesionales de un alto perfil académico, los cuales no limitan su conocimiento a las diferentes áreas del derecho, lo que les permita abordar los conflictos de una manera integral.</p>
+        <div class="left-side">
+          <h2>CUANDO LA <span>DISRUPCIÓN</span> Y EL <span>DERECHO</span> SE FUSIONAN</h2>
+        </div>
+        <div class="right-side">
+          <p>Fusión Legal es una firma de abogados y abogadas, comprometida con poder brindar los mejores servicios legales a través de una atención individualizada, con el propósito de proveer de excelencia, calidad, e integridad, las necesidades de nuestros clientes. Fusión Legal cuenta con profesionales de un alto perfil académico, los cuales no limitan su conocimiento a las diferentes áreas del derecho, lo que les permita abordar los conflictos de una manera integral.</p>
+          <Image class={"knowImage"}src={import.meta.env.BASE_URL + '../../lawImage.webp'} alt="Foto de un martillo de derecho en la mesa" width="600" height="400"/>
+        </div>
+        
       </div>
       <div class="testimonials">
         <h2>QUE LOS <span>CLIENTES</span> HABLEN POR NOSOTROS</h2>
@@ -70,7 +75,7 @@ import '../styles/mainpage.css';
     </div>
     
   </main>
-  <Footer></Footer>
+  -->
 </Layout>
 
 <style>
@@ -88,40 +93,3 @@ import '../styles/mainpage.css';
     display: block; 
   }
 </style>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
-<script>
-  // Selecciona todos los 'li' del menú
-  const navItems = document.querySelectorAll('.menu-escalonado li');
-  // Selecciona todos los 'div' de contenido
-  const contentItems = document.querySelectorAll('.tab-content');
-
-  // Añade un 'listener' a cada 'li' del menú
-  navItems.forEach(navItem => {
-    navItem.addEventListener('click', (e) => {
-      e.preventDefault(); 
-      const link = navItem.querySelector('a');
-      if (!link || !link.getAttribute('data-target')) {
-        return; 
-      }
-      const targetId = link.getAttribute('data-target');
-      navItems.forEach(item => item.classList.remove('active'));
-      navItem.classList.add('active');
-      contentItems.forEach(content => content.classList.remove('active'));
-      if (targetId) {
-        const targetContent = document.querySelector(targetId);
-        if (targetContent) {
-          targetContent.classList.add('active');
-          // Animación minimalista y profesional
-          anime({
-            targets: targetContent,
-            opacity: [0, 1],
-            translateY: [24, 0],
-            duration: 420,
-            easing: 'easeOutCubic',
-          });
-        }
-      }
-    });
-  });
-</script>
