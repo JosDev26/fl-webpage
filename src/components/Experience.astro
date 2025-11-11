@@ -1,0 +1,130 @@
+---
+import '../styles/experience.css';
+---
+<section class="experience-container">
+    <h2 class="hidden-initial">Podés confiar en nosotros</h2>
+    <div class="experience-items">
+        <div class="background-line hidden-initial"></div>
+        <div class="experience-item hidden-initial">
+            <h2>+150</h2>
+            <p>Casos resueltos con éxito</p>
+        </div>
+        <div class="experience-item hidden-initial">
+            <h2>+5</h2>
+            <p>Años de experiencia</p>
+        </div>
+        <div class="experience-item hidden-initial">
+            <h2>+50</h2>
+            <p>Clientes satisfechos</p>
+        </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+  declare const anime: any;
+  
+  // Función para ejecutar la animación
+  const runAnimation = () => {
+    // Timeline para coordinar las animaciones
+    const timeline = anime.timeline({
+      easing: 'easeOutQuart',
+    });
+
+    // Animación del título
+    timeline.add({
+      targets: '.experience-container h2',
+      opacity: [0, 1],
+      translateY: [-30, 0],
+      duration: 600,
+      easing: 'easeOutCubic',
+    })
+    // Animación de la línea de fondo (escala horizontal)
+    .add({
+      targets: '.background-line',
+      opacity: [0, 1],
+      scaleX: [0, 1],
+      duration: 800,
+      easing: 'easeOutQuint',
+    }, '-=200')
+    // Animación de los items (staggered)
+    .add({
+      targets: '.experience-item',
+      opacity: [0, 1],
+      translateY: [40, 0],
+      scale: [0.9, 1],
+      duration: 600,
+      delay: anime.stagger(150),
+      easing: 'easeOutBack',
+    }, '-=400');
+  };
+  
+  // Observar la sección cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', () => {
+    const experienceSection = document.querySelector('.experience-container');
+    if (!experienceSection) return;
+    
+    // Si estamos restaurando scroll, esperar antes de iniciar el observer
+    const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+    const delay = isRestoring ? 150 : 0;
+    
+    setTimeout(() => {
+      // Intersection Observer para activar la animación cuando la sección sea visible
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            runAnimation();
+            observer.disconnect();
+          }
+        });
+      }, {
+        threshold: 0.2,
+        rootMargin: '0px'
+      });
+      
+      observer.observe(experienceSection);
+    }, delay);
+  });
+
+  // Animaciones de hover para los items
+  document.addEventListener('DOMContentLoaded', () => {
+    const items = document.querySelectorAll('.experience-item');
+    
+    items.forEach((item) => {
+      item.addEventListener('mouseenter', () => {
+        anime({
+          targets: item,
+          scale: 1.05,
+          rotate: '1deg',
+          duration: 400,
+          easing: 'easeOutElastic(1, 0.6)'
+        });
+        
+        // Animar el número
+        anime({
+          targets: item.querySelector('h2'),
+          scale: [1, 1.1, 1],
+          duration: 600,
+          easing: 'easeOutElastic(1, 0.5)'
+        });
+        
+        // Animar el texto
+        anime({
+          targets: item.querySelector('p'),
+          translateY: [0, -3, 0],
+          duration: 500,
+          easing: 'easeOutQuad'
+        });
+      });
+      
+      item.addEventListener('mouseleave', () => {
+        anime({
+          targets: item,
+          scale: 1,
+          rotate: '0deg',
+          duration: 400,
+          easing: 'easeOutQuad'
+        });
+      });
+    });
+  });
+</script>
