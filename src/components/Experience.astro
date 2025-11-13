@@ -84,47 +84,4 @@ import '../styles/experience.css';
       observer.observe(experienceSection);
     }, delay);
   });
-
-  // Animaciones de hover para los items
-  document.addEventListener('DOMContentLoaded', () => {
-    const items = document.querySelectorAll('.experience-item');
-    
-    items.forEach((item) => {
-      item.addEventListener('mouseenter', () => {
-        anime({
-          targets: item,
-          scale: 1.05,
-          rotate: '1deg',
-          duration: 400,
-          easing: 'easeOutElastic(1, 0.6)'
-        });
-        
-        // Animar el número
-        anime({
-          targets: item.querySelector('h2'),
-          scale: [1, 1.1, 1],
-          duration: 600,
-          easing: 'easeOutElastic(1, 0.5)'
-        });
-        
-        // Animar el texto
-        anime({
-          targets: item.querySelector('p'),
-          translateY: [0, -3, 0],
-          duration: 500,
-          easing: 'easeOutQuad'
-        });
-      });
-      
-      item.addEventListener('mouseleave', () => {
-        anime({
-          targets: item,
-          scale: 1,
-          rotate: '0deg',
-          duration: 400,
-          easing: 'easeOutQuad'
-        });
-      });
-    });
-  });
 </script>
