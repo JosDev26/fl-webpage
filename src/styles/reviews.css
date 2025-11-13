@@ -5,7 +5,7 @@
 
 .reviews-container {
   position: relative;
-  padding: clamp(4em, 6vw, 8em) clamp(1em, 4vw, 2em);
+  padding: clamp(3.5em, 5vw, 6.5em) clamp(1em, 4vw, 2em);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,7 +14,7 @@
 }
 
 .reviews-title {
-  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-size: clamp(1.5rem, 2.8vw, 2.4rem);
   text-align: center;
   font-weight: 800;
   color: #fff;
@@ -26,23 +26,23 @@
 
 .reviews-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
-  gap: clamp(1.5em, 2vw, 2.5em);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+  gap: clamp(1.3em, 1.8vw, 2.2em);
   width: 100%;
-  max-width: 1200px;
+  max-width: 1100px;
   position: relative;
   z-index: 2;
 }
 
 .review-card {
   background-color: var(--dark-blue-color);
-  border: clamp(4px, 0.5vw, 6px) solid var(--yellow-color);
-  padding: clamp(1.5em, 2vw, 2.5em);
+  border: clamp(3px, 0.4vw, 5px) solid var(--yellow-color);
+  padding: clamp(1.3em, 1.8vw, 2.2em);
   position: relative;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
+  gap: 1.3em;
   overflow: hidden;
 }
 
@@ -53,7 +53,7 @@
 }
 
 .quote-icon {
-  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
   color: var(--yellow-color);
   line-height: 0.8;
   font-family: Georgia, serif;
@@ -71,11 +71,11 @@
 
 .review-text {
   color: rgba(255, 255, 255, 0.9);
-  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
   line-height: 1.7;
   font-weight: 400;
   margin: 0;
-  padding-top: 2em;
+  padding-top: 1.8em;
   position: relative;
   z-index: 1;
 }
@@ -83,9 +83,9 @@
 .reviewer-info {
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: 0.9em;
   margin-top: auto;
-  padding-top: 1em;
+  padding-top: 0.9em;
   border-top: 2px solid rgba(250, 208, 44, 0.2);
   position: relative;
   transition: border-color 0.3s ease;
@@ -96,8 +96,8 @@
 }
 
 .reviewer-avatar {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   background: linear-gradient(135deg, var(--yellow-color), #f5d957);
   color: var(--dark-blue-color);
   border-radius: 50%;
@@ -105,7 +105,7 @@
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 0.9rem;
   flex-shrink: 0;
   box-shadow: 0 4px 12px rgba(250, 208, 44, 0.3);
   transition: all 0.3s ease;
@@ -132,7 +132,7 @@
 
 .reviewer-name {
   color: #fff;
-  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  font-size: clamp(0.85rem, 1.3vw, 0.95rem);
   font-weight: 700;
   margin: 0;
   padding: 0;
@@ -140,7 +140,7 @@
 
 .reviewer-role {
   color: rgba(255, 255, 255, 0.6);
-  font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+  font-size: clamp(0.75rem, 1.1vw, 0.85rem);
   font-weight: 500;
   margin: 0;
   padding: 0;

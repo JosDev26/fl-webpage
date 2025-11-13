@@ -22,14 +22,14 @@
   margin-top: -1vw;
 }
 .hero .logo-hero{
-  width: calc(7em + 5%);
+  width: calc(5.5em + 4%);
   height: auto;
   display: block;
   margin: 0 auto;
   margin-bottom: 1.5em;
 }
 .hero h1{
-  font-size: calc(1.3rem + 3.5vw);
+  font-size: calc(1.1rem + 2.8vw);
   font-weight: 800;
   text-align: center;
   color: var(--yellow-color);
@@ -38,7 +38,7 @@
 }
 .hero p{
   color: white;
-  font-size: calc(0.7rem + 0.5vw);
+  font-size: calc(0.65rem + 0.4vw);
   width: 60%;
   text-align: center;
   justify-self: center;
@@ -47,9 +47,9 @@
 }
 .hero button{
   background-color: transparent;
-  border: 4px solid var(--yellow-color);
-  padding: 0.7em 12%;
-  font-size: calc(0.7rem + 0.5vw);
+  border: 3px solid var(--yellow-color);
+  padding: 0.6em 10%;
+  font-size: calc(0.65rem + 0.4vw);
   font-weight: 700;
   color: var(--yellow-color);
   cursor: pointer;
@@ -69,8 +69,8 @@
 .hero .circle-hero{
   position: absolute;
   border-radius: 50%;
-  width: clamp(43vh, 40vw, 600px);
-  height: clamp(43vh, 40vw, 600px);
+  width: clamp(35vh, 32vw, 480px);
+  height: clamp(35vh, 32vw, 480px);
   z-index: -1;
   background-color: rgba(255, 255, 255, 0.034);
 }
@@ -81,12 +81,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(50%, 73%, 85%);
-  height: clamp(40%, 63%, 75%);
+  width: clamp(50%, 70%, 82%);
+  height: clamp(40%, 60%, 72%);
   z-index: -1;
   pointer-events: none;
   /* variables para controlar el tamaño de los bordes de forma responsiva */
-  --border-thickness: clamp(8px, 1.5vw, 25px);
+  --border-thickness: clamp(6px, 1.2vw, 20px);
   --corner-w: clamp(6%, 7vw, 9%);
   --corner-h: clamp(12%, 15vh, 20%);
 }

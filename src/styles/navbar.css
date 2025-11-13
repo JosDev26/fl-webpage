@@ -10,16 +10,16 @@
 }
 /*Parte de los bordes*/
 .item-menu:nth-child(even){
-    border-bottom: 10px solid var(--yellow-color);
-    border-left: 10px solid var(--yellow-color);
-    border-right: 10px solid var(--yellow-color);
-    padding: 0em 1em 1em 1em;
+    border-bottom: 8px solid var(--yellow-color);
+    border-left: 8px solid var(--yellow-color);
+    border-right: 8px solid var(--yellow-color);
+    padding: 0em 0.8em 0.8em 0.8em;
 }
 .item-menu:nth-child(odd){
-    border-top: 10px solid var(--yellow-color);
-    border-left: 10px solid var(--yellow-color);
-    border-right: 10px solid var(--yellow-color);
-    padding: 1em 1em 0em 1em;
+    border-top: 8px solid var(--yellow-color);
+    border-left: 8px solid var(--yellow-color);
+    border-right: 8px solid var(--yellow-color);
+    padding: 0.8em 0.8em 0em 0.8em;
 }
 
 /*Fin de los bordes*/
@@ -42,9 +42,10 @@
     border: 1px solid rgba(255, 255, 0, 0);
     text-align: center;
     font-weight: 700;
+    font-size: 0.9rem;
     width: 80%;
     margin: 0 auto;
-    padding: 0.7em ;
+    padding: 0.6em ;
     cursor: pointer;
     
 }
