@@ -4,70 +4,171 @@ import '../styles/reviews.css';
 <section class="reviews-container">
     <h2 class="reviews-title hidden-initial">Aunque preferimos que lo confirmen nuestros clientes</h2>
     
-    <div class="reviews-grid">
-        <div class="review-card hidden-initial">
-            <div class="quote-icon">"</div>
-            <p class="review-text">
-                Nuestra experiencia con el equipo legal ha sido altamente satisfactoria. Consideramos que existe una verdadera alianza estratégica, donde podemos recurrir al equipo ante cualquier situación específica y siempre recibimos respuestas oportunas y fundamentadas en un conocimiento experto. Su enfoque proactivo y compromiso con la resolución efectiva de nuestros desafíos legales nos ha brindado un gran valor.
-            </p>
-            <div class="reviewer-info">
-                <div class="reviewer-avatar">
-                    <img src="https://ui-avatars.com/api/?name=Prose+Pixels&background=FAD02C&color=19304B&bold=true&size=96" alt="Prose on Pixels" />
-                </div>
-                <div class="reviewer-details">
-                    <h4 class="reviewer-name">Prose on Pixels - The Havas Content at Scale Network</h4>
-                    <p class="reviewer-role">Empresa</p>
-                </div>
+    <div class="carousel-wrapper">
+        <button class="carousel-nav carousel-prev" aria-label="Review anterior">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+
+        <div class="carousel-stage">
+            <div class="carousel-track">
+                <article class="review-card" data-index="0" tabindex="0">
+                    <div class="quote-icon">"</div>
+                    <p class="review-text">
+                        Excelente! La experiencia con sus servicios ha sido realmente sobresaliente. Desde el primer contacto hasta el resultado final, cada paso ha superado nuestras expectativas. La atención al cliente es de primer nivel, siempre atentos y dispuestos a ayudar con cualquier necesidad. La calidad y el cuidado en los detalles son evidentes, lo que refleja un profundo compromiso con la satisfacción del cliente. Sin duda, una experiencia que recomendaría a cualquiera que busque un servicio confiable y de alta calidad. ¡Gracias por el excelente trabajo!
+                    </p>
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Valeria+Vargas&background=FAD02C&color=19304B&bold=true&size=96" alt="Valeria Vargas" loading="lazy" />
+                        </div>
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Valeria Vargas</h4>
+                            <p class="reviewer-role">Cliente</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="review-card" data-index="1" tabindex="0">
+                    <div class="quote-icon">"</div>
+                    <p class="review-text">
+                        Excelentes tiempos de respuesta, precios accesibles y la atención/consultoría brindada siempre es de la mejor calidad. En momentos de mucha presión en un area desconocida para mí, agradezco la asesoría que me brindan y la paciencia para aclarar cualquier duda que pueda tener.
+                    </p>
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Hannia+Ugalde&background=FAD02C&color=19304B&bold=true&size=96" alt="Hannia Ugalde Angulo" loading="lazy" />
+                        </div>
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Hannia Ugalde Angulo</h4>
+                            <p class="reviewer-role">Cliente</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="review-card" data-index="2" tabindex="0">
+                    <div class="quote-icon">"</div>
+                    <p class="review-text">
+                        Quiero agradecer a Carlos Mena no solo por su profesionalidad y conocimiento, sobresalientes ambos, sino también por la calidez humana que mostró durante un proceso particularmente doloroso para toda la familia. Un excelente profesional pero aun mejor persona, gracias por todo Carlos.
+                    </p>
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Esteban+Contreras&background=FAD02C&color=19304B&bold=true&size=96" alt="Esteban Contreras Chavarría" loading="lazy" />
+                        </div>
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Esteban Contreras Chavarría</h4>
+                            <p class="reviewer-role">Cliente</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="review-card" data-index="3" tabindex="0">
+                    <div class="quote-icon">"</div>
+                    <p class="review-text">
+                        Bastante agradecida por todo el conocimiento aportado y la forma tan bonita y clara de transmitir la información en las consultas realizadas. Además me gustan las ganas legítimas de ayudar a resolver y no sólo buscar el beneficio propio.
+                    </p>
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Natalia+Segura&background=FAD02C&color=19304B&bold=true&size=96" alt="Natalia Segura Jiménez" loading="lazy" />
+                        </div>
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Natalia Segura Jiménez</h4>
+                            <p class="reviewer-role">Cliente</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="review-card" data-index="4" tabindex="0">
+                    <div class="quote-icon">"</div>
+                    <p class="review-text">
+                        Muy profesional, me sentí 100% segura y acompañada, fue transparente en todo momento y paciente a la hora de sus explicaciones, se nota el amor por lo que hace.
+                    </p>
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Veronica+Quiros&background=FAD02C&color=19304B&bold=true&size=96" alt="Verónica Quirós Flores" loading="lazy" />
+                        </div>
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Verónica Quirós Flores</h4>
+                            <p class="reviewer-role">Cliente</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="review-card" data-index="5" tabindex="0">
+                    <div class="quote-icon">"</div>
+                    <p class="review-text">
+                        Nuestra experiencia con el equipo legal ha sido altamente satisfactoria. Consideramos que existe una verdadera alianza estratégica, donde podemos recurrir al equipo ante cualquier situación específica y siempre recibimos respuestas oportunas y fundamentadas en un conocimiento experto. Su enfoque proactivo y compromiso con la resolución efectiva de nuestros desafíos legales nos ha brindado un gran valor.
+                    </p>
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Prose+Pixels&background=FAD02C&color=19304B&bold=true&size=96" alt="Prose on Pixels" loading="lazy" />
+                        </div>
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Prose on Pixels</h4>
+                            <p class="reviewer-role">Empresa</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="review-card" data-index="6" tabindex="0">
+                    <div class="quote-icon">"</div>
+                    <p class="review-text">
+                        Nuestra experiencia con su equipo legal ha sido excelente. El equipo ha sido muy profesional, eficiente y siempre dispuesto a ofrecer el apoyo necesario. Su atención al detalle y la claridad en la comunicación nos han dado mucha confianza. Sin duda, valoramos la dedicación y el compromiso que han demostrado en todo momento.
+                    </p>
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Studio+Saxe&background=FAD02C&color=19304B&bold=true&size=96" alt="Studio Saxe" loading="lazy" />
+                        </div>
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Studio Saxe</h4>
+                            <p class="reviewer-role">Empresa</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="review-card" data-index="7" tabindex="0">
+                    <div class="quote-icon">"</div>
+                    <p class="review-text">
+                        Fusión Legal, es un equipo legal que en el tiempo que hemos laborado con ellos son muy eficientes y muy rápidos en su actuar. Destacamos la atención personalizada, constante comunicación, excelente orden de las solicitudes.
+                    </p>
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Matadero+Valle&background=FAD02C&color=19304B&bold=true&size=96" alt="Matadero del Valle" loading="lazy" />
+                        </div>
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Matadero del Valle</h4>
+                            <p class="reviewer-role">Empresa</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="review-card" data-index="8" tabindex="0">
+                    <div class="quote-icon">"</div>
+                    <p class="review-text">
+                        Excelentes profesionales, destacamos su eficiencia y eficacia.
+                    </p>
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar">
+                            <img src="https://ui-avatars.com/api/?name=Teneria+Pirro&background=FAD02C&color=19304B&bold=true&size=96" alt="Tenería Pirro Antonio Gómez" loading="lazy" />
+                        </div>
+                        <div class="reviewer-details">
+                            <h4 class="reviewer-name">Tenería Pirro Antonio Gómez</h4>
+                            <p class="reviewer-role">Empresa</p>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
 
-        <div class="review-card hidden-initial">
-            <div class="quote-icon">"</div>
-            <p class="review-text">
-                Nuestra experiencia con su equipo legal ha sido excelente. El equipo ha sido muy profesional, eficiente y siempre dispuesto a ofrecer el apoyo necesario. Su atención al detalle y la claridad en la comunicación nos han dado mucha confianza. Sin duda, valoramos la dedicación y el compromiso que han demostrado en todo momento    
-            </p>
-            <div class="reviewer-info">
-                <div class="reviewer-avatar">
-                    <img src="https://ui-avatars.com/api/?name=Studio+Saxe&background=FAD02C&color=19304B&bold=true&size=96" alt="Studio Saxe" />
-                </div>
-                <div class="reviewer-details">
-                    <h4 class="reviewer-name">Studio Saxe</h4>
-                    <p class="reviewer-role">Empresa</p>
-                </div>
-            </div>
-        </div>
+        <button class="carousel-nav carousel-next" aria-label="Siguiente review">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+    </div>
 
-        <div class="review-card hidden-initial">
-            <div class="quote-icon">"</div>
-            <p class="review-text">
-                Fusión Legal, es un equipo legal que en el tiempo que hemos laborado con ellos son muy eficientes y muy rapidos en su actuar. Destacamos la atención personalizada, constante comunicación, excelente orden de las solicitudes
-            </p>
-            <div class="reviewer-info">
-                <div class="reviewer-avatar">
-                    <img src="https://ui-avatars.com/api/?name=Matadero+Valle&background=FAD02C&color=19304B&bold=true&size=96" alt="Matadero del Valle" />
-                </div>
-                <div class="reviewer-details">
-                    <h4 class="reviewer-name">Matadero del Valle</h4>
-                    <p class="reviewer-role">Empresa</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="review-card hidden-initial">
-            <div class="quote-icon">"</div>
-            <p class="review-text">
-                Excelentes profesionales, destacamos su eficiencia y eficacia.
-            </p>
-            <div class="reviewer-info">
-                <div class="reviewer-avatar">
-                    <img src="https://ui-avatars.com/api/?name=Teneria+Pirro&background=FAD02C&color=19304B&bold=true&size=96" alt="Tenería Pirro Antonio Gómez" />
-                </div>
-                <div class="reviewer-details">
-                    <h4 class="reviewer-name">Tenería Pirro Antonio Gómez</h4>
-                    <p class="reviewer-role">Empresa    </p>
-                </div>
-            </div>
-        </div>
+    <div class="carousel-indicators"></div>
+    <div class="carousel-progress">
+        <div class="carousel-progress-bar"></div>
     </div>
 </section>
 
@@ -76,15 +177,231 @@ import '../styles/reviews.css';
   
   document.addEventListener('DOMContentLoaded', () => {
     const reviewsTitle = document.querySelector('.reviews-title');
-    const reviewCards = document.querySelectorAll('.review-card');
+    const carouselStage = document.querySelector('.carousel-stage') as HTMLElement;
+    const reviewCards = document.querySelectorAll('.review-card') as NodeListOf<HTMLElement>;
+    const prevButton = document.querySelector('.carousel-prev') as HTMLButtonElement;
+    const nextButton = document.querySelector('.carousel-next') as HTMLButtonElement;
+    const indicatorsContainer = document.querySelector('.carousel-indicators') as HTMLElement;
+    const progressBar = document.querySelector('.carousel-progress-bar') as HTMLElement;
     
-    if (!reviewsTitle) return;
+    if (!reviewsTitle || !carouselStage || !reviewCards.length) return;
     
+    const totalCards = reviewCards.length;
+    let currentIndex = 0;
+    let autoplayInterval: number | null = null;
+    let progressInterval: number | null = null;
+    const AUTOPLAY_DURATION = 6000; // 6 segundos
+    const PROGRESS_UPDATE_INTERVAL = 50; // Actualizar cada 50ms
+    
+    // Crear indicadores
+    const createIndicators = () => {
+      indicatorsContainer.innerHTML = '';
+      for (let i = 0; i < totalCards; i++) {
+        const indicator = document.createElement('button');
+        indicator.classList.add('indicator');
+        indicator.setAttribute('aria-label', `Ir a review ${i + 1}`);
+        if (i === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+          goToSlide(i);
+          resetAutoplay();
+        });
+        indicatorsContainer.appendChild(indicator);
+      }
+    };
+    
+    createIndicators();
+    
+    // Actualizar clases de las tarjetas según su posición
+    const updateCardPositions = () => {
+      reviewCards.forEach((card, index) => {
+        // Limpiar todas las clases de posición
+        card.classList.remove('active', 'prev', 'next', 'far-next', 'far-prev');
+        
+        const diff = index - currentIndex;
+        
+        if (diff === 0) {
+          card.classList.add('active');
+        } else if (diff === -1 || (currentIndex === 0 && index === totalCards - 1)) {
+          card.classList.add('prev');
+        } else if (diff === 1 || (currentIndex === totalCards - 1 && index === 0)) {
+          card.classList.add('next');
+        } else if (diff < -1) {
+          card.classList.add('far-prev');
+        } else {
+          card.classList.add('far-next');
+        }
+      });
+      
+      // Actualizar indicadores
+      const indicators = indicatorsContainer.querySelectorAll('.indicator');
+      indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentIndex);
+      });
+    };
+    
+    // Ir a una slide específica
+    const goToSlide = (index: number) => {
+      // Manejar loop infinito
+      if (index < 0) {
+        currentIndex = totalCards - 1;
+      } else if (index >= totalCards) {
+        currentIndex = 0;
+      } else {
+        currentIndex = index;
+      }
+      
+      updateCardPositions();
+      resetProgress();
+    };
+    
+    // Navegación
+    const goToPrev = () => {
+      goToSlide(currentIndex - 1);
+      resetAutoplay();
+    };
+    
+    const goToNext = () => {
+      goToSlide(currentIndex + 1);
+      resetAutoplay();
+    };
+    
+    prevButton.addEventListener('click', goToPrev);
+    nextButton.addEventListener('click', goToNext);
+    
+    // Click en tarjetas laterales para navegar
+    reviewCards.forEach((card, index) => {
+      card.addEventListener('click', () => {
+        if (card.classList.contains('prev')) {
+          goToPrev();
+        } else if (card.classList.contains('next')) {
+          goToNext();
+        }
+      });
+    });
+    
+    // Progress bar
+    let progressValue = 0;
+    
+    const resetProgress = () => {
+      progressValue = 0;
+      if (progressBar) {
+        progressBar.style.width = '0%';
+      }
+    };
+    
+    const updateProgress = () => {
+      progressValue += (PROGRESS_UPDATE_INTERVAL / AUTOPLAY_DURATION) * 100;
+      if (progressBar) {
+        progressBar.style.width = `${Math.min(progressValue, 100)}%`;
+      }
+    };
+    
+    // Autoplay
+    const startAutoplay = () => {
+      stopAutoplay();
+      resetProgress();
+      
+      // Progress bar animation
+      progressInterval = window.setInterval(updateProgress, PROGRESS_UPDATE_INTERVAL);
+      
+      // Auto advance
+      autoplayInterval = window.setInterval(() => {
+        goToSlide(currentIndex + 1);
+      }, AUTOPLAY_DURATION);
+    };
+    
+    const stopAutoplay = () => {
+      if (autoplayInterval !== null) {
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+      }
+      if (progressInterval !== null) {
+        clearInterval(progressInterval);
+        progressInterval = null;
+      }
+    };
+    
+    const resetAutoplay = () => {
+      stopAutoplay();
+      startAutoplay();
+    };
+    
+    // Touch/Swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let isSwiping = false;
+    
+    carouselStage.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      isSwiping = true;
+      stopAutoplay();
+    }, { passive: true });
+    
+    carouselStage.addEventListener('touchmove', (e) => {
+      if (!isSwiping) return;
+      touchEndX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    carouselStage.addEventListener('touchend', () => {
+      if (!isSwiping) return;
+      isSwiping = false;
+      
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          goToNext();
+        } else {
+          goToPrev();
+        }
+      }
+      
+      resetAutoplay();
+    }, { passive: true });
+    
+    // Keyboard navigation
+    const handleKeyboard = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return;
+      
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        goToPrev();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        goToNext();
+      }
+    };
+    
+    document.addEventListener('keydown', handleKeyboard);
+    
+    // Pausar autoplay cuando el mouse está sobre el carrusel
+    carouselStage.addEventListener('mouseenter', stopAutoplay);
+    carouselStage.addEventListener('mouseleave', startAutoplay);
+    
+    // Pausar autoplay cuando no está visible
+    const visibilityObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          startAutoplay();
+        } else {
+          stopAutoplay();
+        }
+      });
+    }, { threshold: 0.3 });
+    
+    visibilityObserver.observe(carouselStage);
+    
+    // Animaciones iniciales
     const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
     const delay = isRestoring ? 150 : 0;
     
+    // Inicializar posiciones
+    updateCardPositions();
+    
     setTimeout(() => {
-      // Observer para el título
+      // Título
       const titleObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -92,80 +409,62 @@ import '../styles/reviews.css';
               targets: '.reviews-title',
               opacity: [0, 1],
               translateY: [-30, 0],
-              duration: 600,
+              duration: 700,
               easing: 'easeOutCubic',
             });
             titleObserver.disconnect();
           }
         });
-      }, {
-        threshold: 0.5,
-        rootMargin: '0px'
-      });
+      }, { threshold: 0.5 });
       
       titleObserver.observe(reviewsTitle);
       
-      // Observer individual para cada tarjeta
-      reviewCards.forEach((card, index) => {
-        const cardObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const quoteIcon = entry.target.querySelector('.quote-icon');
-              const reviewText = entry.target.querySelector('.review-text');
-              const reviewerInfo = entry.target.querySelector('.reviewer-info');
-              
-              // Animación de la tarjeta principal
-              anime({
-                targets: entry.target,
-                opacity: [0, 1],
-                translateY: [40, 0],
-                rotateX: [8, 0],
-                scale: [0.95, 1],
-                duration: 600,
-                delay: 80,
-                easing: 'easeOutQuart',
-              });
-              
-              // Animación de las comillas
-              anime({
-                targets: quoteIcon,
-                opacity: [0, 0.3],
-                scale: [0.8, 1],
-                duration: 500,
-                delay: 200,
-                easing: 'easeOutCubic',
-              });
-              
-              // Animación del texto
-              anime({
-                targets: reviewText,
-                opacity: [0, 1],
-                translateX: [-20, 0],
-                duration: 550,
-                delay: 280,
-                easing: 'easeOutQuart',
-              });
-              
-              // Animación del reviewer info
-              anime({
-                targets: reviewerInfo,
-                opacity: [0, 1],
-                translateY: [15, 0],
-                duration: 500,
-                delay: 380,
-                easing: 'easeOutCubic',
-              });
-              
-              cardObserver.disconnect();
-            }
-          });
-        }, {
-          threshold: 0.3,
-          rootMargin: '0px'
+      // Carrusel
+      const carouselObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            anime({
+              targets: '.carousel-wrapper',
+              opacity: [0, 1],
+              scale: [0.95, 1],
+              duration: 900,
+              delay: 200,
+              easing: 'easeOutCubic',
+            });
+            
+            anime({
+              targets: '.carousel-indicators',
+              opacity: [0, 1],
+              translateY: [15, 0],
+              duration: 600,
+              delay: 500,
+              easing: 'easeOutCubic',
+            });
+            
+            anime({
+              targets: '.carousel-progress',
+              opacity: [0, 1],
+              scaleX: [0.5, 1],
+              duration: 500,
+              delay: 600,
+              easing: 'easeOutCubic',
+            });
+            
+            carouselObserver.disconnect();
+          }
         });
-        
-        cardObserver.observe(card);
-      });
+      }, { threshold: 0.2 });
+      
+      const carouselWrapper = document.querySelector('.carousel-wrapper');
+      if (carouselWrapper) {
+        carouselObserver.observe(carouselWrapper);
+      }
     }, delay);
+    
+    // Cleanup
+    window.addEventListener('beforeunload', () => {
+      stopAutoplay();
+      visibilityObserver.disconnect();
+    });
   });
 </script>

@@ -21,11 +21,10 @@ h2{
 }
 .experience-container{
     position: relative;
-    padding: clamp(1.5em, 2em, 3em) 0;
+    padding: clamp(4em, 8vw, 6em) 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 6em;
 }
 .experience-container .experience-items .experience-item p{
     text-align: center;

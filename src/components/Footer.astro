@@ -2,10 +2,95 @@
 import '../styles/footer.css';
 ---
 
-<div class="footer">
-    <h1>Siguenos y Visitanos</h1>
-    <div class="footer-icons">
-
+<footer class="footer-container">
+    <!-- Esquinas decorativas estilo hero -->
+    <div class="footer-corners" aria-hidden="true">
+        <div class="footer-corner footer-corner-tl"></div>
+        <div class="footer-corner footer-corner-br"></div>
     </div>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.169736527596!2d-84.11606192493353!3d10.002834390102727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0fb00174244a7%3A0x6c665b744d47306b!2sFusi%C3%B3n%20Legal%20CR!5e0!3m2!1sen!2scr!4v1761585124600!5m2!1sen!2scr" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
+    
+    <div class="footer-content">
+        <!-- Columna izquierda: Formulario -->
+        <div class="footer-form-section">
+            <h2 class="footer-title">
+                ¿AÚN CON <span class="highlight">DUDAS</span>?
+            </h2>
+            <p class="footer-subtitle">Rellená este formulario y te vamos a responder...</p>
+            
+            <form class="contact-form" action="#" method="POST">
+                <div class="form-group">
+                    <label for="nombre">Nombre y apellidos <span class="required">*</span></label>
+                    <input type="text" id="nombre" name="nombre" required autocomplete="name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Correo electrónico <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="mensaje">Breve descripción de su consulta <span class="required">*</span></label>
+                    <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Enviar</button>
+            </form>
+        </div>
+        
+        <!-- Columna derecha: Info de contacto -->
+        <div class="footer-info-section">
+            <h2 class="footer-title info-title">Seguínos y visítanos</h2>
+            
+            <!-- Iconos de redes sociales -->
+            <div class="social-icons">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <i class="ph ph-facebook-logo"></i>
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="ph ph-instagram-logo"></i>
+                </a>
+                <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="ph ph-whatsapp-logo"></i>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i class="ph ph-linkedin-logo"></i>
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <i class="ph ph-youtube-logo"></i>
+                </a>
+                <a href="https://spotify.com" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                    <i class="ph ph-spotify-logo"></i>
+                </a>
+            </div>
+            
+            <!-- Mapa -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.169736527596!2d-84.11606192493353!3d10.002834390102727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0fb00174244a7%3A0x6c665b744d47306b!2sFusi%C3%B3n%20Legal%20CR!5e0!3m2!1sen!2scr!4v1761585124600!5m2!1sen!2scr" 
+                    width="100%" 
+                    height="200" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Ubicación de Fusión Legal CR">
+                </iframe>
+            </div>
+            
+            <!-- Info de contacto -->
+            <div class="contact-info">
+                <a href="mailto:info@fusionlegalcr.com" class="contact-link">
+                    <i class="ph ph-envelope"></i>
+                    <span>info@fusionlegalcr.com</span>
+                </a>
+                <a href="tel:+50612345678" class="contact-link">
+                    <i class="ph ph-phone"></i>
+                    <span>+506 1234 5678</span>
+                </a>
+            </div>
+            
+            <!-- Copyright -->
+            <p class="copyright">Fusión Legal © Derechos Reservados 2025</p>
+        </div>
+    </div>
+</footer>
