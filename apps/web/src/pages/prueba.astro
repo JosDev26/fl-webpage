@@ -1,0 +1,440 @@
+---
+// Componente: Fundadores.astro
+// Descripción: Sección de fundadores responsive sin uso de media queries.
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+<section class="section-fundadores">
+  <div class="container">
+    <h2 class="title">
+      <span class="title-highlight">LOS FUNDADORES</span> DETRÁS DE CADA SOLUCIÓN
+    </h2>
+
+    <div class="profiles">
+      <!-- Perfil: Carlos -->
+      <div class="profile-card carlos">
+        <div class="image-side carlos-img-side">
+          <div class="circle"></div>
+          <img src="carlos.png" alt="Carlos Eduardo Mena Arce" class="img-person" />
+        </div>
+        <div class="text-side carlos-text-side">
+          <div class="header-group">
+            <h3>Carlos Eduardo Mena Arce</h3>
+            <h4>Socio Director. Abogado Especialista</h4>
+          </div>
+          <div class="p-wrapper carlos-p-wrapper">
+            <p>
+              Nuestro Socio Fundador, el señor Mena, posee experiencia en el área 
+              de litigio, y asesoría contractual a empresas del sector inmobiliario y 
+              comercial. Trabajó para el Poder Judicial de Costa Rica, en donde se 
+              desempeñó en el Organismo de Investigación Judicial y el Juzgado 
+              Penal. Es profesor universitario, tiene un Máster en Criminología, 
+              Especialista en Derecho Notarial y Registral, y especialista en 
+              Asesoría y Práctica Tributaria.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Perfil: Rebeca -->
+      <!-- Utilizamos "reverse" para que flex-wrap: wrap-reverse coloque la imagen arriba en móviles -->
+      <div class="profile-card rebeca reverse">
+        <div class="text-side rebeca-text-side">
+          <div class="header-group">
+            <h3>Rebeca Chacón Montero</h3>
+            <h4>Socia Directora. Abogada y Notaria</h4>
+          </div>
+          <div class="p-wrapper rebeca-p-wrapper">
+            <p>
+              La señora Chacón, tiene más de 12 años de trabajar para el sector 
+              privado, desempeñándose en áreas como el derecho administrativo, 
+              alianzas público-privadas, consultoría, asesoría corporativa y 
+              propiedad intelectual. Es Notaria Pública y cuenta con un Máster 
+              Especializado en Compliance.
+            </p>
+          </div>
+        </div>
+        <div class="image-side rebeca-img-side">
+          <div class="circle"></div>
+          <img src="rebecca.png" alt="Rebeca Chacón Montero" class="img-person" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</Layout>
+
+<style>
+  /* Variables de diseño */
+  :root {
+    --bg-color: #1f2d42;
+    --accent: #ffc72c;
+    --circle: #263852;
+    --text-light: #ffffff;
+    --line-width: clamp(10px, 0.8vw, 14px);
+    --edge-pad: clamp(1rem, 2.6vw, 2rem);
+    --stagger: clamp(0px, (100vw - 900px) * 999, 110px);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .section-fundadores {
+    background-color: var(--bg-color);
+    padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 5vw, 2rem);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-light);
+    overflow: hidden;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* --- HEADER --- */
+  .title {
+    text-align: center;
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: clamp(3rem, 8vw, 6rem);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .title-highlight {
+    color: var(--accent);
+    position: relative;
+    display: inline-block;
+  }
+
+  .title-highlight::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.2em;
+    width: 100%;
+    height: 4px;
+    background-color: var(--accent);
+  }
+
+  /* --- CONTENEDOR DE PERFILES --- */
+  .profiles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(4rem, 8vw, 7rem);
+  }
+
+  .profile-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: min(100%, 980px);
+    column-gap: 0;
+    row-gap: 0;
+    transition: transform 0.3s ease;
+    container-type: inline-size;
+  }
+
+  .profile-card.carlos {
+    align-self: flex-start;
+    transform: translateX(calc(var(--stagger) * -1));
+  }
+  .profile-card.rebeca {
+    align-self: flex-end;
+    transform: translateX(var(--stagger));
+  }
+
+  .profile-card.reverse {
+    flex-wrap: wrap-reverse;
+  }
+
+  /* --- SECCIÓN DE IMAGEN (Desktop) --- */
+  .image-side {
+    flex: 0 1 185px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    isolation: isolate;
+    z-index: 0;
+  }
+
+  .circle {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(clamp(145px, 18vw, 200px), 100%);
+    aspect-ratio: 1;
+    background-color: var(--circle);
+    border-radius: 50%;
+    z-index: -2;
+  }
+
+  .img-person {
+    position: relative;
+    z-index: 1;
+    width: auto;
+    max-width: clamp(96px, 10.5vw, 130px);
+    height: clamp(160px, 17vw, 220px);
+    object-fit: contain;
+    object-position: bottom center;
+    display: block;
+  }
+
+  .rebeca-img-side .img-person {
+    height: clamp(200px, 22vw, 280px);
+    max-width: clamp(120px, 13vw, 165px);
+  }
+
+  /* --- SECCIÓN DE TEXTO (Desktop) --- */
+  .text-side {
+    flex: 2 1 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: clamp(0.35rem, 0.7vw, 0.55rem);
+  }
+
+  .header-group {
+    padding-bottom: 0;
+  }
+
+  h3 {
+    color: var(--accent);
+    font-size: clamp(1.85rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    line-height: 1.1;
+  }
+
+  h4 {
+    color: var(--accent);
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    font-weight: 600;
+    margin-bottom: 0;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: clamp(0.9rem, 1.3vw, 1rem);
+    line-height: 1.6;
+    opacity: 0.95;
+    max-width: 550px;
+  }
+
+  /* ==============================
+     LÍNEAS "L" — Desktop
+     ============================== */
+
+  /* Carlos (Imagen Izquierda → Texto Derecha) */
+  .carlos-img-side {
+    border-bottom: var(--line-width) solid var(--accent);
+    padding-right: clamp(0.5rem, 1vw, 0.8rem);
+  }
+
+  .carlos-img-side::after {
+    content: '';
+    position: absolute;
+    right: calc(var(--line-width) * -1);
+    bottom: calc(var(--line-width) * -1);
+    width: var(--line-width);
+    height: var(--line-width);
+    background-color: var(--accent);
+  }
+
+  .carlos-text-side .header-group {
+    padding-left: 0;
+    padding-right: var(--edge-pad);
+  }
+
+  .carlos-p-wrapper {
+    position: relative;
+    padding-left: var(--edge-pad);
+    padding-right: var(--edge-pad);
+    padding-top: 0;
+    padding-bottom: 0;
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .carlos-p-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--line-width);
+    background-color: var(--accent);
+  }
+
+  /* Rebeca (Texto Izquierda → Imagen Derecha) */
+  .rebeca-img-side {
+    border-bottom: var(--line-width) solid var(--accent);
+    padding-left: clamp(0.5rem, 1vw, 0.8rem);
+  }
+
+  .rebeca-img-side::after {
+    content: '';
+    position: absolute;
+    left: calc(var(--line-width) * -1);
+    bottom: calc(var(--line-width) * -1);
+    width: var(--line-width);
+    height: var(--line-width);
+    background-color: var(--accent);
+  }
+
+  .rebeca-text-side {
+    text-align: right;
+  }
+
+  .rebeca-text-side .header-group {
+    padding-right: 0;
+    padding-left: var(--edge-pad);
+  }
+
+  .rebeca-text-side p {
+    margin-left: auto;
+  }
+
+  .rebeca-p-wrapper {
+    position: relative;
+    padding-right: var(--edge-pad);
+    padding-left: var(--edge-pad);
+    padding-top: 0;
+    padding-bottom: 0;
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .rebeca-p-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: var(--line-width);
+    background-color: var(--accent);
+  }
+
+  /* ==============================
+     RESPONSIVE — Container Query
+     Sin @media, basado en el ancho
+     del propio .profile-card
+     ============================== */
+
+  @container (max-width: 560px) {
+    .profile-card,
+    .profile-card.reverse,
+    .profile-card.carlos,
+    .profile-card.rebeca {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        'image'
+        'text';
+      justify-items: center;
+      align-items: start;
+      align-self: center;
+      row-gap: 0;
+      transform: none !important;
+      width: 100%;
+    }
+
+    .image-side {
+      grid-area: image;
+      width: 100% !important;
+      flex: none !important;
+      min-width: 0 !important;
+      max-width: none !important;
+      display: flex !important;
+      justify-content: center;
+      align-items: flex-end;
+      border: none !important;
+      padding: 0;
+      margin-bottom: clamp(0.5rem, 2vw, 1rem);
+      overflow: visible;
+      position: relative;
+    }
+
+    .image-side::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: clamp(50px, 12vw, 80px);
+      background: linear-gradient(to bottom, transparent 0%, var(--bg-color) 100%);
+      z-index: 2;
+      pointer-events: none;
+      display: block !important;
+      width: 100% !important;
+      transform: none !important;
+    }
+
+    .circle {
+      display: none;
+    }
+
+    .img-person {
+      width: clamp(130px, 40vw, 180px);
+      display: block;
+      margin: 0 auto;
+    }
+
+    .text-side {
+      grid-area: text;
+      width: 100%;
+      max-width: 32rem;
+      align-items: center;
+      text-align: center;
+      justify-self: center;
+    }
+
+    .header-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 !important;
+    }
+
+    .p-wrapper {
+      position: relative;
+      width: 100%;
+      padding: clamp(1rem, 3vw, 1.5rem) 0 0 0 !important;
+      margin-top: clamp(0.6rem, 1.5vw, 0.9rem);
+      flex: none;
+    }
+
+    .p-wrapper::before {
+      top: 0 !important;
+      bottom: auto !important;
+      left: 50% !important;
+      right: auto !important;
+      transform: translateX(-50%);
+      width: clamp(60px, 30%, 120px) !important;
+      height: var(--line-width) !important;
+    }
+
+    p {
+      max-width: 100%;
+    }
+
+    .rebeca-text-side {
+      text-align: center;
+    }
+
+    .rebeca-text-side p {
+      margin-left: 0;
+    }
+  }
+</style>

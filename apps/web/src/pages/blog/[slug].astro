@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getBlogPost, getAllBlogSlugs } from '../../lib/payload';
+import { lexicalToHtml } from '../../lib/lexical';
+import '../../styles/blog.css';
+
+export async function getStaticPaths() {
+  let slugs: string[] = [];
+  try {
+    slugs = await getAllBlogSlugs();
+  } catch {
+    return [];
+  }
+  return slugs.map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const post = await getBlogPost(slug!);
+
+if (!post) {
+  return Astro.redirect('/blog');
+}
+
+const contentHtml = lexicalToHtml(post.content);
+const pageTitle = post.meta_title || post.title;
+const pageDescription = post.meta_description || post.excerpt || '';
+---
+
+<Layout>
+  <Navbar />
+  <article class="blog-post-container">
+    <header class="blog-post-header">
+      <a href="/blog" class="blog-post-back">
+        <i class="ph ph-arrow-left"></i> Volver al blog
+      </a>
+      <time class="blog-post-date" datetime={post.published_date}>
+        {new Date(post.published_date).toLocaleDateString('es-CR', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+      <h1 class="blog-post-title">{post.title}</h1>
+      {post.excerpt && <p class="blog-post-excerpt">{post.excerpt}</p>}
+    </header>
+
+    {post.cover_image && (
+      <div class="blog-post-cover">
+        <img src={post.cover_image.url} alt={post.cover_image.alt || post.title} />
+      </div>
+    )}
+
+    <div class="blog-post-content" set:html={contentHtml} />
+  </article>
+  <Footer />
+</Layout>

@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getBlogPosts } from '../../lib/payload';
+import type { BlogPost } from '@fusion-legal/shared';
+import '../../styles/blog.css';
+
+let posts: BlogPost[] = [];
+try {
+  posts = await getBlogPosts();
+} catch {
+  // Payload not available — show empty state
+}
+---
+
+<Layout>
+  <Navbar />
+  <section class="blog-container">
+    <h1 class="blog-title">Blog</h1>
+    <p class="blog-subtitle">Artículos y noticias sobre temas legales</p>
+
+    {posts.length === 0 ? (
+      <p class="blog-empty">No hay artículos publicados aún.</p>
+    ) : (
+      <div class="blog-grid">
+        {posts.map((post) => (
+          <a href={`/blog/${post.slug}`} class="blog-card">
+            {post.cover_image && (
+              <div class="blog-card-image">
+                <img src={post.cover_image.url} alt={post.cover_image.alt || post.title} loading="lazy" />
+              </div>
+            )}
+            <div class="blog-card-content">
+              <time class="blog-card-date" datetime={post.published_date}>
+                {new Date(post.published_date).toLocaleDateString('es-CR', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+              <h2 class="blog-card-title">{post.title}</h2>
+              {post.excerpt && <p class="blog-card-excerpt">{post.excerpt}</p>}
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+  <Footer />
+</Layout>
