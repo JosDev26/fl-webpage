@@ -1,0 +1,365 @@
+:root {
+    --yellow-color: #FAD02C;
+    --dark-blue-color: #19304B;
+}
+
+/* Clase para elementos inicialmente ocultos */
+.hidden-initial {
+    opacity: 0;
+}
+
+/* Contenedor principal */
+.legaltech-container {
+    --legaltech-phone-width: clamp(182px, 18vw, 236px);
+    --legaltech-desktop-width: clamp(330px, 35vw, 450px);
+    --legaltech-stage-height: calc((var(--legaltech-phone-width) * 19.5 / 9) + clamp(16px, 2vw, 28px));
+    position: relative;
+    padding: clamp(3em, 6vw, 4.5em) clamp(1.5rem, 5vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark-blue-color);
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.legaltech-content {
+    width: 100%;
+    max-width: min(1120px, 94vw);
+    display: grid;
+    grid-template-columns: minmax(260px, var(--legaltech-desktop-width)) minmax(320px, 1fr);
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(2em, 4vw, 4.5em);
+}
+
+/* ========================================
+   Lado izquierdo: Mockup del dispositivo
+   ======================================== */
+.legaltech-mockup {
+    width: min(100%, var(--legaltech-desktop-width));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1em, 2vw, 1.5em);
+    justify-self: start;
+}
+
+.legaltech-device-stage {
+    position: relative;
+    width: 100%;
+    min-height: var(--legaltech-stage-height);
+    display: grid;
+    place-items: start center;
+}
+
+/* Visibilidad de dispositivos */
+.legaltech-device {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform-origin: top center;
+}
+
+.legaltech-device.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.legaltech-desktop {
+    align-items: center;
+}
+
+/* Frame del teléfono */
+.legaltech-phone-frame {
+    position: relative;
+    width: min(100%, var(--legaltech-phone-width));
+    aspect-ratio: 9 / 19.5;
+    background: #111;
+    border-radius: clamp(28px, 3.5vw, 44px);
+    padding: clamp(8px, 1vw, 14px);
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 clamp(1px, 0.15vw, 2px) rgba(255, 255, 255, 0.08);
+}
+
+/* Notch / Dynamic Island */
+.legaltech-phone-frame::before {
+    content: '';
+    position: absolute;
+    top: clamp(12px, 1.5vw, 20px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(55px, 7vw, 80px);
+    height: clamp(14px, 1.8vw, 22px);
+    background: #111;
+    border-radius: 100px;
+    z-index: 10;
+}
+
+/* Frame del escritorio */
+.legaltech-desktop-frame {
+    position: relative;
+    width: min(100%, var(--legaltech-desktop-width));
+    background: #111;
+    border-radius: clamp(6px, 0.8vw, 12px);
+    padding: clamp(4px, 0.6vw, 8px);
+    padding-top: clamp(20px, 2.5vw, 32px);
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 clamp(1px, 0.15vw, 2px) rgba(255, 255, 255, 0.08);
+}
+
+/* Punto de cámara del monitor */
+.legaltech-desktop-frame::before {
+    content: '';
+    position: absolute;
+    top: clamp(7px, 0.9vw, 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(5px, 0.7vw, 8px);
+    height: clamp(5px, 0.7vw, 8px);
+    background: #333;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+/* Pantalla del dispositivo */
+.legaltech-screen {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #f0ebe3;
+}
+
+.legaltech-phone-frame .legaltech-screen {
+    border-radius: clamp(20px, 2.5vw, 32px);
+}
+
+.legaltech-desktop-frame .legaltech-screen {
+    aspect-ratio: 16 / 10;
+    border-radius: clamp(2px, 0.3vw, 4px);
+}
+
+.legaltech-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Toggle de dispositivo */
+.legaltech-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.legaltech-toggle-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    padding: clamp(0.5em, 0.8vw, 0.7em) clamp(0.8em, 1.2vw, 1.1em);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Nunito Sans Variable', sans-serif;
+}
+
+.legaltech-toggle-btn.active {
+    background-color: var(--yellow-color);
+    color: var(--dark-blue-color);
+}
+
+.legaltech-toggle-btn:hover:not(.active) {
+    color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.legaltech-toggle-btn:focus-visible {
+    outline: 3px solid var(--yellow-color);
+    outline-offset: 4px;
+}
+
+/* ========================================
+   Lado derecho: Información
+   ======================================== */
+.legaltech-info {
+    width: 100%;
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.8em, 1.5vw, 1.2em);
+    justify-self: start;
+}
+
+/* Título */
+.legaltech-title {
+    font-size: clamp(1.1rem, 2.4vw, 2rem);
+    font-weight: 800;
+    color: #fff;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1.25;
+    letter-spacing: 0.02em;
+    text-align: left;
+}
+
+.legaltech-title .highlight {
+    color: var(--yellow-color);
+    text-decoration: underline;
+    text-decoration-color: var(--yellow-color);
+    text-underline-offset: clamp(4px, 0.5vw, 8px);
+    text-decoration-thickness: clamp(3px, 0.4vw, 5px);
+}
+
+/* Subtítulo */
+.legaltech-subtitle {
+    font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.6;
+    text-align: left;
+}
+
+/* Lista de características */
+.legaltech-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.8em, 1.5vw, 1.2em);
+}
+
+.legaltech-feature {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.6em, 1vw, 1em);
+    color: #fff;
+    font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+/* Icono de check */
+.legaltech-check {
+    flex-shrink: 0;
+    width: clamp(22px, 2.8vw, 30px);
+    height: clamp(22px, 2.8vw, 30px);
+    color: var(--yellow-color);
+}
+
+/* Botón CTA */
+.legaltech-cta {
+    display: inline-block;
+    background-color: var(--yellow-color);
+    color: var(--dark-blue-color);
+    font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+    font-weight: 700;
+    font-family: 'Nunito Sans Variable', sans-serif;
+    padding: clamp(0.7em, 1vw, 1em) clamp(2.5em, 5vw, 4em);
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    align-self: flex-start;
+    margin-top: clamp(0.5em, 1vw, 1em);
+}
+
+.legaltech-cta:hover {
+    background-color: #f5d957;
+    box-shadow: 0 10px 30px rgba(250, 208, 44, 0.4);
+    transform: translateY(-3px);
+}
+
+.legaltech-cta:focus-visible {
+    outline: 3px solid var(--yellow-color);
+    outline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+    .legaltech-container {
+        --legaltech-phone-width: clamp(170px, 26vw, 210px);
+        --legaltech-desktop-width: clamp(250px, 44vw, 330px);
+        --legaltech-stage-height: calc((var(--legaltech-phone-width) * 19.5 / 9) + clamp(16px, 2vw, 24px));
+    }
+
+    .legaltech-content {
+        max-width: min(720px, 92vw);
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: clamp(1.8em, 4vw, 3em);
+    }
+
+    .legaltech-mockup,
+    .legaltech-info {
+        justify-self: center;
+    }
+
+    .legaltech-info {
+        align-items: center;
+        text-align: center;
+    }
+
+    .legaltech-title,
+    .legaltech-subtitle {
+        text-align: center;
+    }
+
+    .legaltech-features {
+        align-items: center;
+    }
+
+    .legaltech-feature {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .legaltech-cta {
+        align-self: center;
+    }
+}
+
+@media (max-width: 640px) {
+    .legaltech-container {
+        --legaltech-phone-width: clamp(168px, 48vw, 208px);
+        --legaltech-desktop-width: clamp(250px, 82vw, 332px);
+        --legaltech-stage-height: calc((var(--legaltech-phone-width) * 19.5 / 9) + clamp(16px, 5vw, 24px));
+    }
+
+    .legaltech-content {
+        max-width: min(560px, 92vw);
+    }
+
+    .legaltech-info {
+        max-width: 100%;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .legaltech-cta,
+    .legaltech-toggle-btn {
+        transition: opacity 0.3s ease;
+    }
+
+    .legaltech-cta:hover {
+        transform: none;
+    }
+}

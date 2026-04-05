@@ -1,0 +1,72 @@
+---
+import '@fontsource-variable/nunito-sans';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Fusión Legal</title>
+    <!-- Phosphor Icons -->
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style>
+  :root{
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+  }
+  html{
+    scroll-behavior: smooth;
+    scroll-padding-top: 2rem;
+  }
+  
+  /* Smooth scrolling mejorado para navegadores modernos */
+  @supports (scrollbar-width: thin) {
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: var(--yellow-color) var(--dark-blue-color);
+    }
+  }
+  
+  /* Estilos de scrollbar personalizados para webkit */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--dark-blue-color);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--yellow-color);
+    border-radius: 6px;
+    border: 2px solid var(--dark-blue-color);
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #f5d957;
+  }
+  
+  body {
+    background-color: var(--dark-blue-color);
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Nunito Sans Variable', sans-serif;
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
+    /* Mejorar el rendimiento del scroll */
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  
+
+</style>

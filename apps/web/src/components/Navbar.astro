@@ -1,0 +1,83 @@
+---
+import '../styles/navbar.css';
+---
+<nav class="glass-navbar" id="glass-navbar">
+  <div class="navbar-container">
+    <a href="#" class="nav-logo">
+      <img src={import.meta.env.BASE_URL + 'fllogocropped.webp'} alt="Fusión Legal" class="logo-img" />
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="/about" class="nav-link">
+          <span class="link-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </span>
+          <span class="link-text">Sobre nosotros</span>
+        </a>
+      </li>
+      <li>
+        <a href="/blog" class="nav-link">
+          <span class="link-icon">
+            <i class="ph ph-article" style="font-size: 18px;"></i>
+          </span>
+          <span class="link-text">Blog</span>
+        </a>
+      </li>
+    </ul>
+</nav>
+<nav class="menu-escalonado-container">
+  <ul class="menu-escalonado">
+    <div class="item-menu">
+      <li class="active">
+        <a href="#" data-target="#sobre-nosotros">Sobre nosotros</a>
+      </li>
+    </div>
+    <div class="item-menu">
+      <li>
+        <a href="#" data-target="#nuestro-equipo">Nuestro equipo</a>
+      </li>
+    </ul>
+    <div class="nav-glow"></div>
+  </div>
+</nav>
+
+<script>
+  // Navbar scroll behavior - hide on scroll down, show on scroll up
+  let lastScrollY = window.scrollY;
+  let ticking = false;
+  const navbar = document.getElementById('glass-navbar');
+  
+  function updateNavbar() {
+    const currentScrollY = window.scrollY;
+    
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      // Scrolling down & past threshold - hide navbar
+      navbar?.classList.add('navbar-hidden');
+    } else {
+      // Scrolling up - show navbar
+      navbar?.classList.remove('navbar-hidden');
+    }
+    
+    // Add/remove scrolled class for enhanced glass effect
+    if (currentScrollY > 50) {
+      navbar?.classList.add('navbar-scrolled');
+    } else {
+      navbar?.classList.remove('navbar-scrolled');
+    }
+    
+    lastScrollY = currentScrollY;
+    ticking = false;
+  }
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateNavbar);
+      ticking = true;
+    }
+  });
+</script>
