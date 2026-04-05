@@ -6,16 +6,33 @@ import '../styles/experience.css';
     <div class="experience-items">
         <div class="background-line hidden-initial"></div>
         <div class="experience-item hidden-initial">
-            <h2>+150</h2>
-            <p>Casos resueltos con éxito</p>
+            <div class="card-front">
+                <h2>+150</h2>
+                <p>Casos resueltos con éxito</p>
+            </div>
+            <div class="card-back">
+                <h2>+200</h2>
+                <p>Conciliaciones</p>
+            </div>
         </div>
         <div class="experience-item hidden-initial">
-            <h2>+5</h2>
-            <p>Años de experiencia</p>
+            <div class="card-front">
+                <h2>+5</h2>
+                <p>Años de experiencia</p>
+            </div>
+            <div class="card-back">
+                <p>Experiencia en Conciliación Judicial y Extrajudicial</p>
+            </div>
         </div>
         <div class="experience-item hidden-initial">
-            <h2>+50</h2>
-            <p>Clientes satisfechos</p>
+            <div class="card-front">
+                <h2>+50</h2>
+                <p>Clientes satisfechos</p>
+            </div>
+            <div class="card-back">
+                <h2>+15</h2>
+                <p>Años gestionando procesos de litigio y protección de activos</p>
+            </div>
         </div>
     </div>
 </section>
@@ -25,37 +42,28 @@ import '../styles/experience.css';
   
   // Función para ejecutar la animación
   const runAnimation = () => {
-    // Timeline para coordinar las animaciones
-    const timeline = anime.timeline({
-      easing: 'easeOutQuart',
-    });
-
-    // Animación del título
-    timeline.add({
-      targets: '.experience-container h2',
-      opacity: [0, 1],
-      translateY: [-30, 0],
-      duration: 600,
-      easing: 'easeOutCubic',
-    })
-    // Animación de la línea de fondo (escala horizontal)
-    .add({
-      targets: '.background-line',
-      opacity: [0, 1],
-      scaleX: [0, 1],
-      duration: 800,
-      easing: 'easeOutQuint',
-    }, '-=200')
-    // Animación de los items (staggered)
-    .add({
-      targets: '.experience-item',
-      opacity: [0, 1],
-      translateY: [40, 0],
-      scale: [0.9, 1],
-      duration: 600,
-      delay: anime.stagger(150),
-      easing: 'easeOutBack',
-    }, '-=400');
+    anime.timeline({ easing: 'easeOutCubic' })
+      .add({
+        targets: '.experience-container > h2',
+        opacity: [0, 1],
+        translateY: [-30, 0],
+        duration: 600,
+      })
+      .add({
+        targets: '.background-line',
+        opacity: [0, 1],
+        scaleX: [0, 1],
+        duration: 800,
+        easing: 'easeOutQuint',
+      }, '-=200')
+      .add({
+        targets: '.experience-item',
+        opacity: [0, 1],
+        translateY: [50, 0],
+        scale: [0.95, 1],
+        duration: 700,
+        delay: anime.stagger(180),
+      }, '-=400');
   };
   
   // Observar la sección cuando el DOM esté listo

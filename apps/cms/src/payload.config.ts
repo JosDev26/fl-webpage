@@ -1,7 +1,7 @@
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { s3Storage } from '@payloadcms/storage-s3'
 import sharp from 'sharp'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -50,13 +50,27 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   plugins: [
-    ...(process.env.BLOB_READ_WRITE_TOKEN
+    ...(process.env.S3_BUCKET
       ? [
-          vercelBlobStorage({
+          s3Storage({
             collections: {
-              media: true,
+              media: {
+                disablePayloadAccessControl: true,
+                generateFileURL: ({ filename }) => {
+                  return `${process.env.S3_PUBLIC_URL}/object/public/${process.env.S3_BUCKET}/${filename}`
+                },
+              },
             },
-            token: process.env.BLOB_READ_WRITE_TOKEN,
+            bucket: process.env.S3_BUCKET,
+            config: {
+              credentials: {
+                accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+                secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+              },
+              region: process.env.S3_REGION || 'us-east-1',
+              endpoint: process.env.S3_ENDPOINT,
+              forcePathStyle: true,
+            },
           }),
         ]
       : []),
