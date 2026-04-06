@@ -1,0 +1,140 @@
+:root {
+    --yellow-color: #FAD02C;
+    --dark-blue-color: #19304B;
+}
+
+.hidden-initial {
+    opacity: 0;
+}
+
+/* Contenedor de la sección */
+.process-container {
+    padding: clamp(4em, 8vw, 6em) clamp(1.5rem, 5vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título */
+.process-title {
+    font-size: clamp(1.4rem, 2.5vw, 2.5rem);
+    font-weight: 800;
+    color: #fff;
+    text-align: center;
+    margin: 0 0 clamp(0.3em, 0.5vw, 0.5em);
+}
+
+/* Subtítulo */
+.process-subtitle {
+    font-size: clamp(0.85rem, 1vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    margin: 0 0 clamp(2em, 4vw, 4em);
+    font-weight: 400;
+}
+
+/* Contenedor del timeline zigzag */
+.process-timeline {
+    width: min(900px, 85vw);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2em, 4vw, 3.5em);
+    position: relative;
+}
+
+/* Línea SVG del zigzag */
+.process-zigzag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: visible;
+    opacity: 0;
+}
+
+.process-line {
+    stroke: var(--yellow-color);
+    stroke-width: 3px;
+    fill: none;
+}
+
+/* Paso individual */
+.process-step {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.8em, 1.5vw, 1.5em);
+    width: clamp(200px, 55%, 350px);
+    position: relative;
+    z-index: 2;
+}
+
+/* Pasos impares: alineados a la izquierda, número a la izquierda (vértice izquierdo del zigzag) */
+.process-step:nth-child(odd) {
+    align-self: flex-start;
+    flex-direction: row;
+}
+
+.process-step:nth-child(odd) .process-content {
+    text-align: left;
+}
+
+/* Pasos pares: alineados a la derecha, número a la derecha (vértice derecho del zigzag) */
+.process-step:nth-child(even) {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.process-step:nth-child(even) .process-content {
+    text-align: right;
+}
+
+/* Número del paso (vértice del zigzag) */
+.process-number {
+    width: clamp(40px, 4vw, 60px);
+    height: clamp(40px, 4vw, 60px);
+    min-width: clamp(40px, 4vw, 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--yellow-color);
+    color: var(--dark-blue-color);
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+    font-weight: 800;
+    position: relative;
+    z-index: 2;
+    transition: box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.process-number:hover {
+    box-shadow: 0 8px 25px rgba(250, 208, 44, 0.3);
+}
+
+/* Contenido del paso */
+.process-content h3 {
+    font-size: clamp(0.95rem, 1.2vw, 1.3rem);
+    font-weight: 700;
+    color: var(--yellow-color);
+    margin: 0 0 clamp(0.2em, 0.3vw, 0.4em);
+}
+
+.process-content p {
+    font-size: clamp(0.8rem, 0.9vw, 1rem);
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 400;
+    text-wrap-style: balance;
+}
+
+/* Reducir movimiento para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    .process-step,
+    .process-title,
+    .process-subtitle {
+        transition: opacity 0.3s ease;
+    }
+    .process-number:hover {
+        transform: none;
+    }
+}

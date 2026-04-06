@@ -1,0 +1,74 @@
+---
+import '../styles/podcast.css';
+---
+<section class="podcast-container">
+    <div class="podcast-wrapper">
+
+        <div class="podcast-cover" style="opacity:0">
+            <img src={import.meta.env.BASE_URL + 'SoRealistas.webp'} alt="Soñadores y Realistas - Podcast por Fusión Legal" class="podcast-cover-img" loading="lazy" />
+        </div>
+
+        <div class="podcast-info">
+            <h2 class="podcast-title" style="opacity:0">EMPRENDER: HISTORIAS REALES Y SIN FILTRO</h2>
+
+            <p class="podcast-desc" style="opacity:0">
+                El derecho no es solo teoría; es el puente entre tus grandes ideas y el mundo real. Sintoniza conversaciones honestas donde aterrizamos los sueños legales con estrategias concretas.
+                <br><br>
+                En este podcast... más texto mencionando lo que ocurre en este, las personas que participan y los sucesos que se relatan, entre otros hechos, las personas que lo dirigen? cuando comenzó este proyecto? porqué comenzo?
+            </p>
+
+            <a href="https://open.spotify.com/show/5hFRNxzM4CBBEyOlEliYzR" target="_blank" rel="noopener noreferrer" class="podcast-cta" style="opacity:0">Sintonizar</a>
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.podcast-container');
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.podcast-cover',
+                                opacity: [0, 1],
+                                translateX: [-40, 0],
+                                duration: 700,
+                            })
+                            .add({
+                                targets: '.podcast-title',
+                                opacity: [0, 1],
+                                translateX: [40, 0],
+                                duration: 600,
+                            }, '-=400')
+                            .add({
+                                targets: '.podcast-desc',
+                                opacity: [0, 1],
+                                translateY: [20, 0],
+                                duration: 500,
+                            }, '-=300')
+                            .add({
+                                targets: '.podcast-cta',
+                                opacity: [0, 1],
+                                translateY: [20, 0],
+                                duration: 500,
+                            }, '-=300');
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>

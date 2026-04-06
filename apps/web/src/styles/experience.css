@@ -1,0 +1,160 @@
+:root{
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+body{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scrollbar */
+}
+/* Clase para elementos inicialmente ocultos */
+.hidden-initial {
+    opacity: 0;
+}
+h2{
+    font-size: calc(1.6vw + 0.9rem);
+    text-align: center;
+    font-weight: 800;
+    color: #fff;
+}
+.experience-container{
+    position: relative;
+    padding: clamp(4em, 8vw, 6em) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.experience-container .experience-items .experience-item p{
+    text-align: center;
+    font-size: calc(0.65rem + 0.4vw);
+    text-wrap-style: balance;
+}
+.experience-container .experience-items{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: clamp(1em, 1.5em, 2em);
+    flex-wrap: wrap;
+    padding: 0 1em;
+    position: relative;
+    z-index: 1;
+}
+.experience-container .experience-items h2{
+    color: var(--yellow-color);
+    padding: 0;
+    margin: 0;
+    font-size: clamp(1.6rem, 4vw, 3.2rem);
+}
+.experience-container .experience-items .card-back h2 {
+    color: var(--dark-blue-color);
+    padding: 0;
+    margin: 0;
+}
+.experience-container .experience-items .card-back p {
+    color: var(--dark-blue-color);
+}
+.experience-container p{
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+}
+.experience-container .experience-items .experience-item{
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    border: clamp(5px, 0.6vw, 8px) solid var(--yellow-color);
+    width: clamp(180px, 14vw, 260px);
+    min-height: clamp(120px, 6vw, 170px);
+    padding: clamp(1em, 1.5vw + 0.5em, 2em);
+    background-color: var(--dark-blue-color);
+    flex: 0 1 auto;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    cursor: pointer;
+    transition:
+        box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Relleno amarillo que sube desde abajo */
+.experience-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--yellow-color);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 0;
+}
+
+.experience-item:hover::before {
+    transform: scaleY(1);
+}
+
+.experience-item:hover {
+    border-color: #f5d957;
+    box-shadow:
+        0 0 38px rgba(250, 208, 44, 0.5),
+        0 16px 48px rgba(250, 208, 44, 0.3);
+}
+
+/* Cara frontal */
+.experience-item .card-front {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.28s ease;
+    pointer-events: none;
+}
+
+.experience-item:hover .card-front {
+    opacity: 0;
+}
+
+/* Cara trasera */
+.experience-item .card-back {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1em, 1.5vw + 0.5em, 2em);
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+        opacity 0.35s ease 0.18s,
+        transform 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.12s;
+    pointer-events: none;
+}
+
+.experience-item:hover .card-back {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.experience-container .background-line{
+    position: absolute;
+    width: 100vw;
+    height: clamp(50px, 8vh, 100px);
+    background-color: var(--yellow-color);
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    left: 50%;
+    top: 50%;
+    margin-left: -50vw;
+    margin-top: calc(clamp(50px, 8vh, 100px) / -2);
+    pointer-events: none;
+} 

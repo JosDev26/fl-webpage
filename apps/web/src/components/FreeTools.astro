@@ -1,0 +1,76 @@
+---
+import '../styles/freetools.css';
+---
+<section class="freetools-container">
+    <div class="freetools-content">
+        <h2 class="freetools-title hidden-initial">
+            EL PODER DE RESOLVER, <span class="highlight">EN TUS MANOS</span>
+        </h2>
+        <p class="freetools-subtitle hidden-initial">
+            Accede a una variedad de herramientas y recursos digitales diseñados para brindarte agilidad, control y respuestas inmediatas en un solo lugar.
+        </p>
+
+        <div class="freetools-grid">
+            <a href="#" class="freetool-card hidden-initial">
+                <div class="freetool-icon">
+                    <i class="ph ph-cube"></i>
+                </div>
+                <span class="freetool-name">Inicio Inteligente</span>
+                <span class="freetool-desc">Texto descriptivo de no más de 3 o 4 oraciones mostrando las características relevantes de la herramienta</span>
+            </a>
+            <a href="#" class="freetool-card hidden-initial">
+                <div class="freetool-icon">
+                    <i class="ph ph-lightbulb"></i>
+                </div>
+                <span class="freetool-name">Inicio Inteligente</span>
+                <span class="freetool-desc">Texto descriptivo de no más de 3 o 4 oraciones mostrando las características relevantes de la herramienta</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.freetools-container');
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.freetools-title',
+                                opacity: [0, 1],
+                                translateY: [30, 0],
+                                duration: 600,
+                            })
+                            .add({
+                                targets: '.freetools-subtitle',
+                                opacity: [0, 1],
+                                translateY: [20, 0],
+                                duration: 500,
+                            }, '-=300')
+                            .add({
+                                targets: '.freetool-card',
+                                opacity: [0, 1],
+                                translateY: [50, 0],
+                                scale: [0.95, 1],
+                                duration: 700,
+                                delay: anime.stagger(180),
+                            }, '-=300');
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>

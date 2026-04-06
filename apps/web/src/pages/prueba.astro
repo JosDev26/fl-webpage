@@ -1,0 +1,192 @@
+---
+// Componente principal de Astro - Banner de Podcast
+// No requiere dependencias locales, usa fuentes y recursos por CDN para facil despliegue.
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Podcast - Soñadores y Realistas</title>
+    
+    <!-- Fuente: Nunito Sans con diferentes grosores -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+    
+    <!-- Iconos: Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+      /* Variables de Paleta de Colores */
+      :root {
+        --bg-dark: #1f2b3e;       /* Azul oscuro del fondo principal */
+        --cover-dark: #0b131c;    /* Azul casi negro para la portada del podcast */
+        --primary-yellow: #fcd02d;/* Amarillo principal */
+        --text-white: #ffffff;    /* Texto claro */
+        --text-gray: #c9d1d9;     /* Texto de descripciones */
+        --badge-bg: #b6c9d8;      /* Fondo celeste para la etiqueta del podcast */
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: var(--bg-dark);
+        font-family: 'Nunito Sans', sans-serif;
+        /* Evitar scroll horizontal por las franjas que se extienden */
+        overflow-x: hidden; 
+      }
+
+      /* Contenedor principal a pantalla completa */
+      .podcast-section {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Padding fluido para evitar pegar a los bordes */
+        padding: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 5vw, 3rem);
+      }
+
+      /* Grid / Flex Wrapper que se adapta automáticamente */
+      .podcast-container {
+        display: flex;
+        flex-wrap: wrap; /* La magia responsiva sin media queries */
+        width: 100%;
+        max-width: 1200px;
+        gap: clamp(1rem, 2.5vw, 2rem); /* <-- Reducido para acercar el título a la imagen */
+        align-items: flex-start; /* <-- Modificado para que todo alinee exactamente arriba */
+      }
+
+      /* =========================================
+         COLUMNA IZQUIERDA: PORTADA DEL PODCAST
+         ========================================= */
+      .podcast-left {
+        /* Crece y se encoge, tamaño base 300px */
+        flex: 1 1 300px;
+        max-width: 450px;
+        margin: 0 auto; /* Centrar en móviles cuando se apile */
+        position: relative;
+        /* Al aplicar padding y color de fondo, creamos el marco inferior e izquierdo mágicamente */
+        background-color: var(--primary-yellow);
+        padding: 0 0 clamp(10px, 2vw, 15px) clamp(10px, 2vw, 15px);
+      }
+
+      /* Línea amarilla que sale hacia la izquierda de la pantalla */
+      .podcast-left::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 100%; /* Inicia donde termina el borde izquierdo */
+        width: 50vw; /* Asegura que cubra hasta el borde de la pantalla */
+        height: clamp(10px, 2vw, 15px); /* Mismo grosor que el marco */
+        background-color: var(--primary-yellow);
+      }
+
+      /* Imagen de la portada */
+      .cover-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        display: block;
+        background-color: var(--cover-dark);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      /* =========================================
+         COLUMNA DERECHA: TEXTO E INFORMACIÓN
+         ========================================= */
+      .podcast-right {
+        /* Toma más espacio disponible, tamaño base 450px */
+        flex: 1 1 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Alinear contenido a la izquierda */
+        /* Se eliminó el margin-top para que quede exactamente al mismo nivel que la imagen */
+      }
+
+      /* Banner de título que se extiende a la derecha */
+      .info-title {
+        background-color: var(--primary-yellow);
+        color: var(--cover-dark);
+        padding: clamp(0.6rem, 1vw, 0.8rem) clamp(1rem, 2vw, 1.5rem);
+        font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+        position: relative;
+        align-self: flex-start; /* Evitar que ocupe todo el ancho interno antes de usar el pseudo-elemento */
+      }
+
+      /* El pseudo-elemento crea el sangrado amarillo infinito hacia la derecha */
+      .info-title::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 100%;
+        width: 50vw;
+        height: 100%;
+        background-color: var(--primary-yellow);
+      }
+
+      /* Texto descriptivo */
+      .info-desc {
+        color: var(--text-gray);
+        font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+        line-height: 1.7;
+        margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+        max-width: 650px;
+      }
+
+      /* Botón de acción */
+      .btn-sintonizar {
+        background-color: var(--primary-yellow);
+        color: var(--cover-dark);
+        border: none;
+        padding: 0.8rem 2.5rem;
+        font-weight: 800;
+        font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+        cursor: pointer;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        font-family: inherit;
+      }
+
+      .btn-sintonizar:hover {
+        transform: translateY(-3px);
+        opacity: 0.95;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <section class="podcast-section">
+      <div class="podcast-container">
+        
+        <!-- Columna Izquierda: Portada -->
+        <div class="podcast-left">
+          <img src="SoRealistas.webp" alt="Soñadores y Realistas - Podcast por Fusión Legal" class="cover-image" />
+        </div>
+
+        <!-- Columna Derecha: Información -->
+        <div class="podcast-right">
+          <h1 class="info-title">EMPRENDER: HISTORIAS REALES Y SIN FILTRO</h1>
+          
+          <p class="info-desc">
+            El derecho no es solo teoría; es el puente entre tus grandes ideas y el mundo real. Sintoniza conversaciones honestas donde aterrizamos los sueños legales con estrategias concretas.
+            <br><br>
+            En este podcast... más texto mencionando lo que ocurre en este, las personas que participan y los sucesos que se relatan, entre otros hechos, las personas que lo dirigen? cuando comenzó este proyecto? porqué comenzo?
+          </p>
+          
+          <button class="btn-sintonizar">Sintonizar</button>
+        </div>
+
+      </div>
+    </section>
+
+  </body>
+</html>

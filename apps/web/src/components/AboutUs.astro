@@ -1,0 +1,228 @@
+---
+import '../styles/aboutus.css';
+---
+
+<section class="aboutus-container">
+
+    <!-- Hero de la sección -->
+    <div class="aboutus-hero">
+        <div class="aboutus-hero-corners" aria-hidden="true">
+            <div class="aboutus-corner aboutus-corner-tl"></div>
+            <div class="aboutus-corner aboutus-corner-br"></div>
+        </div>
+        <p class="aboutus-eyebrow hidden-initial">FUSIÓN LEGAL CR</p>
+        <h1 class="aboutus-title hidden-initial">QUIÉNES <span class="highlight">SOMOS</span></h1>
+        <p class="aboutus-lead hidden-initial">Un despacho legal comprometido con la transparencia, la agilidad y el resultado.</p>
+    </div>
+
+    <!-- Descripción principal -->
+    <div class="aboutus-mission">
+        <div class="aboutus-mission-content hidden-initial">
+            <h2 class="aboutus-mission-title">CUANDO LA <span class="highlight">DISRUPCIÓN</span> Y EL <span class="highlight">DERECHO</span> SE FUSIONAN</h2>
+            <p class="aboutus-mission-body">La verdadera disrupción es lograr que lo legal sea ágil y transparente. En Fusión Legal, nuestro equipo integra conocimiento experto y eficiencia operativa para brindarte una atención superior. Superamos los modelos tradicionales para ofrecerte un servicio confiable, rápido y de excelencia. Somos la evolución que tu defensa legal necesita.</p>
+        </div>
+        <div class="aboutus-mission-image hidden-initial">
+            <img src={import.meta.env.BASE_URL + 'lawImage.webp'} alt="Equipo Fusión Legal CR" loading="lazy" />
+        </div>
+    </div>
+
+    <!-- Lo que nos mueve -->
+    <div class="aboutus-moves">
+        <h2 class="aboutus-section-title centered hidden-initial">LO QUE NOS <span class="highlight">MUEVE</span></h2>
+        <div class="aboutus-moves-grid">
+            <div class="aboutus-moves-bracket" aria-hidden="true"></div>
+
+            <div class="aboutus-move-card hidden-initial" tabindex="0">
+                <div class="aboutus-move-front">
+                    <i class="ph ph-target"></i>
+                    <span class="aboutus-move-label">Nuestra Pasión</span>
+                </div>
+                <div class="aboutus-move-back">
+                    <span class="aboutus-move-tag">Misión</span>
+                    <p class="aboutus-move-body">Ser una firma líder y referente a nivel nacional e internacional, la cual a través de su confiabilidad y prestigio pueda brindar a nuestros clientes, soluciones a sus conflictos y asesoría.</p>
+                </div>
+            </div>
+
+            <div class="aboutus-move-card hidden-initial" tabindex="0">
+                <div class="aboutus-move-front">
+                    <i class="ph ph-lightbulb"></i>
+                    <span class="aboutus-move-label">Nuestra Aspiración</span>
+                </div>
+                <div class="aboutus-move-back">
+                    <span class="aboutus-move-tag">Visión</span>
+                    <p class="aboutus-move-body">Brindar servicios legales y notariales de forma pronta, responsable y trasparente, ofreciendo soluciones integrales alternativas y confiables a nuestros clientes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fundadores -->
+    <div class="aboutus-team">
+        <h2 class="aboutus-section-title centered hidden-initial"><span class="highlight">LOS FUNDADORES</span> DETRÁS DE CADA SOLUCIÓN</h2>
+
+        <div class="aboutus-profiles">
+            <!-- Carlos -->
+            <div class="aboutus-profile-card aboutus-carlos hidden-initial">
+                <div class="aboutus-image-side aboutus-carlos-img">
+                    <div class="aboutus-circle"></div>
+                    <img src={import.meta.env.BASE_URL + 'carlos.png'} alt="Carlos Eduardo Mena Arce" class="aboutus-img-person" loading="lazy" />
+                </div>
+                <div class="aboutus-text-side aboutus-carlos-text">
+                    <div class="aboutus-header-group">
+                        <h3 class="aboutus-founder-name">Carlos Eduardo Mena Arce</h3>
+                        <p class="aboutus-founder-role">Socio Director. Abogado Especialista</p>
+                    </div>
+                    <div class="aboutus-p-wrapper aboutus-carlos-pw">
+                        <p class="aboutus-founder-bio">
+                            Nuestro Socio Fundador, el señor Mena, posee experiencia en el área 
+                            de litigio, y asesoría contractual a empresas del sector inmobiliario y 
+                            comercial. Trabajó para el Poder Judicial de Costa Rica, en donde se 
+                            desempeñó en el Organismo de Investigación Judicial y el Juzgado 
+                            Penal. Es profesor universitario, tiene un Máster en Criminología, 
+                            Especialista en Derecho Notarial y Registral, y especialista en 
+                            Asesoría y Práctica Tributaria.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rebeca -->
+            <div class="aboutus-profile-card aboutus-rebeca aboutus-reverse hidden-initial">
+                <div class="aboutus-text-side aboutus-rebeca-text">
+                    <div class="aboutus-header-group">
+                        <h3 class="aboutus-founder-name">Rebeca Chacón Montero</h3>
+                        <p class="aboutus-founder-role">Socia Directora. Abogada y Notaria</p>
+                    </div>
+                    <div class="aboutus-p-wrapper aboutus-rebeca-pw">
+                        <p class="aboutus-founder-bio">
+                            La señora Chacón, tiene más de 12 años de trabajar para el sector 
+                            privado, desempeñándose en áreas como el derecho administrativo, 
+                            alianzas público-privadas, consultoría, asesoría corporativa y 
+                            propiedad intelectual. Es Notaria Pública y cuenta con un Máster 
+                            Especializado en Compliance.
+                        </p>
+                    </div>
+                </div>
+                <div class="aboutus-image-side aboutus-rebeca-img">
+                    <div class="aboutus-circle"></div>
+                    <img src={import.meta.env.BASE_URL + 'rebecca.png'} alt="Rebeca Chacón Montero" class="aboutus-img-person" loading="lazy" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('.aboutus-container');
+        if (!container) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        /* Hero */
+        setTimeout(() => {
+            anime.timeline({ easing: 'easeOutCubic' })
+                .add({
+                    targets: '.aboutus-eyebrow',
+                    opacity: [0, 1],
+                    translateY: [-20, 0],
+                    duration: 500,
+                })
+                .add({
+                    targets: '.aboutus-title',
+                    opacity: [0, 1],
+                    translateY: [30, 0],
+                    duration: 600,
+                }, '-=300')
+                .add({
+                    targets: '.aboutus-lead',
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    duration: 500,
+                }, '-=300');
+        }, delay);
+
+        /* Misión */
+        const missionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    anime.timeline({ easing: 'easeOutCubic' })
+                        .add({
+                            targets: '.aboutus-mission-content',
+                            opacity: [0, 1],
+                            translateX: [-40, 0],
+                            duration: 700,
+                        })
+                        .add({
+                            targets: '.aboutus-mission-image',
+                            opacity: [0, 1],
+                            translateX: [40, 0],
+                            duration: 700,
+                        }, '-=500');
+                    missionObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.2 });
+
+        const missionSection = document.querySelector('.aboutus-mission');
+        if (missionSection) missionObserver.observe(missionSection);
+
+        /* Lo que nos mueve */
+        const movesObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    anime.timeline({ easing: 'easeOutCubic' })
+                        .add({
+                            targets: '.aboutus-moves .aboutus-section-title',
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            duration: 600,
+                        })
+                        .add({
+                            targets: '.aboutus-move-card',
+                            opacity: [0, 1],
+                            translateY: [50, 0],
+                            scale: [0.95, 1],
+                            duration: 700,
+                            delay: anime.stagger(180),
+                        }, '-=300');
+                    movesObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.2 });
+
+        const movesSection = document.querySelector('.aboutus-moves');
+        if (movesSection) movesObserver.observe(movesSection);
+
+        /* Fundadores */
+        const teamObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    anime.timeline({ easing: 'easeOutCubic' })
+                        .add({
+                            targets: '.aboutus-team .aboutus-section-title',
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            duration: 600,
+                        })
+                        .add({
+                            targets: '.aboutus-profile-card',
+                            opacity: [0, 1],
+                            translateY: [40, 0],
+                            duration: 700,
+                            delay: anime.stagger(250),
+                        }, '-=300');
+                    teamObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const teamSection = document.querySelector('.aboutus-team');
+        if (teamSection) teamObserver.observe(teamSection);
+    });
+</script>

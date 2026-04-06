@@ -1,5 +1,6 @@
 # build output
 dist/
+.next/
 
 # generated types
 .astro/
@@ -24,3 +25,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Payload CMS
+media/
