@@ -1,0 +1,102 @@
+:root {
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+.hidden-initial {
+  opacity: 0;
+}
+
+.header-negocio-nuevo-container {
+  box-sizing: border-box;
+  min-height: 100dvh;
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  padding: clamp(3rem, 7vw, 6rem) 0;
+  background-color: var(--dark-blue-color);
+}
+
+.header-negocio-nuevo-content {
+  text-align: center;
+  max-width: min(820px, 100%);
+  display: grid;
+  gap: clamp(1.6rem, 2.2vw, 2.4rem);
+}
+
+.hero-icon-wrapper {
+  width: clamp(4.5rem, 6vw, 6rem);
+  height: clamp(4.5rem, 6vw, 6rem);
+  display: grid;
+  place-items: center;
+  border: clamp(3px, 0.25vw, 4px) solid var(--yellow-color);
+  color: var(--yellow-color);
+  margin: 0 auto;
+}
+
+.hero-icon-wrapper .ph {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.header-negocio-nuevo-title {
+  color: var(--yellow-color);
+  font-size: clamp(2.4rem, 4vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.header-negocio-nuevo-copy {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(0.95rem, 1.4vw, 1.3rem);
+  line-height: 1.8;
+  margin: 0 auto;
+  max-width: 740px;
+}
+
+.header-negocio-nuevo-divider {
+  width: clamp(8rem, 18vw, 14rem);
+  height: clamp(3px, 0.5vw, 4px);
+  background-color: var(--yellow-color);
+  margin: 0 auto;
+  transform-origin: left;
+}
+
+@media (max-width: 900px) {
+  .header-negocio-nuevo-content {
+    gap: clamp(1.2rem, 3vw, 1.8rem);
+  }
+
+  .header-negocio-nuevo-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .header-negocio-nuevo-container {
+    padding: clamp(2.5rem, 9vw, 4rem) 0;
+  }
+
+  .header-negocio-nuevo-copy {
+    font-size: clamp(0.95rem, 2.8vw, 1.05rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-negocio-nuevo-container,
+  .header-negocio-nuevo-content,
+  .hero-icon-wrapper,
+  .header-negocio-nuevo-title,
+  .header-negocio-nuevo-copy,
+  .header-negocio-nuevo-divider {
+    transition: opacity 0.3s ease;
+  }
+
+  .hero-icon-wrapper,
+  .header-negocio-nuevo-title,
+  .header-negocio-nuevo-copy,
+  .header-negocio-nuevo-divider {
+    transform: none !important;
+  }
+}

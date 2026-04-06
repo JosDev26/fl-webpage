@@ -1,0 +1,74 @@
+---
+import '../styles/header-negocio-nuevo.css';
+---
+
+<section class="header-negocio-nuevo-container">
+  <div class="header-negocio-nuevo-content">
+    <div class="hero-icon-wrapper hidden-initial" aria-hidden="true">
+      <i class="ph ph-rocket-launch"></i>
+    </div>
+
+    <h1 class="header-negocio-nuevo-title hidden-initial">
+      Quiero establecer un negocio en Costa Rica
+    </h1>
+
+    <p class="header-negocio-nuevo-copy hidden-initial">
+      Transformamos la complejidad legal en una hoja de ruta clara para tu emprendimiento. Te acompañamos desde la planificación tributaria hasta la protección de tu marca, asegurando que tu negocio nazca blindado y listo para crecer sin riesgos innecesarios.
+    </p>
+
+    <div class="header-negocio-nuevo-divider hidden-initial" aria-hidden="true"></div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+  declare const anime: any;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const targetElement = document.querySelector('.header-negocio-nuevo-container');
+    if (!targetElement) return;
+
+    const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+    const delay = isRestoring ? 150 : 0;
+
+    setTimeout(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            anime.timeline({ easing: 'easeOutQuart' })
+              .add({
+                targets: '.hero-icon-wrapper',
+                opacity: [0, 1],
+                translateY: [24, 0],
+                duration: 650,
+              })
+              .add({
+                targets: '.header-negocio-nuevo-title',
+                opacity: [0, 1],
+                translateY: [32, 0],
+                duration: 700,
+              }, '-=350')
+              .add({
+                targets: '.header-negocio-nuevo-copy',
+                opacity: [0, 1],
+                translateY: [24, 0],
+                duration: 650,
+              }, '-=400')
+              .add({
+                targets: '.header-negocio-nuevo-divider',
+                opacity: [0, 1],
+                scaleX: [0, 1],
+                duration: 500,
+              }, '-=450');
+
+            observer.disconnect();
+          }
+        });
+      }, {
+        threshold: 0.2,
+      });
+
+      observer.observe(targetElement);
+    }, delay);
+  });
+</script>
