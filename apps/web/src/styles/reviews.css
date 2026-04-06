@@ -353,7 +353,20 @@
   border-radius: 3px;
   transition: width 0.05s linear;
 }
-
+/* Logo de empresa */
+.company-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Mantiene proporciones del logo */
+    border-radius: 0; /* Sin border-radius según convenciones */
+    background-color: rgba(255, 255, 255, 0.05); /* Fondo sutil para logos transparentes */
+    padding: 0.5rem; /* Espacio interno para logos pequeños */
+}
+/* Ajustes para logos de empresa */
+.reviewer-avatar:has(.company-logo) {
+    background-color: rgba(255, 255, 255, 0.05); /* Fondo sutil */
+    border: 1px solid rgba(250, 208, 44, 0.2); /* Borde sutil amarillo */
+}
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .review-card,
@@ -450,6 +463,7 @@
     left: 0;
     transition: opacity 0.3s ease;
   }
+  
 
   /* Tarjeta activa: position relative para que dicte la altura */
   .review-card.active {
