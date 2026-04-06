@@ -1,440 +1,192 @@
 ---
-// Componente: Fundadores.astro
-// Descripción: Sección de fundadores responsive sin uso de media queries.
-import Layout from '../layouts/Layout.astro';
+// Componente principal de Astro - Banner de Podcast
+// No requiere dependencias locales, usa fuentes y recursos por CDN para facil despliegue.
 ---
 
-<Layout>
-<section class="section-fundadores">
-  <div class="container">
-    <h2 class="title">
-      <span class="title-highlight">LOS FUNDADORES</span> DETRÁS DE CADA SOLUCIÓN
-    </h2>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Podcast - Soñadores y Realistas</title>
+    
+    <!-- Fuente: Nunito Sans con diferentes grosores -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+    
+    <!-- Iconos: Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <div class="profiles">
-      <!-- Perfil: Carlos -->
-      <div class="profile-card carlos">
-        <div class="image-side carlos-img-side">
-          <div class="circle"></div>
-          <img src="carlos.png" alt="Carlos Eduardo Mena Arce" class="img-person" />
+    <style>
+      /* Variables de Paleta de Colores */
+      :root {
+        --bg-dark: #1f2b3e;       /* Azul oscuro del fondo principal */
+        --cover-dark: #0b131c;    /* Azul casi negro para la portada del podcast */
+        --primary-yellow: #fcd02d;/* Amarillo principal */
+        --text-white: #ffffff;    /* Texto claro */
+        --text-gray: #c9d1d9;     /* Texto de descripciones */
+        --badge-bg: #b6c9d8;      /* Fondo celeste para la etiqueta del podcast */
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: var(--bg-dark);
+        font-family: 'Nunito Sans', sans-serif;
+        /* Evitar scroll horizontal por las franjas que se extienden */
+        overflow-x: hidden; 
+      }
+
+      /* Contenedor principal a pantalla completa */
+      .podcast-section {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Padding fluido para evitar pegar a los bordes */
+        padding: clamp(2rem, 5vw, 5rem) clamp(1.5rem, 5vw, 3rem);
+      }
+
+      /* Grid / Flex Wrapper que se adapta automáticamente */
+      .podcast-container {
+        display: flex;
+        flex-wrap: wrap; /* La magia responsiva sin media queries */
+        width: 100%;
+        max-width: 1200px;
+        gap: clamp(1rem, 2.5vw, 2rem); /* <-- Reducido para acercar el título a la imagen */
+        align-items: flex-start; /* <-- Modificado para que todo alinee exactamente arriba */
+      }
+
+      /* =========================================
+         COLUMNA IZQUIERDA: PORTADA DEL PODCAST
+         ========================================= */
+      .podcast-left {
+        /* Crece y se encoge, tamaño base 300px */
+        flex: 1 1 300px;
+        max-width: 450px;
+        margin: 0 auto; /* Centrar en móviles cuando se apile */
+        position: relative;
+        /* Al aplicar padding y color de fondo, creamos el marco inferior e izquierdo mágicamente */
+        background-color: var(--primary-yellow);
+        padding: 0 0 clamp(10px, 2vw, 15px) clamp(10px, 2vw, 15px);
+      }
+
+      /* Línea amarilla que sale hacia la izquierda de la pantalla */
+      .podcast-left::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 100%; /* Inicia donde termina el borde izquierdo */
+        width: 50vw; /* Asegura que cubra hasta el borde de la pantalla */
+        height: clamp(10px, 2vw, 15px); /* Mismo grosor que el marco */
+        background-color: var(--primary-yellow);
+      }
+
+      /* Imagen de la portada */
+      .cover-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        display: block;
+        background-color: var(--cover-dark);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      /* =========================================
+         COLUMNA DERECHA: TEXTO E INFORMACIÓN
+         ========================================= */
+      .podcast-right {
+        /* Toma más espacio disponible, tamaño base 450px */
+        flex: 1 1 450px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Alinear contenido a la izquierda */
+        /* Se eliminó el margin-top para que quede exactamente al mismo nivel que la imagen */
+      }
+
+      /* Banner de título que se extiende a la derecha */
+      .info-title {
+        background-color: var(--primary-yellow);
+        color: var(--cover-dark);
+        padding: clamp(0.6rem, 1vw, 0.8rem) clamp(1rem, 2vw, 1.5rem);
+        font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+        position: relative;
+        align-self: flex-start; /* Evitar que ocupe todo el ancho interno antes de usar el pseudo-elemento */
+      }
+
+      /* El pseudo-elemento crea el sangrado amarillo infinito hacia la derecha */
+      .info-title::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 100%;
+        width: 50vw;
+        height: 100%;
+        background-color: var(--primary-yellow);
+      }
+
+      /* Texto descriptivo */
+      .info-desc {
+        color: var(--text-gray);
+        font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+        line-height: 1.7;
+        margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+        max-width: 650px;
+      }
+
+      /* Botón de acción */
+      .btn-sintonizar {
+        background-color: var(--primary-yellow);
+        color: var(--cover-dark);
+        border: none;
+        padding: 0.8rem 2.5rem;
+        font-weight: 800;
+        font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+        cursor: pointer;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        font-family: inherit;
+      }
+
+      .btn-sintonizar:hover {
+        transform: translateY(-3px);
+        opacity: 0.95;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <section class="podcast-section">
+      <div class="podcast-container">
+        
+        <!-- Columna Izquierda: Portada -->
+        <div class="podcast-left">
+          <img src="SoRealistas.webp" alt="Soñadores y Realistas - Podcast por Fusión Legal" class="cover-image" />
         </div>
-        <div class="text-side carlos-text-side">
-          <div class="header-group">
-            <h3>Carlos Eduardo Mena Arce</h3>
-            <h4>Socio Director. Abogado Especialista</h4>
-          </div>
-          <div class="p-wrapper carlos-p-wrapper">
-            <p>
-              Nuestro Socio Fundador, el señor Mena, posee experiencia en el área 
-              de litigio, y asesoría contractual a empresas del sector inmobiliario y 
-              comercial. Trabajó para el Poder Judicial de Costa Rica, en donde se 
-              desempeñó en el Organismo de Investigación Judicial y el Juzgado 
-              Penal. Es profesor universitario, tiene un Máster en Criminología, 
-              Especialista en Derecho Notarial y Registral, y especialista en 
-              Asesoría y Práctica Tributaria.
-            </p>
-          </div>
+
+        <!-- Columna Derecha: Información -->
+        <div class="podcast-right">
+          <h1 class="info-title">EMPRENDER: HISTORIAS REALES Y SIN FILTRO</h1>
+          
+          <p class="info-desc">
+            El derecho no es solo teoría; es el puente entre tus grandes ideas y el mundo real. Sintoniza conversaciones honestas donde aterrizamos los sueños legales con estrategias concretas.
+            <br><br>
+            En este podcast... más texto mencionando lo que ocurre en este, las personas que participan y los sucesos que se relatan, entre otros hechos, las personas que lo dirigen? cuando comenzó este proyecto? porqué comenzo?
+          </p>
+          
+          <button class="btn-sintonizar">Sintonizar</button>
         </div>
+
       </div>
+    </section>
 
-      <!-- Perfil: Rebeca -->
-      <!-- Utilizamos "reverse" para que flex-wrap: wrap-reverse coloque la imagen arriba en móviles -->
-      <div class="profile-card rebeca reverse">
-        <div class="text-side rebeca-text-side">
-          <div class="header-group">
-            <h3>Rebeca Chacón Montero</h3>
-            <h4>Socia Directora. Abogada y Notaria</h4>
-          </div>
-          <div class="p-wrapper rebeca-p-wrapper">
-            <p>
-              La señora Chacón, tiene más de 12 años de trabajar para el sector 
-              privado, desempeñándose en áreas como el derecho administrativo, 
-              alianzas público-privadas, consultoría, asesoría corporativa y 
-              propiedad intelectual. Es Notaria Pública y cuenta con un Máster 
-              Especializado en Compliance.
-            </p>
-          </div>
-        </div>
-        <div class="image-side rebeca-img-side">
-          <div class="circle"></div>
-          <img src="rebecca.png" alt="Rebeca Chacón Montero" class="img-person" />
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-</Layout>
-
-<style>
-  /* Variables de diseño */
-  :root {
-    --bg-color: #1f2d42;
-    --accent: #ffc72c;
-    --circle: #263852;
-    --text-light: #ffffff;
-    --line-width: clamp(10px, 0.8vw, 14px);
-    --edge-pad: clamp(1rem, 2.6vw, 2rem);
-    --stagger: clamp(0px, (100vw - 900px) * 999, 110px);
-  }
-
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  .section-fundadores {
-    background-color: var(--bg-color);
-    padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 5vw, 2rem);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: var(--text-light);
-    overflow: hidden;
-  }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  /* --- HEADER --- */
-  .title {
-    text-align: center;
-    font-size: clamp(1.6rem, 4vw, 2.5rem);
-    font-weight: 700;
-    margin-bottom: clamp(3rem, 8vw, 6rem);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .title-highlight {
-    color: var(--accent);
-    position: relative;
-    display: inline-block;
-  }
-
-  .title-highlight::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -0.2em;
-    width: 100%;
-    height: 4px;
-    background-color: var(--accent);
-  }
-
-  /* --- CONTENEDOR DE PERFILES --- */
-  .profiles {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: clamp(4rem, 8vw, 7rem);
-  }
-
-  .profile-card {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    justify-content: flex-start;
-    width: min(100%, 980px);
-    column-gap: 0;
-    row-gap: 0;
-    transition: transform 0.3s ease;
-    container-type: inline-size;
-  }
-
-  .profile-card.carlos {
-    align-self: flex-start;
-    transform: translateX(calc(var(--stagger) * -1));
-  }
-  .profile-card.rebeca {
-    align-self: flex-end;
-    transform: translateX(var(--stagger));
-  }
-
-  .profile-card.reverse {
-    flex-wrap: wrap-reverse;
-  }
-
-  /* --- SECCIÓN DE IMAGEN (Desktop) --- */
-  .image-side {
-    flex: 0 1 185px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    isolation: isolate;
-    z-index: 0;
-  }
-
-  .circle {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: min(clamp(145px, 18vw, 200px), 100%);
-    aspect-ratio: 1;
-    background-color: var(--circle);
-    border-radius: 50%;
-    z-index: -2;
-  }
-
-  .img-person {
-    position: relative;
-    z-index: 1;
-    width: auto;
-    max-width: clamp(96px, 10.5vw, 130px);
-    height: clamp(160px, 17vw, 220px);
-    object-fit: contain;
-    object-position: bottom center;
-    display: block;
-  }
-
-  .rebeca-img-side .img-person {
-    height: clamp(200px, 22vw, 280px);
-    max-width: clamp(120px, 13vw, 165px);
-  }
-
-  /* --- SECCIÓN DE TEXTO (Desktop) --- */
-  .text-side {
-    flex: 2 1 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: clamp(0.35rem, 0.7vw, 0.55rem);
-  }
-
-  .header-group {
-    padding-bottom: 0;
-  }
-
-  h3 {
-    color: var(--accent);
-    font-size: clamp(1.85rem, 3.5vw, 2.8rem);
-    font-weight: 700;
-    margin-bottom: 0.3rem;
-    line-height: 1.1;
-  }
-
-  h4 {
-    color: var(--accent);
-    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-    font-weight: 600;
-    margin-bottom: 0;
-    line-height: 1.2;
-  }
-
-  p {
-    font-size: clamp(0.9rem, 1.3vw, 1rem);
-    line-height: 1.6;
-    opacity: 0.95;
-    max-width: 550px;
-  }
-
-  /* ==============================
-     LÍNEAS "L" — Desktop
-     ============================== */
-
-  /* Carlos (Imagen Izquierda → Texto Derecha) */
-  .carlos-img-side {
-    border-bottom: var(--line-width) solid var(--accent);
-    padding-right: clamp(0.5rem, 1vw, 0.8rem);
-  }
-
-  .carlos-img-side::after {
-    content: '';
-    position: absolute;
-    right: calc(var(--line-width) * -1);
-    bottom: calc(var(--line-width) * -1);
-    width: var(--line-width);
-    height: var(--line-width);
-    background-color: var(--accent);
-  }
-
-  .carlos-text-side .header-group {
-    padding-left: 0;
-    padding-right: var(--edge-pad);
-  }
-
-  .carlos-p-wrapper {
-    position: relative;
-    padding-left: var(--edge-pad);
-    padding-right: var(--edge-pad);
-    padding-top: 0;
-    padding-bottom: 0;
-    flex: 1;
-    display: flex;
-    align-items: center;
-  }
-
-  .carlos-p-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: var(--line-width);
-    background-color: var(--accent);
-  }
-
-  /* Rebeca (Texto Izquierda → Imagen Derecha) */
-  .rebeca-img-side {
-    border-bottom: var(--line-width) solid var(--accent);
-    padding-left: clamp(0.5rem, 1vw, 0.8rem);
-  }
-
-  .rebeca-img-side::after {
-    content: '';
-    position: absolute;
-    left: calc(var(--line-width) * -1);
-    bottom: calc(var(--line-width) * -1);
-    width: var(--line-width);
-    height: var(--line-width);
-    background-color: var(--accent);
-  }
-
-  .rebeca-text-side {
-    text-align: right;
-  }
-
-  .rebeca-text-side .header-group {
-    padding-right: 0;
-    padding-left: var(--edge-pad);
-  }
-
-  .rebeca-text-side p {
-    margin-left: auto;
-  }
-
-  .rebeca-p-wrapper {
-    position: relative;
-    padding-right: var(--edge-pad);
-    padding-left: var(--edge-pad);
-    padding-top: 0;
-    padding-bottom: 0;
-    flex: 1;
-    display: flex;
-    align-items: center;
-  }
-
-  .rebeca-p-wrapper::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: var(--line-width);
-    background-color: var(--accent);
-  }
-
-  /* ==============================
-     RESPONSIVE — Container Query
-     Sin @media, basado en el ancho
-     del propio .profile-card
-     ============================== */
-
-  @container (max-width: 560px) {
-    .profile-card,
-    .profile-card.reverse,
-    .profile-card.carlos,
-    .profile-card.rebeca {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      grid-template-areas:
-        'image'
-        'text';
-      justify-items: center;
-      align-items: start;
-      align-self: center;
-      row-gap: 0;
-      transform: none !important;
-      width: 100%;
-    }
-
-    .image-side {
-      grid-area: image;
-      width: 100% !important;
-      flex: none !important;
-      min-width: 0 !important;
-      max-width: none !important;
-      display: flex !important;
-      justify-content: center;
-      align-items: flex-end;
-      border: none !important;
-      padding: 0;
-      margin-bottom: clamp(0.5rem, 2vw, 1rem);
-      overflow: visible;
-      position: relative;
-    }
-
-    .image-side::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: clamp(50px, 12vw, 80px);
-      background: linear-gradient(to bottom, transparent 0%, var(--bg-color) 100%);
-      z-index: 2;
-      pointer-events: none;
-      display: block !important;
-      width: 100% !important;
-      transform: none !important;
-    }
-
-    .circle {
-      display: none;
-    }
-
-    .img-person {
-      width: clamp(130px, 40vw, 180px);
-      display: block;
-      margin: 0 auto;
-    }
-
-    .text-side {
-      grid-area: text;
-      width: 100%;
-      max-width: 32rem;
-      align-items: center;
-      text-align: center;
-      justify-self: center;
-    }
-
-    .header-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0 !important;
-    }
-
-    .p-wrapper {
-      position: relative;
-      width: 100%;
-      padding: clamp(1rem, 3vw, 1.5rem) 0 0 0 !important;
-      margin-top: clamp(0.6rem, 1.5vw, 0.9rem);
-      flex: none;
-    }
-
-    .p-wrapper::before {
-      top: 0 !important;
-      bottom: auto !important;
-      left: 50% !important;
-      right: auto !important;
-      transform: translateX(-50%);
-      width: clamp(60px, 30%, 120px) !important;
-      height: var(--line-width) !important;
-    }
-
-    p {
-      max-width: 100%;
-    }
-
-    .rebeca-text-side {
-      text-align: center;
-    }
-
-    .rebeca-text-side p {
-      margin-left: 0;
-    }
-  }
-</style>
+  </body>
+</html>

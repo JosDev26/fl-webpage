@@ -1,0 +1,89 @@
+---
+import '../styles/paidtools.css';
+---
+<section class="paidtools-container">
+    <div class="paidtools-content">
+        <h2 class="paidtools-title hidden-initial">
+            ACCESO EXCLUSIVO: HERRAMIENTAS PARA MIEMBROS
+        </h2>
+
+        <div class="paidtools-grid">
+            <a href="#" class="paidtool-card hidden-initial">
+                <div class="paidtool-icon">
+                    <i class="ph ph-calculator"></i>
+                </div>
+                <span class="paidtool-name">Calculadora de traspasos</span>
+                <span class="paidtool-desc">Texto descriptivo de no más de 3 o 4 oraciones mostrando las características relevantes de la herramienta</span>
+            </a>
+            <a href="#" class="paidtool-card hidden-initial">
+                <div class="paidtool-icon">
+                    <i class="ph ph-device-mobile"></i>
+                </div>
+                <span class="paidtool-name">FULECR</span>
+                <span class="paidtool-desc">Texto descriptivo de no más de 3 o 4 oraciones mostrando las características relevantes de la herramienta</span>
+            </a>
+            <a href="#" class="paidtool-card hidden-initial">
+                <div class="paidtool-icon">
+                    <i class="ph ph-hand-coins"></i>
+                </div>
+                <span class="paidtool-name">Asesoría de Impuestos</span>
+                <span class="paidtool-desc">Texto descriptivo de no más de 3 o 4 oraciones mostrando las características relevantes de la herramienta</span>
+            </a>
+            <a href="#" class="paidtool-card hidden-initial">
+                <div class="paidtool-icon">
+                    <i class="ph ph-question"></i>
+                </div>
+                <span class="paidtool-name">Preguntas Frecuentes</span>
+                <span class="paidtool-desc">Texto descriptivo de no más de 3 o 4 oraciones mostrando las características relevantes de la herramienta</span>
+            </a>
+        </div>
+
+        <button class="paidtools-cta hidden-initial">Acceder</button>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.paidtools-container');
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.paidtools-title',
+                                opacity: [0, 1],
+                                translateY: [30, 0],
+                                duration: 600,
+                            })
+                            .add({
+                                targets: '.paidtool-card',
+                                opacity: [0, 1],
+                                translateY: [50, 0],
+                                scale: [0.95, 1],
+                                duration: 700,
+                                delay: anime.stagger(150),
+                            }, '-=300')
+                            .add({
+                                targets: '.paidtools-cta',
+                                opacity: [0, 1],
+                                translateY: [20, 0],
+                                duration: 500,
+                            }, '-=200');
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>

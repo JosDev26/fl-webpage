@@ -12,36 +12,89 @@ try {
 } catch {
   // Payload not available — show empty state
 }
+
+const featured = posts[0] ?? null;
+const latest = posts.slice(1, 5);
+const latestMain = latest[0] ?? null;
+const latestSide = latest.slice(1, 4);
 ---
 
 <Layout>
   <Navbar />
   <section class="blog-container">
-    <h1 class="blog-title">Blog</h1>
-    <p class="blog-subtitle">Artículos y noticias sobre temas legales</p>
 
     {posts.length === 0 ? (
       <p class="blog-empty">No hay artículos publicados aún.</p>
     ) : (
-      <div class="blog-grid">
-        {posts.map((post) => (
-          <a href={`/blog/${post.slug}`} class="blog-card">
-            {post.cover_image && (
-              <div class="blog-card-image">
-                <img src={post.cover_image.url} alt={post.cover_image.alt || post.title} loading="lazy" />
-              </div>
-            )}
-            <div class="blog-card-content">
-              <time class="blog-card-date" datetime={post.published_date}>
-                {new Date(post.published_date).toLocaleDateString('es-CR', { year: 'numeric', month: 'long', day: 'numeric' })}
+      <>
+        {/* ===== Featured Hero ===== */}
+        {featured && (
+          <a href={`/blog/${featured.slug}`} class="blog-hero">
+            <div class="blog-hero-image">
+              {featured.cover_image && (
+                <img src={featured.cover_image.url} alt={featured.cover_image.alt || featured.title} loading="eager" />
+              )}
+            </div>
+            <div class="blog-hero-content">
+              <time class="blog-hero-date" datetime={featured.published_date}>
+                {new Date(featured.published_date).toLocaleDateString('es-CR', { year: 'numeric', month: 'long', day: 'numeric' })}
               </time>
-              <h2 class="blog-card-title">{post.title}</h2>
-              {post.excerpt && <p class="blog-card-excerpt">{post.excerpt}</p>}
+              <h1 class="blog-hero-title">{featured.title}</h1>
+              {featured.excerpt && <p class="blog-hero-excerpt">{featured.excerpt}</p>}
+              <span class="blog-read-more">Leer más &rsaquo;</span>
             </div>
           </a>
-        ))}
-      </div>
+        )}
+
+        {/* ===== Últimas entradas ===== */}
+        {latest.length > 0 && (
+          <div class="blog-section">
+            <div class="blog-section-header">
+              <h2 class="blog-section-title">Últimas entradas</h2>
+            </div>
+
+            <div class="blog-latest-grid">
+              {/* Main card (left) */}
+              {latestMain && (
+                <a href={`/blog/${latestMain.slug}`} class="blog-latest-main">
+                  <div class="blog-latest-main-image">
+                    {latestMain.cover_image && (
+                      <img src={latestMain.cover_image.url} alt={latestMain.cover_image.alt || latestMain.title} loading="lazy" />
+                    )}
+                  </div>
+                  <div class="blog-latest-main-content">
+                    <time class="blog-latest-date" datetime={latestMain.published_date}>
+                      {new Date(latestMain.published_date).toLocaleDateString('es-CR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </time>
+                    <h3 class="blog-latest-main-title">{latestMain.title}</h3>
+                    {latestMain.excerpt && <p class="blog-latest-main-excerpt">{latestMain.excerpt}</p>}
+                  </div>
+                </a>
+              )}
+
+              {/* Side cards (right) */}
+              {latestSide.length > 0 && (
+                <div class="blog-latest-side">
+                  {latestSide.map((post) => (
+                    <a href={`/blog/${post.slug}`} class="blog-latest-side-card">
+                      <div class="blog-latest-side-image">
+                        {post.cover_image && (
+                          <img src={post.cover_image.url} alt={post.cover_image.alt || post.title} loading="lazy" />
+                        )}
+                      </div>
+                      <div class="blog-latest-side-content">
+                        <h4 class="blog-latest-side-title">{post.title}</h4>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </>
     )}
+
   </section>
   <Footer />
 </Layout>

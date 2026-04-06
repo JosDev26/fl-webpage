@@ -1,0 +1,125 @@
+:root {
+    --yellow-color: #FAD02C;
+    --dark-blue-color: #19304B;
+}
+
+.podcast-container {
+    position: relative;
+    padding: clamp(4em, 8vw, 6em) clamp(1.5rem, 5vw, 3rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-blue-color);
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.podcast-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: min(1200px, 92vw);
+    gap: clamp(1rem, 2.5vw, 2rem);
+    align-items: flex-start;
+}
+
+/* Columna izquierda: portada */
+.podcast-cover {
+    flex: 1 1 300px;
+    max-width: 450px;
+    margin: 0 auto;
+    position: relative;
+    background-color: var(--yellow-color);
+    padding: 0 0 clamp(8px, 1.5vw, 12px) clamp(8px, 1.5vw, 12px);
+}
+
+/* Franja amarilla hacia la izquierda */
+.podcast-cover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 100%;
+    width: 50vw;
+    height: clamp(8px, 1.5vw, 12px);
+    background-color: var(--yellow-color);
+}
+
+.podcast-cover-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    background-color: #0b131c;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Columna derecha: info */
+.podcast-info {
+    flex: 1 1 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Título con franja amarilla */
+.podcast-title {
+    background-color: var(--yellow-color);
+    color: var(--dark-blue-color);
+    padding: clamp(0.5rem, 1vw, 0.8rem) clamp(1rem, 2vw, 1.5rem);
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 0 0 clamp(1.5rem, 3vw, 2.5rem) 0;
+    position: relative;
+    align-self: flex-start;
+}
+
+/* Extensión amarilla infinita a la derecha */
+.podcast-title::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 50vw;
+    height: 100%;
+    background-color: var(--yellow-color);
+}
+
+/* Descripción */
+.podcast-desc {
+    color: #a3aab5;
+    font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+    line-height: 1.7;
+    margin: 0 0 clamp(1.5rem, 3vw, 2.5rem) 0;
+    max-width: 650px;
+    font-weight: 400;
+}
+
+/* Botón CTA */
+.podcast-cta {
+    background-color: var(--yellow-color);
+    color: var(--dark-blue-color);
+    border: none;
+    padding: clamp(0.7em, 1vw, 0.9em) clamp(2em, 4vw, 3em);
+    font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: 0.03em;
+    box-shadow: 0 0 20px rgba(250, 208, 44, 0.15);
+    text-decoration: none;
+    display: inline-block;
+    transition:
+        opacity 0.25s ease,
+        box-shadow 0.25s ease;
+    opacity: 0.92;
+}
+
+.podcast-cta:hover {
+    opacity: 1;
+    box-shadow: 0 0 28px rgba(250, 208, 44, 0.28);
+}
+}
