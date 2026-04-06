@@ -4,6 +4,7 @@ export interface Review {
   reviewer_role: 'Cliente' | 'Empresa';
   review_text: string;
   position: number;
+  company_logo?: Media; // Campo opcional para logo de empresa
 }
 
 export interface Service {

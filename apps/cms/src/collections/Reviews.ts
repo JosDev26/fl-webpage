@@ -43,5 +43,17 @@ export const Reviews: CollectionConfig = {
         description: 'Número para ordenar las reseñas en el carrusel (menor = primero)',
       },
     },
+    // NUEVO CAMPO: Logo de empresa (opcional)
+    {
+      name: 'company_logo',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      label: 'Logo de la empresa',
+      admin: {
+        description: 'Solo para reviews de empresas. Si se sube, reemplaza el avatar generado.',
+        condition: (data) => data?.reviewer_role === 'Empresa', // Solo mostrar para empresas
+      },
+    },
   ],
 }
