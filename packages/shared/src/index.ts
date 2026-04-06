@@ -16,6 +16,11 @@ export interface Service {
   is_wide: boolean;
 }
 
+export interface Tag {
+  id: string;
+  name: string;
+}
+
 export interface BlogPost {
   id: string;
   title: string;
@@ -25,6 +30,8 @@ export interface BlogPost {
   cover_image?: Media;
   published_date: string;
   status: 'draft' | 'published';
+  tags?: Tag[];
+  views?: number;
   meta_title?: string;
   meta_description?: string;
   createdAt: string;

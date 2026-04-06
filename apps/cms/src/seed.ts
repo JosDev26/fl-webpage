@@ -90,6 +90,21 @@ const services = [
   },
 ]
 
+const tags = [
+  { name: 'Derecho Corporativo' },
+  { name: 'Derecho Laboral' },
+  { name: 'Derecho Penal' },
+  { name: 'Derecho Civil' },
+  { name: 'Derecho Tributario' },
+  { name: 'Propiedad Intelectual' },
+  { name: 'Compliance' },
+  { name: 'Litigio' },
+  { name: 'Familia' },
+  { name: 'Tecnología Legal' },
+  { name: 'Emprendimiento' },
+  { name: 'Contratos' },
+]
+
 async function seed() {
   const payload = await getPayload({ config })
 
@@ -110,6 +125,15 @@ async function seed() {
     })
   }
   console.log(`✓ ${services.length} services created`)
+
+  console.log('Seeding tags...')
+  for (const tag of tags) {
+    await payload.create({
+      collection: 'tags',
+      data: tag,
+    })
+  }
+  console.log(`✓ ${tags.length} tags created`)
 
   console.log('Seed complete!')
   process.exit(0)

@@ -10,6 +10,7 @@ import { Reviews } from './collections/Reviews'
 import { Services } from './collections/Services'
 import { BlogPosts } from './collections/BlogPosts'
 import { Media } from './collections/Media'
+import { Tags } from './collections/Tags'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -20,12 +21,16 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      afterDashboard: ['./components/BlogDashboard#BlogDashboard'],
+    },
   },
   collections: [
     Reviews,
     Services,
     BlogPosts,
     Media,
+    Tags,
     {
       slug: 'users',
       auth: true,
@@ -38,6 +43,7 @@ export default buildConfig({
       fields: [],
     },
   ],
+  cors: '*',
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
@@ -75,8 +81,4 @@ export default buildConfig({
         ]
       : []),
   ],
-  cors: [
-    process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
-    'http://localhost:4321', // Astro dev server
-  ].filter(Boolean) as string[],
 })

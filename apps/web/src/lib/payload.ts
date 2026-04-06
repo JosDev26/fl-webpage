@@ -1,4 +1,4 @@
-import type { Review, Service, BlogPost, PayloadResponse } from '@fusion-legal/shared'
+import type { Review, Service, BlogPost, Tag, PayloadResponse } from '@fusion-legal/shared'
 
 const PAYLOAD_URL = import.meta.env.PAYLOAD_URL || 'http://localhost:3000'
 
@@ -22,14 +22,14 @@ export async function getServices(): Promise<Service[]> {
 
 export async function getBlogPosts(): Promise<BlogPost[]> {
   const data = await fetchFromPayload<BlogPost>(
-    'blog-posts?where[status][equals]=published&sort=-published_date&limit=100'
+    'blog-posts?where[status][equals]=published&sort=-published_date&limit=100&depth=2'
   )
   return data.docs
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   const data = await fetchFromPayload<BlogPost>(
-    `blog-posts?where[slug][equals]=${encodeURIComponent(slug)}&where[status][equals]=published&limit=1`
+    `blog-posts?where[slug][equals]=${encodeURIComponent(slug)}&where[status][equals]=published&limit=1&depth=2`
   )
   return data.docs[0] ?? null
 }
@@ -39,4 +39,9 @@ export async function getAllBlogSlugs(): Promise<string[]> {
     'blog-posts?where[status][equals]=published&limit=100&depth=0'
   )
   return data.docs.map((post) => post.slug)
+}
+
+export async function getTags(): Promise<Tag[]> {
+  const data = await fetchFromPayload<Tag>('tags?limit=100')
+  return data.docs
 }

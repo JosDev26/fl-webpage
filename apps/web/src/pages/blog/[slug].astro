@@ -51,4 +51,23 @@ const pageDescription = post.meta_description || post.excerpt || '';
     <div class="blog-post-content" set:html={contentHtml} />
   </article>
   <Footer />
+
+  <script is:inline data-cms-url={import.meta.env.PAYLOAD_URL || 'http://localhost:3000'}>
+    (function () {
+      var slug = window.location.pathname.split('/').filter(Boolean).pop();
+      if (!slug) return;
+
+      var key = 'blog-viewed-' + slug;
+      if (sessionStorage.getItem(key)) return;
+
+      var cmsUrl = document.currentScript.getAttribute('data-cms-url');
+      fetch(cmsUrl + '/api/blog-posts/increment-views', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: slug }),
+      })
+        .then(function () { sessionStorage.setItem(key, '1'); })
+        .catch(function () {});
+    })();
+  </script>
 </Layout>

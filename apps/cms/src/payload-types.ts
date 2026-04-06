@@ -71,6 +71,7 @@ export interface Config {
     services: Service;
     'blog-posts': BlogPost;
     media: Media;
+    tags: Tag;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -83,6 +84,7 @@ export interface Config {
     services: ServicesSelect<false> | ServicesSelect<true>;
     'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -219,10 +221,28 @@ export interface BlogPost {
   published_date?: string | null;
   status: 'draft' | 'published';
   /**
+   * Selecciona una o más etiquetas para este artículo
+   */
+  tags?: (number | Tag)[] | null;
+  /**
+   * Contador de visitas del artículo
+   */
+  views?: number | null;
+  /**
    * Si se deja vacío, se usa el título del artículo
    */
   meta_title?: string | null;
   meta_description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -290,6 +310,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: number | Tag;
       } | null)
     | ({
         relationTo: 'users';
@@ -375,6 +399,8 @@ export interface BlogPostsSelect<T extends boolean = true> {
   cover_image?: T;
   published_date?: T;
   status?: T;
+  tags?: T;
+  views?: T;
   meta_title?: T;
   meta_description?: T;
   updatedAt?: T;
@@ -397,6 +423,15 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
