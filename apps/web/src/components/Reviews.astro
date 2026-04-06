@@ -1,6 +1,7 @@
 ---
 import '../styles/reviews.css';
 import { getReviews } from '../lib/payload';
+import { Image } from 'astro:assets'; 
 import type { Review } from '@fusion-legal/shared';
 
 let reviews: Review[] = [];
@@ -37,26 +38,41 @@ function getAvatarUrl(name: string): string {
         </button>
 
         <div class="carousel-stage">
-            <div class="carousel-track">
-                {reviews.map((review, index) => (
-                <article class="review-card" data-index={index} tabindex="0">
-                    <div class="quote-icon">&ldquo;</div>
-                    <p class="review-text">
-                        {review.review_text}
-                    </p>
-                    <div class="reviewer-info">
-                        <div class="reviewer-avatar">
-                            <img src={getAvatarUrl(review.reviewer_name)} alt={review.reviewer_name} loading="lazy" />
-                        </div>
-                        <div class="reviewer-details">
-                            <h4 class="reviewer-name">{review.reviewer_name}</h4>
-                            <p class="reviewer-role">{review.reviewer_role}</p>
-                        </div>
+        <div class="carousel-track">
+            {reviews.map((review, index) => (
+            <article class="review-card" data-index={index} tabindex="0">
+                <div class="quote-icon">&ldquo;</div>
+                <p class="review-text">
+                    {review.review_text}
+                </p>
+                <div class="reviewer-info">
+                    <div class="reviewer-avatar">
+                        {review.company_logo ? (
+                            <!-- Logo de empresa si existe -->
+                            <img 
+                                src={review.company_logo.url} 
+                                alt={`${review.reviewer_name} logo`}
+                                loading="lazy"
+                                class="company-logo"
+                            />
+                        ) : (
+                            <!-- Avatar generado para clientes individuales -->
+                            <img 
+                                src={getAvatarUrl(review.reviewer_name)} 
+                                alt={review.reviewer_name} 
+                                loading="lazy" 
+                            />
+                        )}
                     </div>
-                </article>
-                ))}
-            </div>
+                    <div class="reviewer-details">
+                        <h4 class="reviewer-name">{review.reviewer_name}</h4>
+                        <p class="reviewer-role">{review.reviewer_role}</p>
+                    </div>
+                </div>
+            </article>
+            ))}
         </div>
+    </div>
 
         <button class="carousel-nav carousel-next" aria-label="Siguiente review">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">

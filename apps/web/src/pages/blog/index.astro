@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
+import IntroAda from '../../components/intro-ada.astro';
+import SubscribeAda from '../../components/subscribe-ada.astro'
 import Footer from '../../components/Footer.astro';
 import { getBlogPosts } from '../../lib/payload';
 import type { BlogPost } from '@fusion-legal/shared';
@@ -21,6 +23,8 @@ const latestSide = latest.slice(1, 4);
 
 <Layout>
   <Navbar />
+  <IntroAda/>
+  <SubscribeAda/>
   <section class="blog-container">
 
     {posts.length === 0 ? (

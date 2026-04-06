@@ -136,8 +136,31 @@ export interface Review {
    * Número para ordenar las reseñas en el carrusel (menor = primero)
    */
   position: number;
+  /**
+   * Solo para reviews de empresas. Si se sube, reemplaza el avatar generado.
+   */
+  company_logo?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -202,25 +225,6 @@ export interface BlogPost {
   meta_description?: string | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -342,6 +346,7 @@ export interface ReviewsSelect<T extends boolean = true> {
   reviewer_role?: T;
   review_text?: T;
   position?: T;
+  company_logo?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -1,0 +1,57 @@
+---
+import '../styles/intro-ada.css';
+---
+
+<section class="intro-ada-container">
+    <div class="intro-ada-content">
+        <h2 class="intro-ada-title hidden-initial">
+            TE PRESENTAMOS <span class="highlight">ADA</span>
+        </h2>
+        <p class="intro-ada-subtitle hidden-initial">
+            Ada traduce la complejidad de las leyes humanas en soluciones digitales eficientes.
+        </p>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const targetElement = document.querySelector('.intro-ada-container');
+        if (!targetElement) return;
+
+        // Soporte para restauración de scroll
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime({
+                            targets: '.intro-ada-title',
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            duration: 600,
+                            easing: 'easeOutCubic',
+                        });
+
+                        anime({
+                            targets: '.intro-ada-subtitle',
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            duration: 600,
+                            easing: 'easeOutCubic',
+                            delay: 150,
+                        });
+
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observer.observe(targetElement);
+        }, delay);
+    });
+</script>
