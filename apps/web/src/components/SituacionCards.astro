@@ -1,0 +1,104 @@
+---
+import '../styles/situacioncards.css';
+---
+
+<section class="situacion-cards-container">
+    <h2 class="situacion-cards-title hidden-initial">
+        Cuando el acuerdo no basta:<br />
+        <span class="highlight underline">Litigio Estratégico</span>
+    </h2>
+
+    <div class="situacion-cards-grid">
+
+        <!-- Tarjeta 1: Litigio Civil -->
+        <article class="situacion-card-item hidden-initial">
+            <div class="situacion-card-glow">
+                <div class="situacion-card-top">
+                    <h3 class="situacion-card-title">Litigio Civil</h3>
+                    <p class="situacion-card-subtitle">Defensa Civil Estratégica: Blindaje Patrimonial y Continuidad Operativa.</p>
+                    <i class="ph ph-money situacion-card-icon" aria-hidden="true"></i>
+                </div>
+                <div class="situacion-card-bottom">
+                    <p>
+                        En el competitivo entorno actual, la excelencia operativa no es suficiente. El éxito corporativo también se mide por la capacidad de blindar la organización ante riesgos legales. El litigio civil no es simplemente un trámite jurídico; es una amenaza directa a la continuidad del negocio, la reputación y la rentabilidad.
+                    </p>
+                </div>
+            </div>
+            <i class="ph-bold ph-caret-up situacion-card-arrow" aria-hidden="true"></i>
+        </article>
+
+        <!-- Tarjeta 2: Flotillas y Tránsito -->
+        <article class="situacion-card-item hidden-initial">
+            <div class="situacion-card-glow">
+                <div class="situacion-card-top">
+                    <h3 class="situacion-card-title">Gestión de Riesgos en Flotillas y Tránsito</h3>
+                    <p class="situacion-card-subtitle">Diseñado para empresas grandes con vehículos, enfocándose en la operatividad.</p>
+                    <i class="ph ph-car situacion-card-icon" aria-hidden="true"></i>
+                </div>
+                <div class="situacion-card-bottom">
+                    <p>
+                        Su flotilla es el motor de su logística. Un incidente de tránsito mal manejado puede paralizar sus unidades y elevar sus primas de riesgo. Ofrecemos una defensa técnica especializada para empresas con alto volumen vehicular, gestionando desde la responsabilidad civil extracontractual hasta la liberación inmediata de unidades.
+                    </p>
+                </div>
+            </div>
+            <i class="ph-bold ph-caret-up situacion-card-arrow" aria-hidden="true"></i>
+        </article>
+
+        <!-- Tarjeta 3: Blindaje Penal -->
+        <article class="situacion-card-item hidden-initial">
+            <div class="situacion-card-glow">
+                <div class="situacion-card-top">
+                    <h3 class="situacion-card-title">Blindaje Penal Económico y Corporativo</h3>
+                    <p class="situacion-card-subtitle">Protección ante delitos económicos complejos y cumplimiento normativo corporativo.</p>
+                    <i class="ph ph-bag situacion-card-icon" aria-hidden="true"></i>
+                </div>
+                <div class="situacion-card-bottom">
+                    <p>
+                        En la era del cumplimiento normativo, la línea entre el error administrativo y el delito económico es delgada. Representamos a nuestros clientes en eventos complejos por administración fraudulenta, estafas y delitos contra la propiedad.
+                    </p>
+                </div>
+            </div>
+            <i class="ph-bold ph-caret-up situacion-card-arrow" aria-hidden="true"></i>
+        </article>
+
+    </div>
+</section>
+
+<script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.situacion-cards-container');
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 0 : 0;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const title = section.querySelector('.situacion-cards-title');
+                    const cards = section.querySelectorAll('.situacion-card-item');
+
+                    anime.timeline({ easing: 'easeOutExpo' })
+                        .add({
+                            targets: title,
+                            opacity: [0, 1],
+                            translateY: [-30, 0],
+                            duration: 700,
+                            delay: delay,
+                        })
+                        .add({
+                            targets: cards,
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            duration: 600,
+                            delay: anime.stagger(150),
+                        });
+
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.15 });
+
+        observer.observe(section);
+    });
+</script>

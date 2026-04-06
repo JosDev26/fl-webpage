@@ -1,0 +1,82 @@
+:root {
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+.hidden-initial {
+  opacity: 0;
+}
+
+/* Contenedor principal */
+.empresa-hero-container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(4em, 8vw, 6em) clamp(1.5rem, 5vw, 3rem);
+  padding-bottom: clamp(2em, 4vw, 3em);
+  background-color: var(--dark-blue-color);
+  display: flex;
+  justify-content: center;
+}
+
+.empresa-hero-content {
+  width: min(1100px, 92vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+/* Icono */
+.empresa-hero-icon {
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  color: var(--yellow-color);
+}
+
+/* Título */
+.empresa-hero-title {
+  font-size: clamp(1.4rem, 3vw, 2.5rem);
+  font-weight: 800;
+  color: var(--yellow-color);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+/* Subtítulo */
+.empresa-hero-subtitle {
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: min(800px, 92%);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Línea divisoria */
+.empresa-hero-divider {
+  width: clamp(150px, 30vw, 350px);
+  height: clamp(3px, 0.4vw, 5px);
+  background-color: var(--yellow-color);
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .empresa-hero-container {
+    padding: clamp(2.5em, 8vw, 3.5em) clamp(1rem, 5vw, 1.5rem);
+    padding-bottom: clamp(1.5em, 4vw, 2em);
+  }
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .empresa-hero-icon,
+  .empresa-hero-title,
+  .empresa-hero-subtitle,
+  .empresa-hero-divider {
+    transition: opacity 0.3s ease;
+    transform: none !important;
+  }
+}

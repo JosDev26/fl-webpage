@@ -1,0 +1,86 @@
+/* personacta.css */
+
+:root {
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+.hidden-initial {
+  opacity: 0;
+}
+
+/* Contenedor principal */
+.persona-cta-container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: clamp(4em, 8vw, 6em) clamp(1.5rem, 5vw, 3rem);
+  background-color: var(--dark-blue-color);
+  display: flex;
+  justify-content: center;
+}
+
+.persona-cta-content {
+  width: min(700px, 92vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+}
+
+/* Título */
+.persona-cta-title {
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: var(--yellow-color);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+/* Descripción */
+.persona-cta-text {
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Botón */
+.persona-cta-button {
+  background-color: var(--yellow-color);
+  color: var(--dark-blue-color);
+  border: none;
+  padding: clamp(0.7rem, 1.4vw, 1rem) clamp(3rem, 6vw, 5rem);
+  font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .persona-cta-button:hover {
+    background-color: #f5d957;
+    transform: translateY(-2px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .persona-cta-container {
+    padding: clamp(3em, 8vw, 4em) clamp(1rem, 5vw, 1.5rem);
+  }
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .persona-cta-title,
+  .persona-cta-text,
+  .persona-cta-button {
+    transition: opacity 0.3s ease;
+    transform: none !important;
+  }
+}

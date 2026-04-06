@@ -1,0 +1,153 @@
+---
+import '../styles/businesssteps.css';
+---
+
+<!-- Gestión y Soporte Corporativo -->
+<section class="business-steps-container">
+    <div class="business-steps-grid">
+        <div class="business-steps-title-block">
+            <h2 class="business-steps-title hidden-initial">Gestión y<br>Soporte<br>Corporativo</h2>
+        </div>
+        <div class="business-steps-divider" aria-hidden="true">
+            <div class="business-steps-divider-line hidden-initial"></div>
+        </div>
+        <div class="business-steps-list">
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-notebook"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Derecho Corporativo Continuo: </strong>
+                    Mantenimiento de libros legales, cambios en junta directiva, aumentos de capital y manejo legal de la operación diaria.
+                </p>
+            </div>
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-seal"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Servicios Notariales: </strong>
+                    La herramienta ejecutiva para tus trámites: autenticación de firmas, certificaciones y actas de asambleas de socios con fe pública.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blindaje Fiscal y Regulatorio -->
+<section class="business-steps-container">
+    <div class="business-steps-grid">
+        <div class="business-steps-title-block">
+            <h2 class="business-steps-title hidden-initial">Blindaje<br>Fiscal y<br>Regulatorio</h2>
+        </div>
+        <div class="business-steps-divider" aria-hidden="true">
+            <div class="business-steps-divider-line hidden-initial"></div>
+        </div>
+        <div class="business-steps-list">
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-calculator"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Asesoría en Impuestos y TRIBU CR: </strong>
+                    Acompañamiento recurrente para declaraciones, optimización fiscal y resolución de dudas, asegurando una relación sana con Hacienda.
+                </p>
+            </div>
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-shield"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Protección ante Contingencias Laborales: </strong>
+                    Nos enfocamos en la auditoría preventiva de sus contratos y procesos disciplinarios para eliminar riesgos. Si se inicia el litigio, defendemos los intereses de la empresa buscando minimizar el impacto financiero y reputacional. Trabajamos con estrategia.
+                </p>
+            </div>
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-clipboard-text"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Cumplimiento (Compliance): </strong>
+                    Auditoría constante para asegurar que la empresa cumple con todas las regulaciones vigentes, evitando multas, sanciones o cierres inesperados.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Capital Humano y Cultura -->
+<section class="business-steps-container">
+    <div class="business-steps-grid">
+        <div class="business-steps-title-block">
+            <h2 class="business-steps-title hidden-initial">Capital<br>Humano y<br>Cultura</h2>
+        </div>
+        <div class="business-steps-divider" aria-hidden="true">
+            <div class="business-steps-divider-line hidden-initial"></div>
+        </div>
+        <div class="business-steps-list">
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-users"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Derecho Laboral: </strong>
+                    Asesoría integral en la relación con tu equipo: manejo de contratos, reglamentos internos, procesos de despido y estrategias de teletrabajo para prevenir contingencias legales.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('.business-steps-container') as NodeListOf<HTMLElement>;
+        if (!sections.length) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            sections.forEach((section) => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const title = entry.target.querySelector('.business-steps-title') as HTMLElement;
+                            const dividerLine = entry.target.querySelector('.business-steps-divider-line') as HTMLElement;
+                            const items = entry.target.querySelectorAll('.business-steps-item') as NodeListOf<HTMLElement>;
+
+                            anime.timeline({ easing: 'easeOutCubic' })
+                                .add({
+                                    targets: title,
+                                    opacity: [0, 1],
+                                    translateX: [-30, 0],
+                                    duration: 600,
+                                })
+                                .add({
+                                    targets: dividerLine,
+                                    opacity: [0, 1],
+                                    scaleY: [0, 1],
+                                    duration: 500,
+                                    easing: 'easeOutQuart',
+                                }, '-=300')
+                                .add({
+                                    targets: Array.from(items),
+                                    opacity: [0, 1],
+                                    translateY: [25, 0],
+                                    duration: 600,
+                                    delay: anime.stagger(120),
+                                }, '-=200');
+
+                            observer.disconnect();
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                observer.observe(section);
+            });
+        }, delay);
+    });
+</script>

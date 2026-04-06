@@ -1,0 +1,69 @@
+---
+import '../styles/empresahero.css';
+---
+
+<section class="empresa-hero-container">
+    <div class="empresa-hero-content">
+        <i class="ph ph-buildings empresa-hero-icon hidden-initial"></i>
+        <h1 class="empresa-hero-title hidden-initial">Ya tengo una empresa funcionando</h1>
+        <p class="empresa-hero-subtitle hidden-initial">
+            Te ayudamos a solucionar todas las situaciones legales que te dan dolores de cabeza,
+            ya sea si eres una empresa grande, o una persona que necesita orientación clara y confiable.
+        </p>
+        <div class="empresa-hero-divider hidden-initial"></div>
+    </div>
+</section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.empresa-hero-container') as HTMLElement;
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.empresa-hero-icon',
+                                opacity: [0, 1],
+                                scale: [0.5, 1],
+                                duration: 600,
+                                easing: 'easeOutBack',
+                            })
+                            .add({
+                                targets: '.empresa-hero-title',
+                                opacity: [0, 1],
+                                translateY: [-30, 0],
+                                duration: 700,
+                            }, '-=300')
+                            .add({
+                                targets: '.empresa-hero-subtitle',
+                                opacity: [0, 1],
+                                translateY: [20, 0],
+                                duration: 600,
+                            }, '-=400')
+                            .add({
+                                targets: '.empresa-hero-divider',
+                                opacity: [0, 1],
+                                scaleX: [0, 1],
+                                duration: 500,
+                                easing: 'easeOutQuart',
+                            }, '-=300');
+
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>

@@ -1,0 +1,20 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import EmpresaHero from '../components/EmpresaHero.astro';
+import EmpresaSteps from '../components/EmpresaSteps.astro';
+import PersonaCTA from '../components/PersonaCTA.astro';
+---
+
+<Layout>
+  <Navbar />
+  <EmpresaHero />
+  <EmpresaSteps />
+  <PersonaCTA
+    title="¿Buscas algo distinto?"
+    text="Nuestro equipo de abogados tributaristas expertos está listo para ofrecerle una asesoría personalizada y proactiva. Contáctenos hoy para asegurar el cumplimiento y maximizar sus beneficios fiscales."
+    buttonText="Quiero Asesoría Personalizada"
+  />
+  <Footer />
+</Layout>
