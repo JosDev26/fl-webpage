@@ -26,17 +26,14 @@
 }
 
 .hero-icon-wrapper {
-  width: clamp(4.5rem, 6vw, 6rem);
-  height: clamp(4.5rem, 6vw, 6rem);
   display: grid;
   place-items: center;
-  border: clamp(3px, 0.25vw, 4px) solid var(--yellow-color);
-  color: var(--yellow-color);
   margin: 0 auto;
 }
 
 .hero-icon-wrapper .ph {
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-size: clamp(5rem, 7vw, 6.8rem);
+  color: var(--yellow-color);
 }
 
 .header-negocio-nuevo-title {
@@ -56,8 +53,8 @@
 }
 
 .header-negocio-nuevo-divider {
-  width: clamp(8rem, 18vw, 14rem);
-  height: clamp(3px, 0.5vw, 4px);
+  width: clamp(30rem, 62vw, 38rem);
+  height: clamp(5px, 0.9vw, 7px);
   background-color: var(--yellow-color);
   margin: 0 auto;
   transform-origin: left;

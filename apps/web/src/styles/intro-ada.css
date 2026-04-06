@@ -1,0 +1,61 @@
+:root {
+    --yellow-color: #FAD02C;
+    --dark-blue-color: #19304B;
+}
+
+.intro-ada-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark-blue-color);
+    padding: clamp(4em, 8vw, 6em) clamp(1em, 3vw, 2em);
+    min-height: clamp(300px, 50vh, 500px);
+}
+
+.intro-ada-content {
+    max-width: min(900px, 92vw);
+    text-align: center;
+}
+
+.intro-ada-title {
+    font-family: 'Nunito Sans Variable', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 clamp(1rem, 2vw, 1.5rem) 0;
+    line-height: 1.2;
+}
+
+.intro-ada-title .highlight {
+    color: var(--yellow-color);
+    text-decoration: underline;
+}
+
+.intro-ada-subtitle {
+    font-family: 'Nunito Sans Variable', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.hidden-initial {
+    opacity: 0;
+}
+
+/* Accesibilidad: Focus visible */
+.intro-ada-container:focus-visible {
+    outline: 3px solid var(--yellow-color);
+    outline-offset: 4px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .intro-ada-title,
+    .intro-ada-subtitle {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}

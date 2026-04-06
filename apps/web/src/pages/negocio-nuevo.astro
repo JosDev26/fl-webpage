@@ -1,12 +1,16 @@
 ---
-import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
-import HeaderNegocioNuevo from '../components/Header-negocio-nuevo.astro';
+import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
+import BusinessHero from '../components/BusinessHero.astro';
+import BusinessSteps from '../components/businesssteps.astro';
+import Customplan from '../components/customplan.astro'
 ---
 
 <Layout>
   <Navbar />
-  <HeaderNegocioNuevo />
+  <BusinessHero />
+  <BusinessSteps />
+  <Customplan/>
   <Footer />
 </Layout>
