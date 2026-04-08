@@ -1,0 +1,59 @@
+:root {
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+.faqhero-container {
+  background-color: var(--dark-blue-color);
+  width: 100%;
+  padding: clamp(3em, 8vw, 5em) clamp(1.5rem, 5vw, 3rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.faqhero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  max-width: min(900px, 92vw);
+}
+
+.faqhero-icon {
+  color: var(--yellow-color);
+  font-size: clamp(4rem, 12vw, 7rem);
+  line-height: 1;
+}
+
+.faqhero-title {
+  color: #FAD02C;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .faqhero-container {
+    padding: clamp(2em, 6vw, 3em) clamp(1rem, 5vw, 2rem);
+  }
+
+  .faqhero-icon {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  .faqhero-title {
+    font-size: clamp(1.7rem, 5vw, 2.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faqhero-icon,
+  .faqhero-title {
+    transition: none;
+  }
+}
