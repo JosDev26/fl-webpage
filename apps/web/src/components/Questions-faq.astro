@@ -1,0 +1,105 @@
+---
+import '../styles/Questions-faq.css';
+
+const faqs = [
+  {
+    question: '¿Qué es el teletrabajo según la legislación costarricense y cuáles son sus objetivos principales?',
+    answer: 'El teletrabajo, definido en la Ley N° 9738, es una modalidad laboral que se realiza fuera de las instalaciones de la empresa utilizando tecnologías de la información y comunicación, sin que esto afecte el desempeño de otros puestos, procesos o servicios. Los principales objetivos son generar empleo, modernizar organizaciones públicas y privadas, y fomentar el desarrollo social. Es importante destacar que esta modalidad es voluntaria tanto para el empleador como para el empleado.'
+  },
+  {
+    question: '¿Cómo se formaliza el acuerdo de teletrabajo y qué información debe incluir?',
+    answer: 'El teletrabajo se formaliza mediante un contrato escrito o una adenda al contrato laboral ya existente. Este documento debe detallar las condiciones de servicio, las tareas específicas a realizar en esta modalidad, los medios tecnológicos requeridos, los mecanismos de comunicación, la forma en que se ejecutará el trabajo en términos de tiempo y espacio, el horario de trabajo, las responsabilidades en cuanto a la custodia de los elementos de trabajo, el procedimiento para asignar y entregar trabajo, y las medidas de seguridad informática.'
+  },
+  {
+    question: '¿Cuáles son las principales obligaciones del empleador en relación al teletrabajo?',
+    answer: 'El empleador tiene varias obligaciones clave. Debe proporcionar y mantener los equipos y programas necesarios, así como cubrir los costos de energía y viáticos según sea necesario. Además, debe capacitar al teletrabajador en el uso de estos equipos y programas. También es responsable de informar sobre normas de salud ocupacional y prevención de riesgos laborales. Finalmente, debe coordinar cómo se restablecerán las funciones del empleado en caso de interrupciones y reconocer el salario si el teletrabajador no puede laborar por falta de herramientas, trabajo o fallas en el equipo, siempre que estas se reporten en un plazo de 24 horas.'
+  },
+  {
+    question: '¿Cuáles son las principales obligaciones de las personas teletrabajadoras?',
+    answer: 'Las personas teletrabajadoras deben cumplir con los criterios de medición, evaluación y control establecidos en el contrato o adenda, así como acatar las políticas de la empresa en temas laborales. También deben informar en un plazo de 24 horas si no pueden laborar o si hay interrupciones. Deben reportar cualquier daño o extravío de las herramientas de trabajo en el mismo plazo. Además, es crucial que cumplan con su horario laboral y estén disponibles durante la jornada establecida, respetando, al mismo tiempo, su derecho a la desconexión digital fuera de ese horario.'
+  },
+  {
+    question: '¿Cómo se maneja la flexibilidad en el horario de teletrabajo?',
+    answer: 'El horario de teletrabajo puede ser flexible, pero debe respetar los límites legales de la jornada laboral y debe ser acordado previamente con la jefatura. Es esencial que esta flexibilidad no afecte el desarrollo normal de las actividades y procesos de trabajo. Además, es importante destacar el derecho del trabajador a la desconexión digital, fuera de su horario laboral, salvo en situaciones urgentes y con su consentimiento.'
+  },
+  {
+    question: '¿Qué sucede si un empleador desea revocar la modalidad de teletrabajo?',
+    answer: 'La revocación de la modalidad de teletrabajo es posible, pero no debe implicar un perjuicio o ruptura de la relación laboral, ni obedecer a prácticas discriminatorias o represalias. Debe ser justificada, comunicada por escrito al teletrabajador con antelación (al menos 10 días naturales), detallando las razones en las que se basa la decisión y siguiendo las políticas de la empresa. Si el teletrabajo fue acordado desde el inicio de la relación, el teletrabajador no puede exigir posteriormente trabajar en las instalaciones físicas del empleador a menos que ambas partes acuerden un cambio.'
+  },
+  {
+    question: '¿Qué tipo de reconocimientos gubernamentales existen para fomentar el teletrabajo y cómo se obtienen?',
+    answer: 'El Ministerio de Trabajo y Seguridad Social otorga un reconocimiento anual a aquellas empresas o instituciones que implementan exitosamente el teletrabajo y cumplen con ciertos requisitos. Estos requisitos incluyen la demostración de buenas prácticas en la aplicación y fomento del teletrabajo, la ausencia de infracciones laborales registradas, un porcentaje mínimo de empleados teletrabajando (10%), estar al día con obligaciones ante el Fondo de Desarrollo Social y Asignaciones Familiares, impuestos nacionales y municipales y cuotas a la Caja Costarricense de Seguro Social. Este reconocimiento no tiene carácter económico.'
+  },
+  {
+    question: '¿Cómo se abordan los riesgos laborales en el teletrabajo?',
+    answer: 'Los accidentes y enfermedades que ocurran a los teletrabajadores con ocasión o a consecuencia del teletrabajo, así como las agravaciones resultantes, se consideran riesgos de trabajo, aplicando las mismas pólizas previstas para el trabajo presencial. Se excluyen siniestros ocurridos según el artículo 199 del Código de Trabajo, y riesgos que no están relacionados con el teletrabajo. La legislación busca asegurar la misma protección que para los trabajadores en modalidad presencial.'
+  }
+];
+---
+
+<section class="questions-faq-container">
+  <span class="questions-faq-corner questions-faq-corner-top-left" aria-hidden="true"></span>
+
+  <div class="questions-faq-header">
+    <h2 class="questions-faq-title">
+      Teletrabajo: <span>Guía de Preguntas Frecuentes</span>
+    </h2>
+  </div>
+
+  <div class="questions-faq-list">
+    {faqs.map((faq, index) => (
+      <div class="questions-faq-item">
+        <button
+          type="button"
+          class="questions-faq-question"
+          aria-expanded="false"
+          aria-controls={`faq-answer-${index}`}
+        >
+          <span>{faq.question}</span>
+          <i class="ph ph-caret-down" aria-hidden="true"></i>
+        </button>
+        <div
+          id={`faq-answer-${index}`}
+          class="questions-faq-answer"
+          role="region"
+          aria-hidden="true"
+        >
+          <p>{faq.answer}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <span class="questions-faq-corner questions-faq-corner-bottom-right" aria-hidden="true"></span>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.questions-faq-question');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const panelId = button.getAttribute('aria-controls');
+        if (!panelId) return;
+
+        const panel = document.getElementById(panelId);
+        if (!panel) return;
+
+        const isOpen = button.getAttribute('aria-expanded') === 'true';
+        button.setAttribute('aria-expanded', String(!isOpen));
+        panel.setAttribute('aria-hidden', String(isOpen));
+
+        if (isOpen) {
+          panel.style.maxHeight = '0';
+        } else {
+          panel.style.maxHeight = `${panel.scrollHeight}px`;
+        }
+
+        const icon = button.querySelector('i');
+        if (icon) {
+          icon.classList.toggle('rotate');
+        }
+      });
+    });
+  });
+</script>
