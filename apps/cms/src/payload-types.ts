@@ -72,6 +72,8 @@ export interface Config {
     'blog-posts': BlogPost;
     media: Media;
     tags: Tag;
+    subscribers: Subscriber;
+    'email-campaigns': EmailCampaign;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -85,6 +87,8 @@ export interface Config {
     'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
+    'email-campaigns': EmailCampaignsSelect<false> | EmailCampaignsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -233,6 +237,25 @@ export interface BlogPost {
    */
   meta_title?: string | null;
   meta_description?: string | null;
+  /**
+   * Activa para enviar un email a los suscriptores cuando publiques este artículo
+   */
+  sendEmailCampaign?: boolean | null;
+  /**
+   * Editable antes de publicar.
+   */
+  emailSubject?: string | null;
+  /**
+   * Texto corto visible en la bandeja de entrada
+   */
+  emailPreheader?: string | null;
+  /**
+   * Editable antes de publicar.
+   */
+  emailBodyText?: string | null;
+  emailTargetLanguage?: ('es' | 'en' | 'all') | null;
+  linkedCampaignId?: number | null;
+  emailSentAt?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -243,6 +266,81 @@ export interface BlogPost {
 export interface Tag {
   id: number;
   name: string;
+  /**
+   * Enviar un correo masivo a todos los suscriptores confirmados al crear esta etiqueta
+   */
+  notifySubscribers?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Suscriptores al boletín de email marketing
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers".
+ */
+export interface Subscriber {
+  id: number;
+  /**
+   * SHA-256 del correo — usado para buscar duplicados
+   */
+  emailHash: string;
+  /**
+   * Email descifrado (solo visible en admin, no almacenado)
+   */
+  emailDecrypted?: string | null;
+  emailEncrypted: string;
+  emailIv: string;
+  tags?: (number | Tag)[] | null;
+  language: 'es' | 'en';
+  status: 'pending' | 'confirmed' | 'unsubscribed';
+  confirmToken?: string | null;
+  unsubscribeToken?: string | null;
+  confirmedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Campañas de email marketing
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "email-campaigns".
+ */
+export interface EmailCampaign {
+  id: number;
+  subject: string;
+  /**
+   * Texto de vista previa en la bandeja de entrada
+   */
+  preheader?: string | null;
+  body: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Vacío = todos los suscriptores confirmados
+   */
+  targetTags?: (number | Tag)[] | null;
+  targetLanguage: 'all' | 'es' | 'en';
+  status: 'draft' | 'sent';
+  sentAt?: string | null;
+  /**
+   * Cantidad de correos enviados
+   */
+  recipientCount?: number | null;
+  campaignType?: ('manual' | 'blog-post') | null;
+  linkedBlogPost?: (number | null) | BlogPost;
   updatedAt: string;
   createdAt: string;
 }
@@ -314,6 +412,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'subscribers';
+        value: number | Subscriber;
+      } | null)
+    | ({
+        relationTo: 'email-campaigns';
+        value: number | EmailCampaign;
       } | null)
     | ({
         relationTo: 'users';
@@ -403,6 +509,13 @@ export interface BlogPostsSelect<T extends boolean = true> {
   views?: T;
   meta_title?: T;
   meta_description?: T;
+  sendEmailCampaign?: T;
+  emailSubject?: T;
+  emailPreheader?: T;
+  emailBodyText?: T;
+  emailTargetLanguage?: T;
+  linkedCampaignId?: T;
+  emailSentAt?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -430,6 +543,43 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
+  notifySubscribers?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subscribers_select".
+ */
+export interface SubscribersSelect<T extends boolean = true> {
+  emailHash?: T;
+  emailDecrypted?: T;
+  emailEncrypted?: T;
+  emailIv?: T;
+  tags?: T;
+  language?: T;
+  status?: T;
+  confirmToken?: T;
+  unsubscribeToken?: T;
+  confirmedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "email-campaigns_select".
+ */
+export interface EmailCampaignsSelect<T extends boolean = true> {
+  subject?: T;
+  preheader?: T;
+  body?: T;
+  targetTags?: T;
+  targetLanguage?: T;
+  status?: T;
+  sentAt?: T;
+  recipientCount?: T;
+  campaignType?: T;
+  linkedBlogPost?: T;
   updatedAt?: T;
   createdAt?: T;
 }

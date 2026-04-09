@@ -14,25 +14,23 @@
 }
 
 .questions-faq-corner {
-  position: absolute;
-  width: clamp(6rem, 5vw, 6.5rem);
-  height: clamp(4.5rem, 5vw, 6.5rem);
-  border: clamp(5px, 0.5vw, 6px) solid rgba(250, 208, 44, 0.22);
-  opacity: 0.35;
+  display: none;
 }
 
 .questions-faq-corner-top-left {
   top: clamp(1rem, 4vw, 2.5rem);
-  right: clamp(48rem, 4vw, 2.5rem);
+  left: clamp(1rem, 4vw, 2.5rem);
   border-right: none;
   border-bottom: none;
+  border-left: none;
 }
 
 .questions-faq-corner-bottom-right {
   bottom: clamp(2rem, 4vw, 2.5rem);
-  left: clamp(48rem, 4vw, 2.5rem);
+  right: clamp(1rem, 4vw, 2.5rem);
   border-left: none;
   border-top: none;
+  border-right: none;
 }
 
 .questions-faq-header {

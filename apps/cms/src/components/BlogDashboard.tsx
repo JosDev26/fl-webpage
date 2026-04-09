@@ -18,19 +18,31 @@ interface Stats {
   recent: { id: string; title: string; slug: string; published_date: string; views: number }[]
 }
 
+interface SubscriberStats {
+  totalConfirmed: number
+  topSubscribedTags: { name: string; count: number }[]
+}
+
 export const BlogDashboard: React.FC = () => {
   const [stats, setStats] = useState<Stats | null>(null)
+  const [subStats, setSubStats] = useState<SubscriberStats | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/api/blog-posts/stats', { credentials: 'include' })
-      .then((res) => {
-        if (!res.ok) throw new Error('Error al cargar estadísticas')
+    Promise.all([
+      fetch('/api/blog-posts/stats', { credentials: 'include' }).then((res) => {
+        if (!res.ok) throw new Error('Error al cargar estadísticas del blog')
         return res.json()
-      })
-      .then((data) => {
-        setStats(data)
+      }),
+      fetch('/api/subscribers/stats', { credentials: 'include' }).then((res) => {
+        if (!res.ok) return null
+        return res.json()
+      }).catch(() => null),
+    ])
+      .then(([blogData, subscriberData]) => {
+        setStats(blogData)
+        setSubStats(subscriberData)
         setLoading(false)
       })
       .catch((err) => {
@@ -179,6 +191,50 @@ export const BlogDashboard: React.FC = () => {
               </table>
             )}
           </div>
+
+          {/* Subscriber Stats */}
+          {subStats && (
+            <>
+              <div style={{ ...s.header, marginTop: 'calc(var(--base) * 2.4)' }}>
+                <span style={s.headerLabel}>Suscriptores — Estadísticas</span>
+                <div style={s.headerRule} />
+              </div>
+
+              <div style={s.strip}>
+                <div style={s.statCard}>
+                  <div style={s.statValue}>{subStats.totalConfirmed}</div>
+                  <div style={s.statLabel}>Confirmados</div>
+                </div>
+              </div>
+
+              {subStats.topSubscribedTags.length > 0 && (
+                <div style={s.panel}>
+                  <div style={s.panelHeader}>
+                    <span style={s.panelTitle}>Etiquetas más suscritas</span>
+                  </div>
+                  <div style={s.tagsList}>
+                    {subStats.topSubscribedTags.map((tag) => {
+                      const maxSubTag = Math.max(...subStats.topSubscribedTags.map((t) => t.count), 1)
+                      return (
+                        <div key={tag.name} style={s.tagRow}>
+                          <span style={s.tagName}>{tag.name}</span>
+                          <div style={s.tagTrack}>
+                            <div
+                              style={{
+                                ...s.tagFill,
+                                width: `${(tag.count / maxSubTag) * 100}%`,
+                              }}
+                            />
+                          </div>
+                          <span style={s.tagCount}>{tag.count}</span>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
         </>
       )}
     </div>

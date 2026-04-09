@@ -9,7 +9,7 @@ import '../styles/info-faq.css';
     </h2>
 
     <div class="info-faq-grid">
-      <article class="info-faq-card info-faq-card-left hidden-initial">
+      <article class="info-faq-card info-faq-card-left">
         <div class="info-faq-card-front">
           <h3 class="info-faq-card-label">Teletrabajo:</h3>
           <p class="info-faq-card-copy">
@@ -32,7 +32,7 @@ import '../styles/info-faq.css';
         </div>
       </article>
 
-      <article class="info-faq-card info-faq-card-right hidden-initial">
+      <article class="info-faq-card info-faq-card-right">
         <div class="info-faq-card-front">
           <h3 class="info-faq-card-label">Contrato por servicios profesionales:</h3>
           <p class="info-faq-card-copy">
@@ -54,3 +54,37 @@ import '../styles/info-faq.css';
     </div>
   </div>
 </section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.info-faq-container') as HTMLElement;
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.info-faq-title',
+                                opacity: [0, 1],
+                                translateY: [-25, 0],
+                                duration: 700,
+                            });
+
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>

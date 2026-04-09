@@ -1,4 +1,17 @@
 import type { CollectionConfig } from 'payload'
+import { decryptEmail } from '../email/crypto'
+import { sendEmail } from '../email/resend'
+import { blogPostTemplate } from '../email/templates'
+
+function getCmsUrl(): string {
+  return process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000'
+}
+
+function getSiteUrl(): string {
+  const url = process.env.PUBLIC_SITE_URL
+  if (!url) throw new Error('PUBLIC_SITE_URL is not set')
+  return url.replace(/\/$/, '')
+}
 
 export const BlogPosts: CollectionConfig = {
   slug: 'blog-posts',
@@ -8,6 +21,38 @@ export const BlogPosts: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc, previousDoc, req, operation }) => {
+        // Prevent re-triggering when we update linkedCampaignId
+        if (req?.context?.skipEmailHook) return doc
+
+        const justPublished =
+          doc.status === 'published' &&
+          (operation === 'create' || previousDoc?.status === 'draft')
+
+        if (
+          !justPublished ||
+          !doc.sendEmailCampaign ||
+          doc.linkedCampaignId
+        ) {
+          return doc
+        }
+
+        // Must have tags
+        const postTagIds = Array.isArray(doc.tags)
+          ? doc.tags.map((t: any) => (typeof t === 'object' ? t.id : t))
+          : []
+
+        if (postTagIds.length === 0) return doc
+
+        // Fire async
+        void sendBlogEmail(doc, postTagIds, req.payload)
+
+        return doc
+      },
+    ],
   },
   endpoints: [
     {
@@ -219,5 +264,213 @@ export const BlogPosts: CollectionConfig = {
       type: 'textarea',
       label: 'Meta descripción (SEO)',
     },
+    // ── Email Marketing ──────────────────────────────
+    {
+      name: 'sendEmailCampaign',
+      type: 'checkbox',
+      label: 'Iniciar email marketing para este blog',
+      defaultValue: false,
+      admin: {
+        description: 'Activa para enviar un email a los suscriptores cuando publiques este artículo',
+      },
+    },
+    {
+      name: 'blogEmailWarning',
+      type: 'ui',
+      label: ' ',
+      admin: {
+        condition: (data: any) => Boolean(data?.sendEmailCampaign),
+        components: {
+          Field: './components/BlogEmailWarning#BlogEmailWarning',
+        },
+      },
+    },
+    {
+      name: 'blogEmailAutoFill',
+      type: 'ui',
+      label: ' ',
+      admin: {
+        components: {
+          Field: './components/BlogEmailAutoFill#BlogEmailAutoFill',
+        },
+      },
+    },
+    {
+      name: 'emailSubject',
+      type: 'text',
+      label: 'Asunto del correo',
+      admin: {
+        condition: (data: any) => Boolean(data?.sendEmailCampaign),
+        description: 'Editable antes de publicar.',
+        placeholder: 'Título del correo',
+      },
+    },
+    {
+      name: 'emailPreheader',
+      type: 'text',
+      label: 'Subtítulo / Preheader',
+      admin: {
+        condition: (data: any) => Boolean(data?.sendEmailCampaign),
+        description: 'Texto corto visible en la bandeja de entrada',
+        placeholder: 'Vista previa del correo',
+      },
+    },
+    {
+      name: 'emailBodyText',
+      type: 'textarea',
+      label: 'Texto del email',
+      admin: {
+        condition: (data: any) => Boolean(data?.sendEmailCampaign),
+        description: 'Editable antes de publicar.',
+        placeholder: 'Texto introductorio del email',
+      },
+    },
+    {
+      name: 'emailTargetLanguage',
+      type: 'select',
+      label: 'Idioma del email',
+      options: [
+        { label: 'Español', value: 'es' },
+        { label: 'English', value: 'en' },
+        { label: 'Todos', value: 'all' },
+      ],
+      defaultValue: 'es',
+      admin: {
+        condition: (data: any) => Boolean(data?.sendEmailCampaign),
+      },
+    },
+    {
+      name: 'linkedCampaignId',
+      type: 'number',
+      admin: { hidden: true, readOnly: true },
+    },
+    {
+      name: 'emailSentAt',
+      type: 'date',
+      admin: { hidden: true, readOnly: true },
+    },
   ],
+}
+
+/** Convert plain text (with \n\n paragraph breaks) to minimal valid Lexical JSON */
+function textToLexicalJson(text: string): object {
+  const paragraphs = (text || '').split('\n\n').filter(Boolean)
+  const children = paragraphs.length > 0 ? paragraphs : ['']
+  return {
+    root: {
+      type: 'root',
+      version: 1,
+      direction: 'ltr',
+      format: '',
+      indent: 0,
+      children: children.map((para) => ({
+        type: 'paragraph',
+        version: 1,
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        children: [
+          {
+            type: 'text',
+            version: 1,
+            detail: 0,
+            format: 0,
+            mode: 'normal',
+            style: '',
+            text: para,
+          },
+        ],
+      })),
+    },
+  }
+}
+
+async function sendBlogEmail(
+  doc: any,
+  postTagIds: number[],
+  payload: any,
+): Promise<void> {
+  try {
+    const cmsUrl = getCmsUrl()
+    const siteUrl = getSiteUrl()
+
+    // Find confirmed subscribers with at least one matching tag
+    const result = await payload.find({
+      collection: 'subscribers',
+      where: {
+        status: { equals: 'confirmed' },
+        tags: { in: postTagIds },
+      },
+      limit: 0,
+      depth: 0,
+      overrideAccess: true,
+    })
+
+    const subscribers = result.docs as any[]
+    if (subscribers.length === 0) {
+      console.log(`[BlogEmail] No matching subscribers for "${doc.title}"`)
+      return
+    }
+
+    const subject = doc.emailSubject || doc.title
+    const preheader = doc.emailPreheader || ''
+    const bodyText = doc.emailBodyText || doc.excerpt || ''
+    const ctaUrl = `${siteUrl}/blog/${doc.slug}`
+    const language = doc.emailTargetLanguage === 'en' ? 'en' : 'es'
+
+    let sentCount = 0
+
+    for (const sub of subscribers) {
+      if (!sub.emailEncrypted || !sub.emailIv || !sub.unsubscribeToken) continue
+      try {
+        const email = decryptEmail(sub.emailEncrypted, sub.emailIv)
+        const html = blogPostTemplate(
+          subject,
+          preheader,
+          bodyText,
+          ctaUrl,
+          sub.unsubscribeToken,
+          cmsUrl,
+          language,
+        )
+        const emailResult = await sendEmail({ to: email, subject, html })
+        if (emailResult.success) sentCount++
+      } catch (err) {
+        console.error(`[BlogEmail] Failed for subscriber ${sub.id}:`, err)
+      }
+    }
+
+    // Create an EmailCampaign record
+    const campaign = await payload.create({
+      collection: 'email-campaigns',
+      overrideAccess: true,
+      data: {
+        subject,
+        preheader,
+        body: textToLexicalJson(bodyText),
+        targetLanguage: doc.emailTargetLanguage || 'es',
+        status: 'sent',
+        sentAt: new Date().toISOString(),
+        recipientCount: sentCount,
+        campaignType: 'blog-post',
+        linkedBlogPost: doc.id,
+      },
+    })
+
+    // Update blog post with campaign link (guard against re-send)
+    await payload.update({
+      collection: 'blog-posts',
+      id: doc.id,
+      overrideAccess: true,
+      context: { skipEmailHook: true },
+      data: {
+        linkedCampaignId: campaign.id,
+        emailSentAt: new Date().toISOString(),
+      },
+    })
+
+    console.log(`[BlogEmail] "${subject}" sent to ${sentCount} subscribers, campaign #${campaign.id}`)
+  } catch (err) {
+    console.error('[BlogEmail] Error:', err)
+  }
 }

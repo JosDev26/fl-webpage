@@ -48,6 +48,32 @@ export interface Media {
   mimeType: string;
 }
 
+export interface Subscriber {
+  id: string;
+  emailHash: string;
+  emailDecrypted?: string;
+  tags?: Tag[];
+  language: 'es' | 'en';
+  status: 'pending' | 'confirmed' | 'unsubscribed';
+  confirmedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface EmailCampaign {
+  id: string;
+  subject: string;
+  preheader?: string;
+  body: unknown; // Lexical rich text JSON
+  targetTags?: Tag[];
+  targetLanguage: 'es' | 'en' | 'all';
+  status: 'draft' | 'sent';
+  sentAt?: string;
+  recipientCount?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 /** Payload REST API paginated response */
 export interface PayloadResponse<T> {
   docs: T[];
