@@ -1,0 +1,142 @@
+:root {
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+.especializados-container {
+  background: var(--dark-blue-color);
+  color: #fff;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 6vw, 4rem);
+}
+
+.especializados-content {
+  max-width: min(1000px, 92vw);
+  margin: 0 auto;
+}
+
+.especializados-title {
+  margin: 0 0 1rem;
+  text-align: center;
+  color: var(--yellow-color);
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.especializados-intro {
+  max-width: min(900px, 90vw);
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.75;
+}
+
+.especializados-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.7rem, 1.4vw, 1.2rem);
+  margin-bottom: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.especializados-card {
+  min-height: clamp(88px, 9vw, 105px);
+  border: clamp(2px, 0.25vw, 3px) solid var(--yellow-color);
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--yellow-color);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-weight: 700;
+  font-size: clamp(0.82rem, 0.9vw, 0.96rem);
+  text-align: center;
+  padding: clamp(0.5rem, 1vw, 0.8rem);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.especializados-card i {
+  font-size: clamp(1.35rem, 1.8vw, 1.8rem);
+}
+
+.especializados-card-active {
+  background: var(--yellow-color);
+  color: var(--dark-blue-color);
+  box-shadow: 0 10px 30px rgba(250, 208, 44, 0.3);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .especializados-card:hover {
+    background: var(--yellow-color);
+    color: var(--dark-blue-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(250, 208, 44, 0.3);
+  }
+}
+
+.especializados-card:focus-visible {
+  outline: 3px solid var(--yellow-color);
+  outline-offset: 4px;
+}
+
+.especializados-panels {
+  display: grid;
+}
+
+.especializados-panel {
+  grid-area: 1 / 1;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(1rem, 1.05vw, 1.08rem);
+  line-height: 1.9;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.35s;
+}
+
+.especializados-panel-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.especializados-panel p {
+  margin: 0 0 1rem;
+}
+
+
+.especializados-panel p {
+  margin: 0 0 1rem;
+}
+
+@media (max-width: 900px) {
+  .especializados-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .especializados-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .especializados-title {
+    font-size: clamp(1.6rem, 6vw, 2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .especializados-card {
+    transition: opacity 0.3s ease;
+  }
+    .especializados-panel {
+    transition: opacity 0.3s ease;
+  }
+
+  .especializados-card:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import TaxesHero from '../components/Taxes-Hero.astro';
+import Navbar2 from '../components/Navbar-taxes.astro';
+import Info from '../components/Taxes-info.astro';
+import Cumplimiento from '../components/Taxes-cumplimiento.astro';
+import Defensa from '../components/Taxes-defensa.astro';
+import Especializados from '../components/Taxes-Especializados.astro';
+import TaxesCTA from '../components/Taxes-CTA.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+    <Navbar/>
+    <TaxesHero/>
+    <Navbar2/>
+    <div class="toolkit-sections">
+        <Info/>
+        <Cumplimiento/>
+        <Defensa/>
+        <Especializados/>
+    </div>
+    <TaxesCTA/>
+    <Footer/>
+</Layout>

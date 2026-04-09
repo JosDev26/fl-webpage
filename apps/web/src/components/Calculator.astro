@@ -1,0 +1,317 @@
+---
+import '../styles/calculator.css';
+---
+
+<section class="calc-container" id="calculadora">
+  <div class="calc-content">
+
+    <h2 class="calc-title hidden-initial">Calculadora Interactiva de Costos</h2>
+    <p class="calc-intro hidden-initial">
+      Estime los gastos asociados al traspaso de su propiedad o veh&iacute;culo. Tenga en cuenta que estos son valores aproximados. Para obtener un c&aacute;lculo preciso y personalizado, le invitamos a contactarnos al final de la p&aacute;gina.
+    </p>
+
+    <div class="calc-layout hidden-initial">
+
+      <!-- Formulario -->
+      <div class="calc-form">
+
+        <div class="calc-field">
+          <span class="calc-field-label">Seleccione el Tipo de Bien</span>
+          <div class="calc-tabs">
+            <button type="button" class="calc-tab calc-tab-active" id="btn-inmueble">Inmueble</button>
+            <button type="button" class="calc-tab" id="btn-mueble">Veh&iacute;culo</button>
+          </div>
+        </div>
+
+        <div class="calc-field">
+          <label for="valor-traspaso" class="calc-field-label">Valor de Traspaso (Precio de Venta) &cent;</label>
+          <input type="number" id="valor-traspaso" class="calc-input" placeholder="50000000" autocomplete="off">
+        </div>
+
+        <div class="calc-field">
+          <label for="valor-fiscal" class="calc-field-label">Valor Fiscal del Bien &cent;</label>
+          <input type="number" id="valor-fiscal" class="calc-input" placeholder="45000000" autocomplete="off">
+        </div>
+
+        <div id="inmueble-fields">
+          <div class="calc-field">
+            <label for="valor-compra" class="calc-field-label">Valor de Compra Original &cent;</label>
+            <input type="number" id="valor-compra" class="calc-input" placeholder="30000000" autocomplete="off">
+          </div>
+          <div class="calc-field">
+            <label class="calc-checkbox-label">
+              <input type="checkbox" id="adquisicion-pre-2019" class="calc-checkbox">
+              <span>Adquirido antes del 1 de julio de 2019</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="calc-field">
+          <label class="calc-checkbox-label">
+            <input type="checkbox" id="aplica-declaracion-jurada" class="calc-checkbox">
+            <span>Aplicar Costo Declaraci&oacute;n Jurada (si la transacci&oacute;n supera los &cent;5.060.000, aprox. $10.000 USD)</span>
+          </label>
+        </div>
+
+      </div>
+
+      <!-- Resultados -->
+      <div class="calc-results">
+        <h3 class="calc-results-title">Desglose de Costos Estimados</h3>
+
+        <div class="calc-result-rows">
+          <div class="calc-result-row">
+            <span>Impuesto de Traspaso:</span>
+            <span id="res-impuesto-traspaso" class="calc-result-value">&cent;0</span>
+          </div>
+          <div class="calc-result-row" id="res-ganancia-capital-container">
+            <span>Imp. Ganancia de Capital:</span>
+            <span id="res-ganancia-capital" class="calc-result-value">&cent;0</span>
+          </div>
+          <div class="calc-result-row">
+            <span>Timbres y Derechos:</span>
+            <span id="res-timbres" class="calc-result-value">&cent;0</span>
+          </div>
+          <div class="calc-result-row">
+            <span>Honorarios Notariales (Est.):</span>
+            <span id="res-honorarios" class="calc-result-value">&cent;0</span>
+          </div>
+          <div class="calc-result-row">
+            <span>IVA sobre Honorarios (13%):</span>
+            <span id="res-iva" class="calc-result-value">&cent;0</span>
+          </div>
+          <div class="calc-result-row calc-result-row-hidden" id="res-declaracion-jurada-container">
+            <span>Declaraci&oacute;n Jurada (IVA incl.):</span>
+            <span id="res-declaracion-jurada" class="calc-result-value">&cent;0</span>
+          </div>
+        </div>
+
+        <div class="calc-result-total">
+          <span>Costo Total Estimado:</span>
+          <span id="res-total" class="calc-result-value">&cent;0</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Nota legal al pie -->
+    <p class="calc-footnote hidden-initial">
+      *Esta herramienta proporciona una estimaci&oacute;n de costos basada en la informaci&oacute;n del &ldquo;Reporte Integral sobre Traspasos de Bienes en Costa Rica&rdquo;. Los c&aacute;lculos son aproximados y no constituyen asesor&iacute;a legal o financiera. Para una cotizaci&oacute;n m&aacute;s formal y asesoramiento profesional, consulte con un abogado.
+    </p>
+
+  </div>
+</section>
+
+<!-- Animaciones de entrada -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+  declare const anime: any;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.calc-container') as HTMLElement;
+    if (!section) return;
+
+    const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+    const delay = isRestoring ? 150 : 0;
+
+    setTimeout(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            anime.timeline({ easing: 'easeOutCubic' })
+              .add({
+                targets: '.calc-title',
+                opacity: [0, 1],
+                translateY: [-30, 0],
+                duration: 700,
+              })
+              .add({
+                targets: '.calc-intro',
+                opacity: [0, 1],
+                translateY: [20, 0],
+                duration: 600,
+              }, '-=400')
+              .add({
+                targets: '.calc-layout',
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 700,
+              }, '-=300')
+              .add({
+                targets: '.calc-footnote',
+                opacity: [0, 1],
+                duration: 500,
+              }, '-=200');
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.1 });
+
+      observer.observe(section);
+    }, delay);
+  });
+</script>
+
+<!-- Logica de la calculadora -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    const state = {
+      tipoBien: 'inmueble' as 'inmueble' | 'mueble',
+      valorTraspaso: 0,
+      valorFiscal: 0,
+      valorCompra: 0,
+      adquisicionPre2019: false,
+      aplicaDeclaracionJurada: false,
+    };
+
+    const CONFIG = {
+      inmueble: {
+        impuestoTraspaso: 0.015,
+        gananciaCapitalPost2019: 0.15,
+        gananciaCapitalPre2019: 0.0225,
+        honorariosPorcentaje: 0.015,
+      },
+      mueble: {
+        impuestoTraspaso: 0.025,
+        honorariosPorcentaje: 0.02,
+      },
+      timbres: {
+        registroNacional: 0.005,
+        agrario: 0.003,
+        archivoNacional: 20,
+        cruzRoja: 500,
+        parquesNacionales: 500,
+      },
+      iva: 0.13,
+      honorariosMinimo: 75000,
+      declaracionJuradaThresholdCRC: 5060000,
+      declaracionJuradaCostBase: 60500,
+    };
+
+    const btnInmueble        = document.getElementById('btn-inmueble') as HTMLButtonElement | null;
+    const btnMueble          = document.getElementById('btn-mueble') as HTMLButtonElement | null;
+    const valorTraspasoInput = document.getElementById('valor-traspaso') as HTMLInputElement | null;
+    const valorFiscalInput   = document.getElementById('valor-fiscal') as HTMLInputElement | null;
+    const valorCompraInput   = document.getElementById('valor-compra') as HTMLInputElement | null;
+    const adquisicionCheck   = document.getElementById('adquisicion-pre-2019') as HTMLInputElement | null;
+    const declaracionCheck   = document.getElementById('aplica-declaracion-jurada') as HTMLInputElement | null;
+    const inmuebleFields     = document.getElementById('inmueble-fields') as HTMLDivElement | null;
+
+    const resImpuesto             = document.getElementById('res-impuesto-traspaso');
+    const resGanancia             = document.getElementById('res-ganancia-capital');
+    const resGananciaContainer    = document.getElementById('res-ganancia-capital-container');
+    const resTimbres              = document.getElementById('res-timbres');
+    const resHonorarios           = document.getElementById('res-honorarios');
+    const resIva                  = document.getElementById('res-iva');
+    const resDeclaracion          = document.getElementById('res-declaracion-jurada');
+    const resDeclaracionContainer = document.getElementById('res-declaracion-jurada-container');
+    const resTotal                = document.getElementById('res-total');
+
+    if (!btnInmueble || !btnMueble || !valorTraspasoInput || !valorFiscalInput || !valorCompraInput || !adquisicionCheck || !declaracionCheck) return;
+
+    const formatCurrency = (value: number): string =>
+      new Intl.NumberFormat('es-CR', {
+        style: 'currency',
+        currency: 'CRC',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(value);
+
+    const getColegioTimbre = (amount: number): number => {
+      if (amount <= 250000)    return 0;
+      if (amount <= 1000000)   return 1100;
+      if (amount <= 5000000)   return 2200;
+      if (amount <= 25000000)  return 5500;
+      if (amount <= 50000000)  return 11000;
+      if (amount <= 100000000) return 16500;
+      if (amount <= 500000000) return 27500;
+      return 55000;
+    };
+
+    const updateBienUI = () => {
+      if (state.tipoBien === 'inmueble') {
+        btnInmueble.classList.add('calc-tab-active');
+        btnMueble.classList.remove('calc-tab-active');
+        if (inmuebleFields) inmuebleFields.style.display = '';
+        if (resGananciaContainer) resGananciaContainer.style.display = '';
+      } else {
+        btnMueble.classList.add('calc-tab-active');
+        btnInmueble.classList.remove('calc-tab-active');
+        if (inmuebleFields) inmuebleFields.style.display = 'none';
+        if (resGananciaContainer) resGananciaContainer.style.display = 'none';
+      }
+      calculate();
+    };
+
+    const calculate = () => {
+      state.valorTraspaso           = parseFloat(valorTraspasoInput.value) || 0;
+      state.valorFiscal             = parseFloat(valorFiscalInput.value) || 0;
+      state.valorCompra             = parseFloat(valorCompraInput.value) || 0;
+      state.adquisicionPre2019      = adquisicionCheck.checked;
+      state.aplicaDeclaracionJurada = declaracionCheck.checked;
+
+      const baseImponible = Math.max(state.valorTraspaso, state.valorFiscal);
+
+      let impuestoTraspaso  = 0;
+      let gananciaCapital   = 0;
+      let honorarios        = 0;
+      let declaracionJurada = 0;
+
+      if (state.tipoBien === 'inmueble') {
+        impuestoTraspaso = baseImponible * CONFIG.inmueble.impuestoTraspaso;
+        honorarios = Math.max(baseImponible * CONFIG.inmueble.honorariosPorcentaje, CONFIG.honorariosMinimo);
+        const ganancia = state.valorTraspaso - state.valorCompra;
+        if (ganancia > 0) {
+          gananciaCapital = state.adquisicionPre2019
+            ? baseImponible * CONFIG.inmueble.gananciaCapitalPre2019
+            : ganancia * CONFIG.inmueble.gananciaCapitalPost2019;
+        }
+      } else {
+        impuestoTraspaso = baseImponible * CONFIG.mueble.impuestoTraspaso;
+        honorarios = Math.max(baseImponible * CONFIG.mueble.honorariosPorcentaje, CONFIG.honorariosMinimo);
+      }
+
+      if (state.aplicaDeclaracionJurada && baseImponible >= CONFIG.declaracionJuradaThresholdCRC) {
+        declaracionJurada = CONFIG.declaracionJuradaCostBase * (1 + CONFIG.iva);
+      }
+
+      const colegioTimbre = getColegioTimbre(baseImponible);
+      const timbres = (baseImponible * CONFIG.timbres.registroNacional)
+        + (baseImponible * CONFIG.timbres.agrario)
+        + colegioTimbre
+        + CONFIG.timbres.archivoNacional
+        + CONFIG.timbres.cruzRoja
+        + CONFIG.timbres.parquesNacionales;
+
+      const iva   = honorarios * CONFIG.iva;
+      const total = impuestoTraspaso + gananciaCapital + timbres + honorarios + iva + declaracionJurada;
+
+      if (resImpuesto)  resImpuesto.textContent  = formatCurrency(impuestoTraspaso);
+      if (resGanancia)  resGanancia.textContent  = formatCurrency(gananciaCapital);
+      if (resTimbres)   resTimbres.textContent   = formatCurrency(timbres);
+      if (resHonorarios) resHonorarios.textContent = formatCurrency(honorarios);
+      if (resIva)       resIva.textContent       = formatCurrency(iva);
+      if (resTotal)     resTotal.textContent     = formatCurrency(total);
+
+      if (declaracionJurada > 0) {
+        resDeclaracionContainer?.classList.remove('calc-result-row-hidden');
+        if (resDeclaracion) resDeclaracion.textContent = formatCurrency(declaracionJurada);
+      } else {
+        resDeclaracionContainer?.classList.add('calc-result-row-hidden');
+      }
+    };
+
+    btnInmueble.addEventListener('click', () => { state.tipoBien = 'inmueble'; updateBienUI(); });
+    btnMueble.addEventListener('click',   () => { state.tipoBien = 'mueble';   updateBienUI(); });
+
+    [valorTraspasoInput, valorFiscalInput, valorCompraInput].forEach(input => {
+      input.addEventListener('input', calculate);
+    });
+
+    adquisicionCheck.addEventListener('change', calculate);
+    declaracionCheck.addEventListener('change', calculate);
+
+    updateBienUI();
+  });
+</script>
