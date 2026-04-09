@@ -14,7 +14,6 @@
   margin: 0 auto;
 }
 
-/* ── Card principal (Requisitos) ── */
 .calcinfo-card {
   border: clamp(2px, 0.2vw, 3px) solid rgba(250, 208, 44, 0.25);
   padding: clamp(1.2rem, 3vw, 2rem);
@@ -22,20 +21,14 @@
 }
 
 .calcinfo-card-title {
-  margin: 0 0 0.5rem;
+  margin: 0 0 clamp(1rem, 1.5vw, 1.2rem);
   color: var(--yellow-color);
-  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
   font-weight: 800;
-  text-align: center;
+  text-align: left;
 }
 
-.calcinfo-card-subtitle {
-  margin: 0 0 clamp(1.5rem, 2.5vw, 2rem);
-  text-align: center;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: clamp(0.95rem, 1.1vw, 1.08rem);
-  line-height: 1.75;
-}
+
 
 .calcinfo-section {
   margin-bottom: clamp(1.2rem, 2vw, 1.8rem);
@@ -70,14 +63,13 @@
 }
 
 .calcinfo-list li::marker {
-  color: var(--yellow-color);
+  color: #fff;
 }
 
 .calcinfo-list strong {
-  color: var(--yellow-color);
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/* ── Grid de guia legal ── */
 .calcinfo-grid-title {
   margin: 0 0 0.5rem;
   text-align: center;
