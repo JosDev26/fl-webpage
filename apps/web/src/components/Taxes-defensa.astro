@@ -1,0 +1,136 @@
+---
+import '../styles/taxes-defensa.css';
+---
+
+<section class="defensa-container" id="defensa-fiscal">
+  <div class="defensa-content">
+    <h2 class="defensa-title">Defensa Fiscal</h2>
+
+    <p class="defensa-intro">
+      Cuando la Administracion Tributaria inicia un procedimiento de fiscalizacion o determinacion, contar con una defensa tecnica solida puede marcar la diferencia entre una resolucion favorable y una sancion significativa. Esta seccion cubre las herramientas y estrategias disponibles para proteger los derechos del contribuyente en cada etapa del proceso administrativo y judicial.
+    </p>
+
+    <!-- Grid de servicios -->
+    <div class="defensa-grid">
+      <button type="button" class="defensa-card defensa-card-active" data-panel="auditorias">
+        <i class="ph ph-detective"></i>
+        <span>Atencion de Auditorias</span>
+      </button>
+
+      <button type="button" class="defensa-card" data-panel="recursos">
+        <i class="ph ph-scales"></i>
+        <span>Recursos Administrativos</span>
+      </button>
+
+      <button type="button" class="defensa-card" data-panel="litigio">
+        <i class="ph ph-gavel"></i>
+        <span>Litigio Tributario</span>
+      </button>
+
+      <button type="button" class="defensa-card" data-panel="sanciones">
+        <i class="ph ph-warning-circle"></i>
+        <span>Gestion de Sanciones</span>
+      </button>
+    </div>
+
+    <!-- Paneles de contenido -->
+    <div class="defensa-panels">
+      <div class="defensa-panel defensa-panel-active" data-panel="auditorias">
+        <p>
+          Una auditoria tributaria puede surgir de inconsistencias detectadas por TRIBU-CR, cruces de informacion o seleccion aleatoria. La forma en que se gestiona desde el primer requerimiento determina en gran medida el resultado final del proceso:
+        </p>
+
+        <ul class="defensa-list">
+          <li>
+            <strong>Respuesta a Requerimientos:</strong> Preparacion y presentacion oportuna de la documentacion solicitada por la Administracion Tributaria, asegurando que cada respuesta sea completa, coherente y estrategicamente fundamentada.
+          </li>
+          <li>
+            <strong>Acompanamiento en Fiscalizacion:</strong> Representacion del contribuyente durante todo el proceso de auditoria, incluyendo reuniones con los auditores, revision de hallazgos preliminares y preparacion de descargos tecnicos.
+          </li>
+          <li>
+            <strong>Revision Preventiva:</strong> Auditorias internas previas para identificar y corregir posibles contingencias antes de que la Administracion las detecte, reduciendo significativamente el riesgo de ajustes y sanciones.
+          </li>
+        </ul>
+      </div>
+
+      <div class="defensa-panel" data-panel="recursos">
+        <p>
+          El sistema tributario costarricense ofrece varias instancias administrativas para impugnar las resoluciones de la Administracion. Conocer y utilizar estos recursos de forma estrategica es fundamental para proteger los intereses del contribuyente:
+        </p>
+
+        <ul class="defensa-list">
+          <li>
+            <strong>Recurso de Revocatoria:</strong> Impugnacion ante la misma oficina que emitio la resolucion, presentando argumentos de hecho y de derecho para solicitar la modificacion o anulacion del acto administrativo dentro del plazo legal.
+          </li>
+          <li>
+            <strong>Recurso de Apelacion:</strong> Elevacion del caso al Tribunal Fiscal Administrativo (TFA), aportando pruebas adicionales y argumentos juridicos especializados para obtener una revision independiente de la determinacion tributaria.
+          </li>
+          <li>
+            <strong>Negociacion y Conciliacion:</strong> Cuando es estrategicamente conveniente, exploracion de acuerdos con la Administracion Tributaria para resolver controversias de manera eficiente, minimizando costos y tiempos procesales.
+          </li>
+        </ul>
+      </div>
+
+      <div class="defensa-panel" data-panel="litigio">
+        <p>
+          Cuando las instancias administrativas se agotan o la complejidad del caso lo requiere, el litigio ante la jurisdiccion contencioso-administrativa se convierte en la via para hacer valer los derechos del contribuyente:
+        </p>
+
+        <ul class="defensa-list">
+          <li>
+            <strong>Demanda Contencioso-Administrativa:</strong> Preparacion y presentacion de la demanda ante los tribunales competentes, con una estrategia litigiosa fundamentada en la legislacion tributaria, jurisprudencia relevante y doctrina especializada.
+          </li>
+          <li>
+            <strong>Medidas Cautelares:</strong> Solicitud de suspension del acto impugnado cuando su ejecucion pueda causar danos graves o de dificil reparacion al contribuyente, protegiendo su patrimonio durante el proceso judicial.
+          </li>
+          <li>
+            <strong>Peritajes y Prueba Tecnica:</strong> Coordinacion con peritos contables y financieros para sustentar la posicion del contribuyente con evidencia tecnica solida que fortalezca los argumentos ante el tribunal.
+          </li>
+        </ul>
+      </div>
+
+      <div class="defensa-panel" data-panel="sanciones">
+        <p>
+          Las sanciones tributarias pueden ir desde multas economicas hasta el cierre de negocios. Una gestion adecuada permite reducir, mitigar o incluso eliminar las sanciones aplicadas por la Administracion:
+        </p>
+
+        <ul class="defensa-list">
+          <li>
+            <strong>Reduccion de Multas:</strong> Aplicacion de los beneficios legales de reduccion de sanciones por subsanacion voluntaria o pago anticipado, aprovechando los porcentajes de descuento previstos en el Codigo de Normas y Procedimientos Tributarios.
+          </li>
+          <li>
+            <strong>Planes de Pago:</strong> Negociacion de arreglos de pago con la Administracion Tributaria para deudas tributarias firmes, estableciendo condiciones que sean viables para el flujo de caja del contribuyente y eviten acciones de cobro coactivo.
+          </li>
+          <li>
+            <strong>Prescripcion y Caducidad:</strong> Analisis de los plazos de prescripcion y caducidad aplicables para determinar si las obligaciones o sanciones reclamadas por la Administracion han perdido vigencia legal, constituyendo una defensa procedente.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll<HTMLButtonElement>('.defensa-card[data-panel]');
+    const panels = document.querySelectorAll<HTMLDivElement>('.defensa-panel[data-panel]');
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const target = card.getAttribute('data-panel');
+        if (!target) return;
+
+        cards.forEach((c) => c.classList.remove('defensa-card-active'));
+        card.classList.add('defensa-card-active');
+
+        panels.forEach((p) => {
+          if (p.getAttribute('data-panel') === target) {
+            p.classList.add('defensa-panel-active');
+          } else {
+            p.classList.remove('defensa-panel-active');
+          }
+        });
+      });
+    });
+  });
+</script>

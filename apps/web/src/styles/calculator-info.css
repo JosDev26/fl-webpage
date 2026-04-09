@@ -1,0 +1,137 @@
+:root {
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+.calcinfo-container {
+  background: var(--dark-blue-color);
+  color: #fff;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 6vw, 4rem);
+}
+
+.calcinfo-content {
+  max-width: min(1000px, 92vw);
+  margin: 0 auto;
+}
+
+/* ── Card principal (Requisitos) ── */
+.calcinfo-card {
+  border: clamp(2px, 0.2vw, 3px) solid rgba(250, 208, 44, 0.25);
+  padding: clamp(1.2rem, 3vw, 2rem);
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.calcinfo-card-title {
+  margin: 0 0 0.5rem;
+  color: var(--yellow-color);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-weight: 800;
+  text-align: center;
+}
+
+.calcinfo-card-subtitle {
+  margin: 0 0 clamp(1.5rem, 2.5vw, 2rem);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(0.95rem, 1.1vw, 1.08rem);
+  line-height: 1.75;
+}
+
+.calcinfo-section {
+  margin-bottom: clamp(1.2rem, 2vw, 1.8rem);
+}
+
+.calcinfo-section:last-child {
+  margin-bottom: 0;
+}
+
+.calcinfo-section-title {
+  margin: 0 0 0.6rem;
+  color: var(--yellow-color);
+  font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+  font-weight: 800;
+}
+
+.calcinfo-section-text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.9;
+}
+
+.calcinfo-list {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.6rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  line-height: 1.8;
+}
+
+.calcinfo-list li::marker {
+  color: var(--yellow-color);
+}
+
+.calcinfo-list strong {
+  color: var(--yellow-color);
+}
+
+/* ── Grid de guia legal ── */
+.calcinfo-grid-title {
+  margin: 0 0 0.5rem;
+  text-align: center;
+  color: var(--yellow-color);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-weight: 800;
+}
+
+.calcinfo-grid-subtitle {
+  margin: 0 0 clamp(1.5rem, 2.5vw, 2rem);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(0.95rem, 1.1vw, 1.08rem);
+  line-height: 1.75;
+}
+
+.calcinfo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.4rem);
+}
+
+.calcinfo-guide-card {
+  border: clamp(2px, 0.2vw, 3px) solid rgba(250, 208, 44, 0.25);
+  padding: clamp(1rem, 2vw, 1.5rem);
+}
+
+.calcinfo-guide-title {
+  margin: 0 0 0.5rem;
+  color: var(--yellow-color);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  font-weight: 800;
+}
+
+.calcinfo-guide-text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(0.88rem, 0.95vw, 0.98rem);
+  line-height: 1.85;
+}
+
+@media (max-width: 768px) {
+  .calcinfo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .calcinfo-card-title,
+  .calcinfo-grid-title {
+    font-size: clamp(1.3rem, 5vw, 1.7rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calcinfo-guide-card {
+    transition: none;
+  }
+}
