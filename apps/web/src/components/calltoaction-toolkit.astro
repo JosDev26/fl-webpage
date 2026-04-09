@@ -15,3 +15,49 @@ import '../styles/calltoaction-toolkit.css';
     </a>
   </div>
 </section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.calltoaction-toolkit-container') as HTMLElement;
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.calltoaction-toolkit-title',
+                                opacity: [0, 1],
+                                translateY: [-25, 0],
+                                duration: 700,
+                            })
+                            .add({
+                                targets: '.calltoaction-toolkit-copy',
+                                opacity: [0, 1],
+                                translateY: [20, 0],
+                                duration: 600,
+                            }, '-=400')
+                            .add({
+                                targets: '.calltoaction-toolkit-button',
+                                opacity: [0, 1],
+                                translateY: [15, 0],
+                                duration: 500,
+                            }, '-=300');
+
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>
