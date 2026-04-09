@@ -1,6 +1,6 @@
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { lexicalEditor, UploadFeature } from '@payloadcms/richtext-lexical'
 import { s3Storage } from '@payloadcms/storage-s3'
 import sharp from 'sharp'
 import path from 'path'
@@ -11,6 +11,8 @@ import { Services } from './collections/Services'
 import { BlogPosts } from './collections/BlogPosts'
 import { Media } from './collections/Media'
 import { Tags } from './collections/Tags'
+import { Subscribers } from './collections/Subscribers'
+import { EmailCampaigns } from './collections/EmailCampaigns'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -31,6 +33,8 @@ export default buildConfig({
     BlogPosts,
     Media,
     Tags,
+    Subscribers,
+    EmailCampaigns,
     {
       slug: 'users',
       auth: true,
@@ -49,7 +53,28 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  editor: lexicalEditor(),
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) => [
+      ...defaultFeatures,
+      UploadFeature({
+        collections: {
+          media: {
+            fields: [
+              {
+                name: 'width',
+                type: 'number',
+                label: 'Ancho (px)',
+                min: 10,
+                admin: {
+                  description: 'Ajusta el ancho en píxeles. El alto se calcula proporcionalmente.',
+                },
+              },
+            ],
+          },
+        },
+      }),
+    ],
+  }),
   secret: process.env.PAYLOAD_SECRET || 'default-secret-change-me',
   sharp,
   typescript: {

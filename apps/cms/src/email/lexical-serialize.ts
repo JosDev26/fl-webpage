@@ -1,6 +1,6 @@
 /**
- * Simple Lexical JSON to HTML serializer for Payload CMS rich text fields.
- * Handles the most common Lexical node types.
+ * Lexical JSON to HTML serializer — server-side for email campaigns.
+ * Mirrors the web app serializer in apps/web/src/lib/lexical.ts
  */
 
 interface LexicalNode {
@@ -14,9 +14,6 @@ interface LexicalNode {
   newTab?: boolean
   value?: { url?: string; alt?: string; width?: number; height?: number }
   fields?: { url?: string; linkType?: string; newTab?: boolean; width?: number }
-  direction?: string
-  indent?: number
-  version?: number
 }
 
 interface LexicalRoot {
@@ -27,7 +24,6 @@ const FORMAT_BOLD = 1
 const FORMAT_ITALIC = 2
 const FORMAT_UNDERLINE = 8
 const FORMAT_STRIKETHROUGH = 4
-const FORMAT_CODE = 16
 
 function escapeHtml(str: string): string {
   return str
@@ -45,7 +41,6 @@ function serializeNode(node: LexicalNode): string {
     if (format & FORMAT_ITALIC) text = `<em>${text}</em>`
     if (format & FORMAT_UNDERLINE) text = `<u>${text}</u>`
     if (format & FORMAT_STRIKETHROUGH) text = `<s>${text}</s>`
-    if (format & FORMAT_CODE) text = `<code>${text}</code>`
     return text
   }
 
@@ -71,15 +66,16 @@ function serializeNode(node: LexicalNode): string {
     case 'link':
     case 'autolink': {
       const url = node.fields?.url || node.url || '#'
-      const target = node.fields?.newTab || node.newTab ? ' target="_blank" rel="noopener noreferrer"' : ''
+      const target =
+        node.fields?.newTab || node.newTab ? ' target="_blank" rel="noopener noreferrer"' : ''
       return `<a href="${escapeHtml(url)}"${target}>${children}</a>`
     }
     case 'upload': {
       const imgUrl = node.value?.url || ''
       const alt = node.value?.alt || ''
       const customWidth = node.fields?.width
-      const widthAttr = customWidth ? ` width="${customWidth}" style="max-width:${customWidth}px;height:auto;"` : ''
-      return `<img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(alt)}"${widthAttr} loading="lazy" />`
+      const widthStyle = customWidth ? ` width="${customWidth}" style="max-width:${customWidth}px;height:auto;"` : ' style="max-width:100%;height:auto;"'
+      return `<img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(alt)}"${widthStyle} />`
     }
     default:
       return children

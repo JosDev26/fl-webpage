@@ -137,7 +137,7 @@
 
 .fule-info-copy {
   color: rgba(255, 255, 255, 0.9);
-  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
   line-height: 1.8;
 }
 

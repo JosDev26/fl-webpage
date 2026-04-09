@@ -2,6 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
+import SubscribeBanner from '../../components/SubscribeBanner.astro';
+import SubscribePopup from '../../components/SubscribePopup.astro';
 import { getBlogPosts } from '../../lib/payload';
 import type { BlogPost, Tag } from '@fusion-legal/shared';
 import '../../styles/blog.css';
@@ -44,6 +46,7 @@ const allTags = tagGroups.map(g => g.tag);
 
 <Layout>
   <Navbar />
+  <SubscribeBanner />
   <section class="blog-container">
 
     {posts.length === 0 ? (
@@ -198,6 +201,7 @@ const allTags = tagGroups.map(g => g.tag);
 
   </section>
   <Footer />
+  <SubscribePopup />
 </Layout>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
