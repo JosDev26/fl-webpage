@@ -8,8 +8,6 @@ import { getBlogPost } from '../../lib/payload';
 import { lexicalToHtml } from '../../lib/lexical';
 import '../../styles/blog.css';
 
-export const prerender = false;
-
 const { slug } = Astro.params;
 const post = await getBlogPost(slug!);
 
