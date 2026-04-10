@@ -198,6 +198,16 @@
   white-space: nowrap;
 }
 
+/* Auth Link (Ingresar / Mi cuenta) */
+.nav-link-auth {
+  color: var(--yellow-color);
+  font-weight: 700;
+}
+
+.nav-link-auth:hover {
+  color: #f5d957;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .navbar-container {

@@ -6,6 +6,7 @@
 .freetools-container {
     position: relative;
     padding: clamp(4em, 8vw, 6em) clamp(1.5rem, 5vw, 3rem);
+    padding-top: clamp(6em, 12vw, 8em);
     display: flex;
     flex-direction: column;
     align-items: center;

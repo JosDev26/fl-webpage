@@ -74,6 +74,7 @@ export interface Config {
     tags: Tag;
     subscribers: Subscriber;
     'email-campaigns': EmailCampaign;
+    'contact-messages': ContactMessage;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -89,6 +90,7 @@ export interface Config {
     tags: TagsSelect<false> | TagsSelect<true>;
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     'email-campaigns': EmailCampaignsSelect<false> | EmailCampaignsSelect<true>;
+    'contact-messages': ContactMessagesSelect<false> | ContactMessagesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -345,6 +347,21 @@ export interface EmailCampaign {
   createdAt: string;
 }
 /**
+ * Mensajes recibidos desde el formulario de contacto del sitio web
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-messages".
+ */
+export interface ContactMessage {
+  id: number;
+  name: string;
+  email: string;
+  message: string;
+  status?: ('new' | 'read' | 'replied') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -420,6 +437,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'email-campaigns';
         value: number | EmailCampaign;
+      } | null)
+    | ({
+        relationTo: 'contact-messages';
+        value: number | ContactMessage;
       } | null)
     | ({
         relationTo: 'users';
@@ -580,6 +601,18 @@ export interface EmailCampaignsSelect<T extends boolean = true> {
   recipientCount?: T;
   campaignType?: T;
   linkedBlogPost?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-messages_select".
+ */
+export interface ContactMessagesSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  message?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }

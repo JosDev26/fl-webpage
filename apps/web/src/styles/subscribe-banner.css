@@ -7,7 +7,7 @@
   width: 100%;
   background-color: var(--dark-blue-color);
   border-bottom: 2px solid rgba(250, 208, 44, 0.18);
-  padding: clamp(1.8rem, 3vw, 2.4rem) clamp(1.2rem, 4vw, 2.4rem);
+  padding: clamp(6rem, 10vw, 8rem) clamp(1.2rem, 4vw, 2.4rem) clamp(1.8rem, 3vw, 2.4rem);
   box-sizing: border-box;
 }
 

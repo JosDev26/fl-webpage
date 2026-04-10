@@ -45,7 +45,7 @@
   text-wrap: wrap;
   text-wrap-style: balance;
 }
-.hero button{
+.hero .cta-hero{
   background-color: transparent;
   border: 3px solid var(--yellow-color);
   padding: 0.6em 10%;
@@ -58,8 +58,10 @@
   margin: 1.5em auto 0 auto;
   transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   transform-origin: center;
+  text-decoration: none;
+  text-align: center;
 }
-.hero button:hover{
+.hero .cta-hero:hover{
   background-color: var(--yellow-color);
   color: var(--dark-blue-color);
   box-shadow: 0 8px 25px rgba(250, 208, 44, 0.4);

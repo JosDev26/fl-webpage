@@ -5,12 +5,14 @@ interface Props {
     title?: string;
     buttonText?: string;
     text?: string;
+    href?: string;
 }
 
 const {
     title = 'Tu Estrategia Comienza Aquí',
     buttonText = 'Quiero Resolverlo',
     text = 'Nuestro equipo de expertos legales está preparado para diseñar la estrategia exacta que su caso necesita, sin importar su complejidad. Contáctenos hoy para abordar su situación con la solución más eficiente y proteger sus intereses.',
+    href = 'mailto:info@fusionlegalcr.com?subject=Consulta%20legal&body=Hola%2C%20me%20gustar%C3%ADa%20resolver%20mi%20situaci%C3%B3n%20legal.%20Quisiera%20que%20su%20equipo%20dise%C3%B1e%20la%20estrategia%20que%20mi%20caso%20necesita.',
 } = Astro.props;
 ---
 
@@ -18,7 +20,7 @@ const {
     <div class="persona-cta-content">
         <h2 class="persona-cta-title hidden-initial">{title}</h2>
         <p class="persona-cta-text hidden-initial">{text}</p>
-        <button class="persona-cta-button hidden-initial">{buttonText}</button>
+        <a class="persona-cta-button hidden-initial" href={href}>{buttonText}</a>
     </div>
 </section>
 

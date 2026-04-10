@@ -188,6 +188,20 @@
     outline-offset: 3px;
 }
 
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Feedback de formulario de contacto */
+.contact-feedback {
+    font-size: clamp(0.85rem, 1.1vw, 1rem);
+    font-weight: 600;
+    margin-top: 0.2em;
+}
+
 /* === SECCIÓN DE INFORMACIÓN === */
 .footer-info-section {
     display: flex;

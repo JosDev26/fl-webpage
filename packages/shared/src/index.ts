@@ -74,6 +74,16 @@ export interface EmailCampaign {
   updatedAt: string;
 }
 
+export interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  status: 'new' | 'read' | 'replied';
+  createdAt: string;
+  updatedAt: string;
+}
+
 /** Payload REST API paginated response */
 export interface PayloadResponse<T> {
   docs: T[];

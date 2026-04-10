@@ -13,6 +13,7 @@ import { Media } from './collections/Media'
 import { Tags } from './collections/Tags'
 import { Subscribers } from './collections/Subscribers'
 import { EmailCampaigns } from './collections/EmailCampaigns'
+import { ContactMessages } from './collections/ContactMessages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -35,6 +36,7 @@ export default buildConfig({
     Tags,
     Subscribers,
     EmailCampaigns,
+    ContactMessages,
     {
       slug: 'users',
       auth: true,

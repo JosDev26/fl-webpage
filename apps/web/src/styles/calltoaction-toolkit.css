@@ -42,11 +42,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: min(420px, 100%);
-  padding: clamp(1rem, 1.4vw, 1.3rem) clamp(2rem, 3vw, 2.4rem);
+  width: min(320px, 100%);
+  padding: clamp(0.75rem, 1.1vw, 1rem) clamp(1.5rem, 2.2vw, 2rem);
   background-color: var(--yellow-color);
   color: var(--dark-blue-color);
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
   font-weight: 700;
   text-decoration: none;
   border: none;

@@ -140,6 +140,8 @@
     font-family: inherit;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    text-decoration: none;
+    display: inline-block;
 }
 
 .paidtools-cta:hover {

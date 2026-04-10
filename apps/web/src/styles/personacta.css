@@ -59,6 +59,8 @@
   font-family: inherit;
   cursor: pointer;
   transition: background-color 0.25s ease, transform 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
 }
 
 @media (hover: hover) and (pointer: fine) {

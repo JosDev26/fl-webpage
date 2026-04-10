@@ -36,6 +36,14 @@ import '../styles/navbar.css';
           <span class="link-text">Legal Toolkit</span>
         </a>
       </li>
+      <li>
+        <a href="/login" class="nav-link nav-link-auth" id="nav-auth-link">
+          <span class="link-icon">
+            <i class="ph ph-sign-in" style="font-size: 18px;" id="nav-auth-icon"></i>
+          </span>
+          <span class="link-text" id="nav-auth-text">Ingresar</span>
+        </a>
+      </li>
     </ul>
 </nav>
 <nav class="menu-escalonado-container">
@@ -55,6 +63,17 @@ import '../styles/navbar.css';
 </nav>
 
 <script>
+  // Actualizar link de auth según cookie de sesión
+  const isLoggedIn = document.cookie.split(';').some(c => c.trim().startsWith('logged_in='))
+  if (isLoggedIn) {
+    const authLink = document.getElementById('nav-auth-link') as HTMLAnchorElement
+    const authIcon = document.getElementById('nav-auth-icon') as HTMLElement
+    const authText = document.getElementById('nav-auth-text') as HTMLElement
+    if (authLink) authLink.href = '/userhome'
+    if (authIcon) { authIcon.className = 'ph ph-user-circle'; authIcon.style.fontSize = '18px' }
+    if (authText) authText.textContent = 'Mi cuenta'
+  }
+
   // Navbar scroll behavior - hide on scroll down, show on scroll up
   let lastScrollY = window.scrollY;
   let ticking = false;

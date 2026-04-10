@@ -184,3 +184,37 @@ export function blogPostTemplate(
 
   return baseLayout(content, preheader || subject)
 }
+
+export function contactFormTemplate(
+  name: string,
+  email: string,
+  message: string,
+): { subject: string; html: string } {
+  const subject = `Nuevo mensaje de contacto — ${name}`
+  const escapedMessage = message.replace(/\n/g, '<br>')
+
+  const content = `
+    <div class="email-body">
+      <p><strong>Nuevo mensaje desde el formulario de contacto</strong></p>
+      <table style="width:100%;border-collapse:collapse;margin:16px 0;">
+        <tr>
+          <td style="padding:8px 0;color:rgba(255,255,255,0.6);vertical-align:top;width:120px;">Nombre</td>
+          <td style="padding:8px 0;color:#fff;">${name}</td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;color:rgba(255,255,255,0.6);vertical-align:top;">Correo</td>
+          <td style="padding:8px 0;"><a href="mailto:${email}" style="color:#FAD02C;">${email}</a></td>
+        </tr>
+        <tr>
+          <td style="padding:8px 0;color:rgba(255,255,255,0.6);vertical-align:top;">Mensaje</td>
+          <td style="padding:8px 0;color:#fff;">${escapedMessage}</td>
+        </tr>
+      </table>
+      <p><a href="mailto:${email}" style="display:inline-block;padding:14px 32px;background-color:#FAD02C;color:#19304B !important;font-size:16px;font-weight:700;text-decoration:none;margin:8px 0 16px;">Responder</a></p>
+    </div>
+    <div class="email-footer">
+      <p>Fusion Legal</p>
+    </div>`
+
+  return { subject, html: baseLayout(content, subject) }
+}
