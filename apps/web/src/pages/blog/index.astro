@@ -10,8 +10,6 @@ import { getBlogPosts } from '../../lib/payload';
 import type { BlogPost, Tag } from '@fusion-legal/shared';
 import '../../styles/blog.css';
 
-export const prerender = false;
-
 let posts: BlogPost[] = [];
 try {
   posts = await getBlogPosts();
