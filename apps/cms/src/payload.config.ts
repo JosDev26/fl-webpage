@@ -78,7 +78,7 @@ export default buildConfig({
     ],
   }),
   secret: process.env.PAYLOAD_SECRET || 'default-secret-change-me',
-  sharp,
+  sharp: sharp as any,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
