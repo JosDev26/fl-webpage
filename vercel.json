@@ -1,5 +1,0 @@
-{
-  "installCommand": "npm install --install-strategy=hoisted --include=optional",
-  "buildCommand": "npm run build --workspace=apps/web && cp -r apps/web/.vercel/output .vercel/output",
-  "framework": null
-}
