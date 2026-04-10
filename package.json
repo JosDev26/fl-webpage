@@ -5,6 +5,9 @@
     "apps/*",
     "packages/*"
   ],
+  "dependencies": {
+    "sharp": "^0.33.0"
+  },
   "scripts": {
     "dev:web": "npm run dev --workspace=apps/web",
     "dev:webhost": "npm run dev --workspace=apps/web -- --host",

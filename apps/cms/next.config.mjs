@@ -2,7 +2,7 @@
 import { withPayload } from '@payloadcms/next/withPayload'
 
 const nextConfig = {
-  output: 'standalone',
+  serverExternalPackages: ['sharp'],
 }
 
 export default withPayload(nextConfig)
