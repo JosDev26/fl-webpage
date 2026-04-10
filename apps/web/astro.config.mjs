@@ -6,4 +6,7 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   adapter: vercel(),
   site: process.env.SITE_URL || 'http://localhost:4321',
+  security: {
+    checkOrigin: false,
+  },
 });
