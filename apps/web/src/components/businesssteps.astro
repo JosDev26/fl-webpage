@@ -129,7 +129,10 @@ import '../styles/businesssteps.css';
         const delay = isRestoring ? 150 : 0;
 
         setTimeout(() => {
+            if (!(window as any).__bsObserved) (window as any).__bsObserved = new WeakSet<Element>();
             sections.forEach((section) => {
+                if ((window as any).__bsObserved.has(section)) return;
+                (window as any).__bsObserved.add(section);
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {

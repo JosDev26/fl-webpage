@@ -442,8 +442,8 @@
 }
 
 .aboutus-rebeca-img .aboutus-img-person {
-    height: clamp(200px, 22vw, 280px);
-    max-width: clamp(120px, 13vw, 165px);
+    height: clamp(193px, 21.4vw, 273px);
+    max-width: clamp(107px, 11.78vw, 150px);
 }
 
 /* Sección de texto (Desktop) */
