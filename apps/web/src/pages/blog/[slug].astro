@@ -1,0 +1,65 @@
+---
+export const prerender = false
+
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { getBlogPost } from '../../lib/payload';
+import { lexicalToHtml } from '../../lib/lexical';
+import '../../styles/blog.css';
+
+const { slug } = Astro.params;
+const post = await getBlogPost(slug!);
+
+if (!post) {
+  return Astro.redirect('/blog');
+}
+
+const contentHtml = lexicalToHtml(post.content);
+const pageTitle = post.meta_title || post.title;
+const pageDescription = post.meta_description || post.excerpt || '';
+---
+
+<Layout>
+  <Navbar />
+  <article class="blog-post-container">
+    <header class="blog-post-header">
+      <a href="/blog" class="blog-post-back">
+        <i class="ph ph-arrow-left"></i> Volver al blog
+      </a>
+      <time class="blog-post-date" datetime={post.published_date}>
+        {new Date(post.published_date).toLocaleDateString('es-CR', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </time>
+      <h1 class="blog-post-title">{post.title}</h1>
+      {post.excerpt && <p class="blog-post-excerpt">{post.excerpt}</p>}
+    </header>
+
+    {post.cover_image && (
+      <div class="blog-post-cover">
+        <img src={post.cover_image.url} alt={post.cover_image.alt || post.title} />
+      </div>
+    )}
+
+    <div class="blog-post-content" set:html={contentHtml} />
+  </article>
+  <Footer />
+
+  <script is:inline data-cms-url={import.meta.env.PAYLOAD_URL || 'http://localhost:3000'}>
+    (function () {
+      var slug = window.location.pathname.split('/').filter(Boolean).pop();
+      if (!slug) return;
+
+      var key = 'blog-viewed-' + slug;
+      if (sessionStorage.getItem(key)) return;
+
+      var cmsUrl = document.currentScript.getAttribute('data-cms-url');
+      fetch(cmsUrl + '/api/blog-posts/increment-views', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: slug }),
+      })
+        .then(function () { sessionStorage.setItem(key, '1'); })
+        .catch(function () {});
+    })();
+  </script>
+</Layout>

@@ -1,0 +1,103 @@
+---
+import '../styles/customplan.css';
+---
+
+<section class="custom-plan-container">
+  <div class="custom-plan-content">
+    <h2 class="custom-plan-title hidden-initial">
+      TU PLAN <span class="highlight">A MEDIDA</span>
+    </h2>
+
+    <div class="custom-plan-grid">
+      <!-- Tarjeta central con overlay amarillo en hover -->
+      <article class="custom-plan-main-card hidden-initial">
+        <!-- Decoraciones de esquinas -->
+        <div class="custom-plan-corner custom-plan-corner-tl" aria-hidden="true"></div>
+        <div class="custom-plan-corner custom-plan-corner-br" aria-hidden="true"></div>
+        <div class="custom-plan-clip">
+        <!-- Contenido principal -->
+        <div class="custom-plan-main-content">
+          <div class="custom-plan-main-icon">
+            <i class="ph ph-package"></i>
+          </div>
+          <h3 class="custom-plan-main-title">INICIO INTELIGENTE</h3>
+          <a class="custom-plan-main-cta" href="mailto:info@fusionlegalcr.com?subject=Agendar%20cita%20%E2%80%93%20Inicio%20Inteligente&body=Hola%2C%20me%20interesa%20agendar%20una%20cita%20para%20conocer%20m%C3%A1s%20sobre%20el%20plan%20Inicio%20Inteligente%20para%20mi%20negocio%20nuevo.">Agendar Cita</a>
+        </div>
+
+        <!-- Overlay que aparece en hover -->
+        <div class="custom-plan-overlay">
+          <div class="custom-plan-overlay-icon">
+            <i class="ph ph-package"></i>
+          </div>
+          <p class="custom-plan-overlay-text">
+            Diseñamos una solución legal exclusiva para ti, seleccionando solo los servicios esenciales y ajustando el costo a tu presupuesto real.
+          </p>
+          <a class="custom-plan-overlay-cta" href="mailto:info@fusionlegalcr.com?subject=Agendar%20cita%20%E2%80%93%20Inicio%20Inteligente&body=Hola%2C%20me%20interesa%20agendar%20una%20cita%20para%20conocer%20m%C3%A1s%20sobre%20el%20plan%20Inicio%20Inteligente%20para%20mi%20negocio%20nuevo.">Agendar Cita</a>
+        </div>
+        </div>
+      </article>
+
+      <!-- Contenido lado derecho -->
+      <div class="custom-plan-info hidden-initial">
+        <p class="custom-plan-info-title">
+          ¿Sientes que no encajas en un plan estándar?
+        </p>
+        <p class="custom-plan-info-copy">
+          Entendemos que cada negocio tiene necesidades únicas que no siempre caben en un plan fijo. Analizamos tu situación o fondo para crear una propuesta personalizada, combinando solo los servicios que realmente requieres.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+  declare const anime: any;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.custom-plan-container');
+    if (!section) return;
+
+    const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+    const delay = isRestoring ? 150 : 0;
+
+    setTimeout(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            anime.timeline({ easing: 'easeOutQuart' })
+              .add({
+                targets: '.custom-plan-title',
+                opacity: [0, 1],
+                translateY: [32, 0],
+                duration: 700,
+              })
+              .add({
+                targets: '.custom-plan-main-card',
+                opacity: [0, 1],
+                translateY: [28, 0],
+                duration: 650,
+              }, '-=400')
+              .add({
+                targets: '.custom-plan-info',
+                opacity: [0, 1],
+                translateX: [24, 0],
+                duration: 600,
+              }, '-=350');
+
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.2 });
+
+      observer.observe(section);
+    }, delay);
+
+    // Hover effect en tarjeta central
+    const mainCard = document.querySelector('.custom-plan-main-card') as HTMLElement;
+    if (mainCard) {
+      mainCard.addEventListener('focus', () => mainCard.classList.add('is-hovered'));
+      mainCard.addEventListener('blur', () => mainCard.classList.remove('is-hovered'));
+    }
+  });
+</script>

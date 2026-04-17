@@ -1,0 +1,33 @@
+---
+import '../styles/hero-toolkit.css';
+---
+<section class="faqhero-container">
+  <div class="faqhero-content">
+    <div class="faqhero-icon hidden-initial" aria-hidden="true">
+      <i class="ph ph-device-mobile"></i>
+    </div>
+    <h2 class="faqhero-title hidden-initial">
+      FULECR
+    </h2>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+  declare const anime: any;
+  document.addEventListener('DOMContentLoaded', () => {
+    anime.timeline({ easing: 'easeOutCubic' })
+      .add({
+        targets: '.faqhero-icon',
+        opacity: [0, 1],
+        translateY: [-20, 0],
+        duration: 600,
+      })
+      .add({
+        targets: '.faqhero-title',
+        opacity: [0, 1],
+        translateY: [-20, 0],
+        duration: 600,
+      }, '-=300');
+  });
+</script>

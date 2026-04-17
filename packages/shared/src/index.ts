@@ -1,0 +1,99 @@
+export interface Review {
+  id: string;
+  reviewer_name: string;
+  reviewer_role: 'Cliente' | 'Empresa';
+  review_text: string;
+  position: number;
+  company_logo?: Media; // Campo opcional para logo de empresa
+}
+
+export interface Service {
+  id: string;
+  title: string;
+  icon_class: string;
+  link_target: string;
+  position: number;
+  is_wide: boolean;
+}
+
+export interface Tag {
+  id: string;
+  name: string;
+}
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: unknown; // Lexical rich text JSON
+  cover_image?: Media;
+  published_date: string;
+  status: 'draft' | 'published';
+  tags?: Tag[];
+  views?: number;
+  meta_title?: string;
+  meta_description?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Media {
+  id: string;
+  url: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  filename: string;
+  mimeType: string;
+}
+
+export interface Subscriber {
+  id: string;
+  emailHash: string;
+  emailDecrypted?: string;
+  tags?: Tag[];
+  language: 'es' | 'en';
+  status: 'pending' | 'confirmed' | 'unsubscribed';
+  confirmedAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface EmailCampaign {
+  id: string;
+  subject: string;
+  preheader?: string;
+  body: unknown; // Lexical rich text JSON
+  targetTags?: Tag[];
+  targetLanguage: 'es' | 'en' | 'all';
+  status: 'draft' | 'sent';
+  sentAt?: string;
+  recipientCount?: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  status: 'new' | 'read' | 'replied';
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** Payload REST API paginated response */
+export interface PayloadResponse<T> {
+  docs: T[];
+  totalDocs: number;
+  limit: number;
+  totalPages: number;
+  page: number;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  prevPage: number | null;
+  nextPage: number | null;
+}

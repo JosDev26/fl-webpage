@@ -1,0 +1,16 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import PersonaHero from '../components/PersonaHero.astro';
+import PersonaSteps from '../components/PersonaSteps.astro';
+import PersonaCTA from '../components/PersonaCTA.astro';
+---
+
+<Layout>
+  <Navbar />
+  <PersonaHero />
+  <PersonaSteps />
+  <PersonaCTA title="¿Sigues Perdido?" buttonText="Quiero Asesoría Personalizada" href="mailto:info@fusionlegalcr.com?subject=Solicitud%20de%20asesor%C3%ADa%20personalizada&body=Hola%2C%20soy%20una%20persona%20individual%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20personalizada%20para%20mi%20situaci%C3%B3n%20legal." />
+  <Footer />
+</Layout>

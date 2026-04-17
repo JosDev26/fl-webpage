@@ -1,0 +1,71 @@
+---
+import '../styles/situacionpagehero.css';
+---
+
+<section class="situacionpage-hero-container">
+    <div class="situacionpage-hero-content">
+        <i class="ph ph-user situacionpage-hero-icon hidden-initial"></i>
+        <h1 class="situacionpage-hero-title hidden-initial">Soy una persona con una situación legal</h1>
+        <p class="situacionpage-hero-subtitle hidden-initial">
+            Te ayudamos a desenredar esas situaciones legales cotidianas que parecen complicadas.
+            Ya sea una consulta puntual, un contrato personal o la protección de tu patrimonio,
+            te ofrecemos respuestas claras y soluciones prácticas para que dejes de preocuparte
+            y empieces a resolver.
+        </p>
+        <div class="situacionpage-hero-divider hidden-initial"></div>
+    </div>
+</section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.situacionpage-hero-container') as HTMLElement;
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.situacionpage-hero-icon',
+                                opacity: [0, 1],
+                                scale: [0.5, 1],
+                                duration: 600,
+                                easing: 'easeOutBack',
+                            })
+                            .add({
+                                targets: '.situacionpage-hero-title',
+                                opacity: [0, 1],
+                                translateY: [-30, 0],
+                                duration: 700,
+                            }, '-=300')
+                            .add({
+                                targets: '.situacionpage-hero-subtitle',
+                                opacity: [0, 1],
+                                translateY: [20, 0],
+                                duration: 600,
+                            }, '-=400')
+                            .add({
+                                targets: '.situacionpage-hero-divider',
+                                opacity: [0, 1],
+                                scaleX: [0, 1],
+                                duration: 500,
+                                easing: 'easeOutQuart',
+                            }, '-=300');
+
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>

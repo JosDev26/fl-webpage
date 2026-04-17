@@ -1,0 +1,189 @@
+---
+import '../styles/route.css';
+---
+
+<section class="route-container">
+    <h2 class="route-title hidden-initial">NUESTRA <span class="highlight">RUTA</span></h2>
+
+    <div class="route-timeline">
+        <!-- SVG de fondo — viewBox se calcula dinámicamente por JS -->
+        <svg class="route-svg-layer" preserveAspectRatio="none">
+            <polyline class="route-path-bg" points="0,0" fill="none" stroke="#2E3B46" stroke-width="14" vector-effect="non-scaling-stroke" />
+            <polyline class="route-path-line" points="0,0" fill="none" stroke="var(--yellow-color)" stroke-width="3" stroke-dasharray="12 12" vector-effect="non-scaling-stroke" />
+        </svg>
+
+        <!-- Auto decorativo -->
+        <svg class="route-car" viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="15" y="10" width="70" height="180" rx="35" fill="#ffffff" />
+            <rect x="25" y="40" width="50" height="35" rx="10" fill="var(--dark-blue-color)" />
+            <rect x="25" y="130" width="50" height="25" rx="8" fill="var(--dark-blue-color)" />
+        </svg>
+
+        <!-- Paso 1 -->
+        <div class="route-item route-item-1">
+            <div class="route-node hidden-initial">1</div>
+            <div class="route-content route-right hidden-initial">
+                <h3>¿Cómo asesoramos?</h3>
+                <p>Somos un equipo de profesionales comprometidos y anuentes a generar un impacto positivo en sus proyectos, metas y negocios. Nuestra atención es personalizada, a cargo de un profesional especializado que le guiará a lo largo del proceso, con el respaldo de todo nuestro equipo para las labores diversas.</p>
+            </div>
+        </div>
+
+        <!-- Paso 2 -->
+        <div class="route-item route-item-2">
+            <div class="route-content route-left hidden-initial">
+                <h3>Reunión Inicial</h3>
+                <p>Se trata de un primer acercamiento donde nos vamos a conocer y a escuchar el motivo de su consulta, las situaciones en las que se encuentra, sus expectativas y los alcances que pretende obtener.</p>
+            </div>
+            <div class="route-node hidden-initial">2</div>
+        </div>
+
+        <!-- Paso 3 -->
+        <div class="route-item route-item-3">
+            <div class="route-node hidden-initial">3</div>
+            <div class="route-content route-right hidden-initial">
+                <h3>Criterio y Propuesta</h3>
+                <p>Se le brindará un criterio respecto a la situación que enfrenta, y las posibles rutas para poder abordarla. Esta propuesta puede ser modificada y acoplada a sus necesidades.</p>
+            </div>
+        </div>
+
+        <!-- Paso 4 -->
+        <div class="route-item route-item-4">
+            <div class="route-content route-left hidden-initial">
+                <h3>Compromiso</h3>
+                <p>Una vez acordado el trabajo, nos encargamos de ejecutar la ruta elegida de forma estratégica, procurando siempre su bienestar. El compromiso y la comunicación son parte fundamental de nuestro trabajo con el cliente.</p>
+            </div>
+            <div class="route-node hidden-initial">4</div>
+        </div>
+
+        <!-- Paso 5 -->
+        <div class="route-item route-item-5">
+            <div class="route-node hidden-initial">5</div>
+            <div class="route-content route-right hidden-initial">
+                <h3>Seguimiento</h3>
+                <p>La fiscalización y el control de los procesos es vital en nuestra organización, ya que mantenemos un constante seguimiento del estado de los procesos, procurando e impulsando su avance, ya sea a lo interno o en las diversas instituciones.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Animaciones con Anime.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.route-container') as HTMLElement;
+        const timelineEl = document.querySelector('.route-timeline') as HTMLElement;
+        const svgLayer = document.querySelector('.route-svg-layer') as SVGSVGElement;
+        const pathBg = document.querySelector('.route-path-bg') as SVGPolylineElement;
+        const pathLine = document.querySelector('.route-path-line') as SVGPolylineElement;
+        const car = document.querySelector('.route-car') as SVGSVGElement;
+        const nodes = document.querySelectorAll('.route-node') as NodeListOf<HTMLElement>;
+        if (!section || !timelineEl || nodes.length === 0) return;
+
+        const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+        // Calcular la posición del SVG path y el carro basándose en la posición real de los nodos
+        const updatePath = () => {
+            if (isMobile() || !svgLayer || !pathBg || !pathLine || !car) return;
+
+            const rect = timelineEl.getBoundingClientRect();
+            const w = rect.width;
+            const h = rect.height;
+
+            // Recoger centros de los nodos relativos al timeline
+            const points: { x: number; y: number }[] = [];
+            nodes.forEach((node) => {
+                const nr = node.getBoundingClientRect();
+                points.push({
+                    x: nr.left - rect.left + nr.width / 2,
+                    y: nr.top - rect.top + nr.height / 2,
+                });
+            });
+
+            // Actualizar viewBox para coincidir con el tamaño real en px
+            svgLayer.setAttribute('viewBox', `0 0 ${w} ${h}`);
+            svgLayer.setAttribute('preserveAspectRatio', 'none');
+
+            const pointsStr = points.map(p => `${p.x},${p.y}`).join(' ');
+            pathBg.setAttribute('points', pointsStr);
+            pathLine.setAttribute('points', pointsStr);
+
+            // Posicionar el carro entre el nodo 1 y nodo 2
+            if (points.length >= 2) {
+                const p1 = points[0];
+                const p2 = points[1];
+                const cx = (p1.x + p2.x) / 2;
+                const cy = (p1.y + p2.y) / 2;
+                const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * (180 / Math.PI) - 90;
+
+                car.style.position = 'absolute';
+                car.style.left = `${cx}px`;
+                car.style.top = `${cy}px`;
+                car.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+            }
+        };
+
+        const runAnimation = () => {
+            // Calcular las posiciones reales antes de animar
+            updatePath();
+
+            const tl = anime.timeline({
+                easing: 'easeOutQuart',
+            });
+
+            // Título
+            tl.add({
+                targets: '.route-title',
+                opacity: [0, 1],
+                translateY: [-30, 0],
+                duration: 600,
+                easing: 'easeOutCubic',
+            })
+            // Nodos (staggered)
+            .add({
+                targets: '.route-node',
+                opacity: [0, 1],
+                scale: [0.5, 1],
+                duration: 500,
+                delay: anime.stagger(150),
+                easing: 'easeOutBack',
+            }, '-=300')
+            // Contenido de texto (staggered)
+            .add({
+                targets: '.route-content',
+                opacity: [0, 1],
+                translateY: [20, 0],
+                duration: 500,
+                delay: anime.stagger(150),
+                easing: 'easeOutCubic',
+            }, '-=600');
+        };
+
+        // Intersection Observer para activar la animación al hacer scroll
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        runAnimation();
+                        observer.disconnect();
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px'
+            });
+
+            observer.observe(section);
+        }, delay);
+
+        // Recalcular posiciones al redimensionar
+        const resizeObserver = new ResizeObserver(() => {
+            updatePath();
+        });
+        resizeObserver.observe(timelineEl);
+    });
+</script>

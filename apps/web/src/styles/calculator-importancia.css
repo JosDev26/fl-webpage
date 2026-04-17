@@ -1,0 +1,53 @@
+:root {
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+.hidden-initial {
+  opacity: 0;
+}
+
+.calcimportancia-container {
+  background: var(--dark-blue-color);
+  padding: clamp(0rem, 2vw, 0rem) clamp(1.5rem, 5vw, 3rem) clamp(2rem, 4vw, 3rem);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+.calcimportancia-box {
+  width: min(800px, 92vw);
+  background: var(--yellow-color);
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 4vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.8rem, 1.5vw, 1.2rem);
+  text-align: center;
+  box-shadow: 0 0 40px rgba(250, 208, 44, 0.35), 0 0 80px rgba(250, 208, 44, 0.15);
+}
+
+.calcimportancia-icon {
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  color: var(--dark-blue-color);
+}
+
+.calcimportancia-text {
+  margin: 0;
+  color: var(--dark-blue-color);
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+@media (max-width: 480px) {
+  .calcimportancia-box {
+    padding: clamp(1.2rem, 5vw, 1.8rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calcimportancia-box {
+    transition: opacity 0.3s ease;
+  }
+}

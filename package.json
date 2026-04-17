@@ -1,16 +1,19 @@
 {
-  "name": "",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
+  "name": "fusion-legal",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "dependencies": {
-    "@fontsource-variable/nunito-sans": "^5.2.7",
-    "animejs": "^4.2.2",
-    "astro": "^5.14.8"
+    "sharp": "^0.33.0"
+  },
+  "scripts": {
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:webhost": "npm run dev --workspace=apps/web -- --host",
+    "dev:cms": "npm run dev --workspace=apps/cms",
+    "build:web": "npm run build --workspace=apps/web",
+    "build:cms": "npm run build --workspace=apps/cms",
+    "seed": "npm run seed --workspace=apps/cms"
   }
 }

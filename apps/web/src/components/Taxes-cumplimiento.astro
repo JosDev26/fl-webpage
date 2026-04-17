@@ -1,0 +1,134 @@
+---
+import '../styles/taxes-cumplimiento.css';
+---
+
+<section class="cumplimiento-container" id="cumplimiento-proactivo">
+  <div class="cumplimiento-content">
+    <h2 class="cumplimiento-title">Cumplimiento Proactivo</h2>
+
+    <p class="cumplimiento-intro">
+      El cumplimiento tributario en Costa Rica se ha vuelto más exigente con la digitalización de la Administración Tributaria y la implementación de TRIBU-CR. Un enfoque reactivo ya no es suficiente: las empresas necesitan sistemas robustos, procesos claros y asesoría constante para mantenerse al día y evitar sanciones costosas. Esta sección aborda los pilares de un cumplimiento fiscal sólido y sin sorpresas.
+    </p>
+
+        <div class="cumplimiento-grid">
+      <button type="button" class="cumplimiento-card cumplimiento-card-active" data-panel="declaraciones">
+        <i class="ph ph-clipboard-text"></i>
+        <span>Gestión de Declaraciones</span>
+      </button>
+
+      <button type="button" class="cumplimiento-card" data-panel="facturacion">
+        <i class="ph ph-file-text"></i>
+        <span>Facturación Electrónica</span>
+      </button>
+
+      <button type="button" class="cumplimiento-card" data-panel="calendario">
+        <i class="ph ph-calendar-check"></i>
+        <span>Calendario Fiscal</span>
+      </button>
+
+      <button type="button" class="cumplimiento-card" data-panel="tributar">
+        <i class="ph ph-desktop"></i>
+        <span>TRIBU-CR y ATV</span>
+      </button>
+    </div>
+
+        <div class="cumplimiento-panels">
+      <div class="cumplimiento-panel cumplimiento-panel-active" data-panel="declaraciones">
+        <p>
+          La preparación y presentación oportuna de declaraciones tributarias es la base del cumplimiento fiscal. Un error o un atraso pueden generar multas, intereses y marcas en el historial del contribuyente. Nuestro enfoque asegura precisión y puntualidad en cada obligación:
+        </p>
+
+        <ul class="cumplimiento-list">
+          <li>
+            <strong>Impuesto sobre la Renta:</strong> Preparación de la declaración anual (D-101) y las declaraciones de pagos parciales, asegurando la correcta aplicación de deducciones, créditos y el régimen correspondiente.
+          </li>
+          <li>
+            <strong>Impuesto al Valor Agregado:</strong> Gestión mensual de la declaración del IVA (D-104), incluyendo la conciliación de créditos fiscales, la regla de proporcionalidad y la correcta clasificación de operaciones gravadas, exentas y no sujetas.
+          </li>
+          <li>
+            <strong>Retenciones en la Fuente:</strong> Control y declaración de retenciones por salarios, servicios profesionales, remesas al exterior y otras rentas sujetas a retención conforme al Código Tributario.
+          </li>
+        </ul>
+      </div>
+
+      <div class="cumplimiento-panel" data-panel="facturacion">
+        <p>
+          La facturación electrónica es obligatoria en Costa Rica y constituye un pilar del control tributario digital. Cualquier inconsistencia entre los comprobantes emitidos y las declaraciones presentadas puede activar alertas automáticas en la Administración Tributaria:
+        </p>
+
+        <ul class="cumplimiento-list">
+          <li>
+            <strong>Implementación y Configuración:</strong> Asistencia en la selección del sistema de facturación electrónica, configuración de claves criptográficas y registro ante el Ministerio de Hacienda para la emisión de comprobantes válidos.
+          </li>
+          <li>
+            <strong>Revisión de Comprobantes:</strong> Auditorías periódicas de los comprobantes emitidos y recibidos para asegurar la coherencia con los registros contables y las declaraciones fiscales.
+          </li>
+          <li>
+            <strong>Notas de Crédito y Débito:</strong> Gestión correcta de ajustes, devoluciones y anulaciones conforme a la normativa vigente, evitando inconsistencias que generen requerimientos de la Administración.
+          </li>
+        </ul>
+      </div>
+
+      <div class="cumplimiento-panel" data-panel="calendario">
+        <p>
+          El incumplimiento de plazos es una de las causas más frecuentes de sanciones tributarias. Un calendario fiscal bien gestionado permite anticiparse a las obligaciones y evitar recargos innecesarios:
+        </p>
+
+        <ul class="cumplimiento-list">
+          <li>
+            <strong>Plazos de Declaración:</strong> Seguimiento de todas las fechas límite para declaraciones mensuales, trimestrales y anuales, incluyendo IVA, renta, pagos parciales, RTBF y otras obligaciones específicas del contribuyente.
+          </li>
+          <li>
+            <strong>Alertas Preventivas:</strong> Sistema de notificaciones anticipadas para cada obligación tributaria, asegurando que ningún plazo crítico pase desapercibido y evitando multas por presentación tardía.
+          </li>
+          <li>
+            <strong>Planificación de Flujo de Caja:</strong> Proyección de los pagos tributarios a lo largo del periodo fiscal para facilitar la gestión financiera y evitar problemas de liquidez en fechas de vencimiento.
+          </li>
+        </ul>
+      </div>
+
+      <div class="cumplimiento-panel" data-panel="tributar">
+        <p>
+          TRIBU-CR representa un cambio fundamental en la fiscalización costarricense, centralizando la información de contribuyentes y cruzando datos de múltiples fuentes. Adaptarse a esta nueva realidad digital es esencial para evitar contingencias:
+        </p>
+
+        <ul class="cumplimiento-list">
+          <li>
+            <strong>Registro y Actualización:</strong> Asistencia en el correcto registro y actualización de datos ante la Administración Tributaria Virtual (ATV), incluyendo actividades económicas, domicilio fiscal, representantes legales y sucursales.
+          </li>
+          <li>
+            <strong>Cruces de Información:</strong> Revisión proactiva de las inconsistencias que TRIBU-CR puede detectar entre declaraciones, facturación electrónica, registros bancarios y reportes de terceros, anticipando posibles requerimientos.
+          </li>
+          <li>
+            <strong>Capacitación Interna:</strong> Formación del equipo contable y administrativo del cliente en el uso de las plataformas digitales de Hacienda y las mejores prácticas para mantener la información alineada y trazable.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll<HTMLButtonElement>('.cumplimiento-card[data-panel]');
+    const panels = document.querySelectorAll<HTMLDivElement>('.cumplimiento-panel[data-panel]');
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const target = card.getAttribute('data-panel');
+        if (!target) return;
+
+        cards.forEach((c) => c.classList.remove('cumplimiento-card-active'));
+        card.classList.add('cumplimiento-card-active');
+
+        panels.forEach((p) => {
+          if (p.getAttribute('data-panel') === target) {
+            p.classList.add('cumplimiento-panel-active');
+          } else {
+            p.classList.remove('cumplimiento-panel-active');
+          }
+        });
+      });
+    });
+  });
+</script>

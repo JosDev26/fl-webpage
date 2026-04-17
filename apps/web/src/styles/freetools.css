@@ -1,0 +1,141 @@
+:root {
+    --yellow-color: #FAD02C;
+    --dark-blue-color: #19304B;
+}
+
+.freetools-container {
+    position: relative;
+    padding: clamp(4em, 8vw, 6em) clamp(1.5rem, 5vw, 3rem);
+    padding-top: clamp(6em, 12vw, 8em);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--dark-blue-color);
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.freetools-content {
+    width: 100%;
+    max-width: min(1100px, 92vw);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1.5em, 3vw, 2.5em);
+}
+
+/* Título */
+.freetools-title {
+    font-size: clamp(1.3rem, 3vw, 2.5rem);
+    text-align: center;
+    font-weight: 800;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    line-height: 1.25;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.freetools-title .highlight {
+    color: var(--yellow-color);
+    position: relative;
+    display: inline-block;
+}
+
+.freetools-title .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: clamp(3px, 0.4vw, 5px);
+    background-color: var(--yellow-color);
+}
+
+/* Subtítulo */
+.freetools-subtitle {
+    font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+    text-align: center;
+    color: #a3aab5;
+    margin: 0;
+    padding: 0;
+    max-width: min(750px, 92%);
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+/* Grid de herramientas */
+.freetools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    width: 100%;
+    max-width: min(650px, 95%);
+    justify-items: center;
+}
+
+/* Tarjeta */
+.freetool-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: clamp(0.8em, 1.2vw, 1.2em);
+    max-width: 260px;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 0.9;
+    transition: opacity 0.25s ease;
+}
+
+.freetool-card:hover {
+    opacity: 1;
+}
+
+/* Círculo del ícono */
+.freetool-icon {
+    background-color: var(--yellow-color);
+    width: clamp(80px, 10vw, 110px);
+    height: clamp(80px, 10vw, 110px);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 28px rgba(250, 208, 44, 0.2);
+    color: var(--dark-blue-color);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.freetool-icon i {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    transition: transform 0.25s ease;
+}
+
+/* Card 1: icono sube levemente */
+.freetool-card:nth-child(1):hover .freetool-icon {
+    box-shadow: 0 0 36px rgba(250, 208, 44, 0.32);
+    transform: translateY(-3px);
+}
+
+/* Card 2: icono rota levemente */
+.freetool-card:nth-child(2):hover .freetool-icon i {
+    transform: rotate(12deg);
+}
+
+/* Nombre */
+.freetool-name {
+    color: var(--yellow-color);
+    font-weight: 800;
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    line-height: 1.3;
+}
+
+/* Descripción */
+.freetool-desc {
+    color: #a3aab5;
+    font-size: clamp(0.78rem, 1vw, 0.88rem);
+    line-height: 1.6;
+    font-weight: 400;
+}

@@ -1,5 +1,7 @@
 # build output
 dist/
+.next/
+.vercel/
 
 # generated types
 .astro/
@@ -24,3 +26,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Payload CMS
+media/

@@ -1,0 +1,111 @@
+---
+import '../styles/businesssteps.css';
+---
+
+<!-- Transparencia con Fule -->
+<section class="business-steps-container">
+    <div class="transparencia-inner">
+    <div class="business-steps-grid">
+        <div class="business-steps-title-block">
+            <h2 class="business-steps-title hidden-initial">Transparencia<br>con<br>Fule</h2>
+        </div>
+        <div class="business-steps-divider" aria-hidden="true">
+            <div class="business-steps-divider-line hidden-initial"></div>
+        </div>
+        <div class="business-steps-list">
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-eye-slash"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Adiós a la Fe Ciega: </strong>
+                    Transformamos la gestión legal en un proceso auditable y eficiente.
+                </p>
+            </div>
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-monitor"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Monitoreo de Hitos: </strong>
+                    Visualice cada avance, audiencia y resolución conforme ocurren, eliminando la incertidumbre.
+                </p>
+            </div>
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-clock"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Auditoría en Tiempo Real: </strong>
+                    Acceda al estado real de sus procesos sin depender de llamadas o correos de respuesta tardía.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="business-steps-cta-wrap hidden-initial">
+        <button class="business-steps-cta">Más Información</button>
+    </div>
+    </div>
+</section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('.business-steps-container') as NodeListOf<HTMLElement>;
+        if (!sections.length) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            sections.forEach((section) => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const title = entry.target.querySelector('.business-steps-title') as HTMLElement;
+                            const dividerLine = entry.target.querySelector('.business-steps-divider-line') as HTMLElement;
+                            const items = entry.target.querySelectorAll('.business-steps-item') as NodeListOf<HTMLElement>;
+
+                            const cta = entry.target.querySelector('.business-steps-cta-wrap') as HTMLElement;
+
+                            anime.timeline({ easing: 'easeOutCubic' })
+                                .add({
+                                    targets: title,
+                                    opacity: [0, 1],
+                                    translateX: [-30, 0],
+                                    duration: 600,
+                                })
+                                .add({
+                                    targets: dividerLine,
+                                    opacity: [0, 1],
+                                    scaleY: [0, 1],
+                                    duration: 500,
+                                    easing: 'easeOutQuart',
+                                }, '-=300')
+                                .add({
+                                    targets: Array.from(items),
+                                    opacity: [0, 1],
+                                    translateY: [25, 0],
+                                    duration: 600,
+                                    delay: anime.stagger(120),
+                                }, '-=200')
+                                .add({
+                                    targets: cta,
+                                    opacity: [0, 1],
+                                    translateY: [15, 0],
+                                    duration: 500,
+                                }, '-=100');
+
+                            observer.disconnect();
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                observer.observe(section);
+            });
+        }, delay);
+    });
+</script>

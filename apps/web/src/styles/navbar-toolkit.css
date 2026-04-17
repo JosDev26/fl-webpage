@@ -1,0 +1,169 @@
+:root {
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+.toolkit-navbar {
+  width: 100%;
+  background: var(--dark-blue-color);
+  padding: clamp(1rem, 2vw, 1.5rem) clamp(0.8rem, 2.5vw, 2.2rem);
+  box-sizing: border-box;
+}
+
+.toolkit-navbar-content {
+  max-width: min(1200px, 96vw);
+  margin: 0 auto;
+  position: relative;
+  min-height: clamp(90px, 10vw, 110px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolkit-navbar-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 4.5rem);
+  flex-wrap: wrap;
+}
+
+.toolkit-navbar-item {
+  margin: 0;
+  padding: 0;
+}
+
+.toolkit-navbar-link {
+  display: inline-flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Nunito Sans Variable', sans-serif;
+  font-size: clamp(0.95rem, 1vw, 1.15rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  transition: color 0.3s ease;
+}
+
+.toolkit-navbar-link-active {
+  color: var(--yellow-color);
+}
+
+.toolkit-navbar-corner {
+  position: absolute;
+  width: clamp(24px, 2.8vw, 38px);
+  height: clamp(24px, 2.8vw, 38px);
+  border-color: var(--yellow-color);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.toolkit-navbar-corner-tl {
+  top: 0;
+  left: 0;
+  border-width: clamp(4px, 0.4vw, 5px) 0 0 clamp(4px, 0.4vw, 5px);
+}
+
+.toolkit-navbar-corner-br {
+  right: 0;
+  bottom: 0;
+  border-width: 0 clamp(4px, 0.4vw, 5px) clamp(4px, 0.4vw, 5px) 0;
+}
+
+.toolkit-navbar-link:focus-visible {
+  outline: 3px solid var(--yellow-color);
+  outline-offset: 4px;
+}
+.toolkit-sections > * {
+  /* Las secciones hijas se manejan por JS */
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .toolkit-navbar-link:hover {
+    color: var(--yellow-color);
+  }
+}
+
+@media (max-width: 900px) {
+  .toolkit-navbar-content {
+    min-height: auto;
+    padding: clamp(0.8rem, 2.5vw, 1.2rem) 0;
+  }
+
+  .toolkit-navbar-links {
+    gap: clamp(0.9rem, 2vw, 1.6rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .toolkit-navbar {
+    padding: clamp(0.8rem, 3vw, 1.2rem);
+  }
+
+  .toolkit-navbar-links {
+    width: min(680px, 92vw);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: clamp(0.7rem, 1.8vw, 1rem);
+    column-gap: clamp(0.9rem, 2vw, 1.4rem);
+  }
+
+  .toolkit-navbar-item {
+    display: flex;
+    justify-content: center;
+  }
+
+  .toolkit-navbar-link {
+    text-align: center;
+    font-size: clamp(0.9rem, 1.6vw, 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .toolkit-navbar-links {
+    grid-template-columns: 1fr;
+    width: min(360px, 88vw);
+    row-gap: 0.75rem;
+  }
+
+  .toolkit-navbar-corner {
+    width: 26px;
+    height: 26px;
+  }
+}
+.toolkit-sections > * {
+  /* Las secciones hijas se manejan por JS */
+}
+.toolkit-sections > * {
+  display: none;
+}
+
+.toolkit-sections > .toolkit-section-active {
+  display: block;
+  animation: toolkitSectionReveal 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes toolkitSectionReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolkit-navbar-link {
+    transition: color 0.3s ease;
+  }
+    .toolkit-sections > * {
+    transition: none;
+  }
+
+}

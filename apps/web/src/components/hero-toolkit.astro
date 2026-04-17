@@ -1,0 +1,69 @@
+---
+import '../styles/hero-toolkit.css';
+---
+
+<section class="faqhero-container">
+    <div class="faqhero-content">
+        <i class="ph ph-question faqhero-icon hidden-initial"></i>
+        <h1 class="faqhero-title hidden-initial">Banco de Preguntas y Respuestas</h1>
+        <p class="faqhero-subtitle hidden-initial">
+            Encuentra respuestas claras a las preguntas más frecuentes sobre teletrabajo,
+            contratos y situaciones legales cotidianas.
+        </p>
+        <div class="faqhero-divider hidden-initial"></div>
+    </div>
+</section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.faqhero-container') as HTMLElement;
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.faqhero-icon',
+                                opacity: [0, 1],
+                                scale: [0.5, 1],
+                                duration: 600,
+                                easing: 'easeOutBack',
+                            })
+                            .add({
+                                targets: '.faqhero-title',
+                                opacity: [0, 1],
+                                translateY: [-30, 0],
+                                duration: 700,
+                            }, '-=300')
+                            .add({
+                                targets: '.faqhero-subtitle',
+                                opacity: [0, 1],
+                                translateY: [20, 0],
+                                duration: 600,
+                            }, '-=400')
+                            .add({
+                                targets: '.faqhero-divider',
+                                opacity: [0, 1],
+                                scaleX: [0, 1],
+                                duration: 500,
+                                easing: 'easeOutQuart',
+                            }, '-=300');
+
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>
