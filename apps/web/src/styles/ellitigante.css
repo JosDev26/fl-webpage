@@ -1,0 +1,183 @@
+:root {
+    --yellow-color: #FAD02C;
+    --dark-blue-color: #19304B;
+}
+
+.ellitigante-container {
+    position: relative;
+    padding: clamp(4em, 8vw, 6em) clamp(1.5rem, 5vw, 3rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0b131c;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.ellitigante-container::before,
+.ellitigante-container::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.ellitigante-container::before {
+    top: 0;
+    background: linear-gradient(to bottom, var(--dark-blue-color) 0%, rgba(25, 48, 75, 0.5) 60%, transparent 100%);
+}
+
+.ellitigante-container::after {
+    bottom: 0;
+    background: linear-gradient(to top, var(--dark-blue-color) 0%, rgba(25, 48, 75, 0.5) 60%, transparent 100%);
+}
+
+.ellitigante-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: min(1200px, 92vw);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+}
+
+/* Columna izquierda: info */
+.ellitigante-info {
+    flex: 1 1 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-left: 3px solid var(--yellow-color);
+    padding-left: clamp(1.2rem, 2.5vw, 2rem);
+}
+
+/* Etiqueta "NUEVO PODCAST" como pill outlined */
+.ellitigante-tag {
+    display: inline-block;
+    color: var(--yellow-color);
+    border: 1.5px solid var(--yellow-color);
+    font-size: clamp(0.65rem, 0.9vw, 0.75rem);
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.3em 0.9em;
+    margin: 0 0 clamp(1rem, 2vw, 1.5rem) 0;
+    border-radius: 2px;
+}
+
+/* Título grande en blanco sin bloque */
+.ellitigante-title {
+    color: #ffffff;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin: 0 0 0.2em 0;
+}
+
+/* Subtítulo en amarillo */
+.ellitigante-subtitle {
+    color: var(--yellow-color);
+    font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0 0 clamp(1.5rem, 3vw, 2.2rem) 0;
+}
+
+/* Descripción */
+.ellitigante-desc {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+    line-height: 1.8;
+    margin: 0 0 clamp(1.2rem, 2.5vw, 2rem) 0;
+    max-width: 560px;
+    font-weight: 400;
+}
+
+/* Pills de temas */
+.ellitigante-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 clamp(1.5rem, 3vw, 2.5rem) 0;
+}
+
+.ellitigante-topic {
+    font-size: clamp(0.65rem, 0.9vw, 0.75rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.3em 0.85em;
+    border-radius: 2px;
+}
+
+/* Botón CTA outlined */
+.ellitigante-cta {
+    background-color: transparent;
+    color: var(--yellow-color);
+    border: 2px solid var(--yellow-color);
+    padding: clamp(0.65em, 1vw, 0.85em) clamp(2em, 4vw, 3em);
+    font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    display: inline-block;
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.ellitigante-cta:hover {
+    background-color: var(--yellow-color);
+    color: var(--dark-blue-color);
+    box-shadow: 0 0 28px rgba(250, 208, 44, 0.25);
+}
+
+/* Columna derecha: portada */
+.ellitigante-cover {
+    flex: 1 1 280px;
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Glow amarillo detrás de la imagen */
+.ellitigante-cover::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    background: radial-gradient(ellipse at center, rgba(250, 208, 44, 0.14) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Franja amarilla que extiende a la derecha */
+.ellitigante-cover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    width: 50vw;
+    height: clamp(8px, 1.5vw, 12px);
+    background-color: var(--yellow-color);
+}
+
+.ellitigante-cover-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border-bottom: clamp(8px, 1.5vw, 12px) solid var(--yellow-color);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}

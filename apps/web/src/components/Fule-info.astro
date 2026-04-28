@@ -29,9 +29,15 @@ const slides = [
   </h2>
 
   <div class="fule-info-video-wrapper hidden-initial">
-    <div class="fule-info-video">
-      Insert Video promocional*
-    </div>
+    <video
+      class="fule-info-video"
+      controls
+      preload="none"
+      playsinline
+      aria-label="Video promocional de Fule"
+    >
+      <source src={import.meta.env.BASE_URL + 'fulevideo.webm'} type="video/webm" />
+    </video>
   </div>
 
   <div class="fule-info-footer">

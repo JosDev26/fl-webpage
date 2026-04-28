@@ -1,0 +1,100 @@
+---
+import '../styles/ellitigante.css';
+---
+
+<section class="ellitigante-container">
+    <div class="ellitigante-wrapper">
+
+        <div class="ellitigante-info">
+            <span class="ellitigante-tag" style="opacity:0">NUEVO PODCAST</span>
+
+            <h2 class="ellitigante-title" style="opacity:0">EL LITIGANTE</h2>
+            <p class="ellitigante-subtitle" style="opacity:0">DERECHO Y CRIMINOLOGÍA</p>
+
+            <p class="ellitigante-desc" style="opacity:0">
+                Donde el derecho se encuentra con la criminología. Análisis de casos reales, metodología procesal, el sistema judicial costarricense y derecho comparado — más allá de la norma escrita.
+            </p>
+
+            <div class="ellitigante-topics" style="opacity:0">
+                <span class="ellitigante-topic">Casos reales</span>
+                <span class="ellitigante-topic">Derecho comparado</span>
+                <span class="ellitigante-topic">Análisis conductual</span>
+            </div>
+
+            <a href="https://open.spotify.com/show/5hFRNxzM4CBBEyOlEliYzR" target="_blank" rel="noopener noreferrer" class="ellitigante-cta" style="opacity:0">Sintonizar ahora</a>
+        </div>
+
+        <div class="ellitigante-cover" style="opacity:0">
+            <img src={import.meta.env.BASE_URL + 'ellitigante.jpeg'} alt="El Litigante - Podcast de Derecho y Criminología por Fusión Legal" class="ellitigante-cover-img" loading="lazy" />
+        </div>
+
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.ellitigante-container');
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.ellitigante-tag',
+                                opacity: [0, 1],
+                                translateY: [-12, 0],
+                                duration: 400,
+                            })
+                            .add({
+                                targets: '.ellitigante-title',
+                                opacity: [0, 1],
+                                translateX: [-30, 0],
+                                duration: 600,
+                            }, '-=200')
+                            .add({
+                                targets: '.ellitigante-subtitle',
+                                opacity: [0, 1],
+                                translateX: [-20, 0],
+                                duration: 500,
+                            }, '-=400')
+                            .add({
+                                targets: '.ellitigante-desc',
+                                opacity: [0, 1],
+                                translateY: [15, 0],
+                                duration: 500,
+                            }, '-=300')
+                            .add({
+                                targets: '.ellitigante-topics',
+                                opacity: [0, 1],
+                                translateY: [15, 0],
+                                duration: 450,
+                            }, '-=300')
+                            .add({
+                                targets: '.ellitigante-cta',
+                                opacity: [0, 1],
+                                translateY: [15, 0],
+                                duration: 450,
+                            }, '-=300')
+                            .add({
+                                targets: '.ellitigante-cover',
+                                opacity: [0, 1],
+                                translateX: [40, 0],
+                                duration: 700,
+                            }, '-=700');
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>
