@@ -16,10 +16,9 @@
   align-items: center; 
   justify-content: center;
   width: 85vw;
-  justify-self: center;
+  margin: -1vw auto 0 auto;
   align-content: center;
   min-height: 100dvh;
-  margin-top: -1vw;
 }
 .hero .logo-hero{
   width: calc(5.5em + 4%);
@@ -41,7 +40,7 @@
   font-size: calc(0.65rem + 0.4vw);
   width: 60%;
   text-align: center;
-  justify-self: center;
+  margin: 0 auto;
   text-wrap: wrap;
   text-wrap-style: balance;
 }
