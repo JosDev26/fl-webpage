@@ -4,7 +4,7 @@ import { sendEmail } from '../email/resend'
 import { blogPostTemplate } from '../email/templates'
 
 function getCmsUrl(): string {
-  return process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  return process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 }
 
 function getSiteUrl(): string {

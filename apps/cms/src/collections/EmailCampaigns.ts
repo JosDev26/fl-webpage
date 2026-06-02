@@ -5,7 +5,7 @@ import { campaignTemplate } from '../email/templates'
 import { lexicalToHtml } from '../email/lexical-serialize'
 
 function getCmsUrl(): string {
-  return process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  return process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
 }
 
 export const EmailCampaigns: CollectionConfig = {
