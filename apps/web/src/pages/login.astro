@@ -1,0 +1,132 @@
+---
+export const prerender = false
+
+import Layout from '../layouts/Layout.astro'
+import Navbar from '../components/Navbar.astro'
+import Footer from '../components/Footer.astro'
+import '../styles/login.css'
+import { createSupabaseServerClient } from '../lib/supabase'
+
+let errorMessage = ''
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData()
+  const rawCedula = (formData.get('cedula') as string || '').trim()
+  const password = formData.get('password') as string || ''
+
+  // Sanitizar cédula: solo permitir letras, números y guiones
+  const cedula = rawCedula.replace(/[^a-zA-Z0-9\-]/g, '')
+
+  if (!cedula || !password) {
+    errorMessage = 'Por favor completá todos los campos.'
+  } else {
+    const email = `${cedula}@clientes.interno`
+    const supabase = createSupabaseServerClient(Astro.request, Astro.cookies)
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (error) {
+      errorMessage = 'Cédula o contraseña incorrecta.'
+    } else {
+      // Buscar nombre de la empresa en la tabla empresas
+      const { data: empresa } = await supabase
+        .from('empresas')
+        .select('nombre')
+        .eq('cedula', cedula)
+        .single()
+
+      if (empresa?.nombre) {
+        Astro.cookies.set('empresa_nombre', empresa.nombre, {
+          path: '/',
+          httpOnly: true,
+          secure: import.meta.env.PROD,
+          sameSite: 'lax',
+          maxAge: 604800,
+        })
+      }
+
+      // Cookie no-httpOnly para que el Navbar (client-side) detecte sesión
+      Astro.cookies.set('logged_in', '1', {
+        path: '/',
+        httpOnly: false,
+        secure: import.meta.env.PROD,
+        sameSite: 'lax',
+        maxAge: 604800,
+      })
+
+      return Astro.redirect('/userhome', 302)
+    }
+  }
+}
+---
+
+<Layout>
+  <Navbar />
+  <section class="login-container">
+    <div class="login-card">
+      <h1 class="login-title">Iniciar <span class="highlight">sesión</span></h1>
+
+      <p class="login-error" id="login-error" hidden={!errorMessage}>
+        {errorMessage}
+      </p>
+
+      <form class="login-form" method="POST" id="login-form">
+        <div class="login-field">
+          <label class="login-label" for="cedula">Cédula</label>
+          <input
+            class="login-input"
+            type="text"
+            id="cedula"
+            name="cedula"
+            placeholder="Ej: 123456789"
+            autocomplete="username"
+            required
+          />
+        </div>
+
+        <div class="login-field">
+          <label class="login-label" for="password">Contraseña</label>
+          <input
+            class="login-input"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Tu contraseña"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <button class="login-submit" type="submit" id="login-submit">
+          Ingresar
+        </button>
+      </form>
+    </div>
+  </section>
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('login-form') as HTMLFormElement
+    const submitBtn = document.getElementById('login-submit') as HTMLButtonElement
+    const errorEl = document.getElementById('login-error') as HTMLElement
+
+    // Si hay error visible, deshabilitar botón 3 segundos para rate limiting básico
+    if (errorEl && !errorEl.hidden) {
+      submitBtn.disabled = true
+      setTimeout(() => {
+        submitBtn.disabled = false
+      }, 3000)
+    }
+
+    // Deshabilitar botón al hacer submit para evitar doble-click
+    form.addEventListener('submit', () => {
+      submitBtn.disabled = true
+      submitBtn.textContent = 'Ingresando...'
+    })
+  })
+</script>

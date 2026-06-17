@@ -1,0 +1,129 @@
+---
+import '../styles/subscribe-banner.css';
+import { getTags } from '../lib/payload';
+import type { Tag } from '@fusion-legal/shared';
+
+let tags: Tag[] = [];
+try {
+  tags = await getTags();
+} catch {
+  // fallback
+}
+
+const payloadUrl = import.meta.env.PAYLOAD_URL || 'http://localhost:3000';
+---
+
+<div class="subscribe-banner" data-payload-url={payloadUrl}>
+  <div class="subscribe-banner-content">
+    <div class="subscribe-banner-text">
+      <h3 class="subscribe-banner-title">
+        <span class="subscribe-banner-title-accent">Suscríbete</span> a ADA
+      </h3>
+      <p class="subscribe-banner-copy">Recibe contenido legal relevante directo a tu correo.</p>
+    </div>
+
+    <form class="subscribe-banner-form" data-subscribe-form>
+      <div class="subscribe-banner-row">
+        <input
+          type="email"
+          class="subscribe-banner-input"
+          placeholder="tu@correo.com"
+          required
+          data-subscribe-email
+          autocomplete="email"
+        />
+
+        <div class="subscribe-banner-lang" data-subscribe-lang="es">
+          <button type="button" class="subscribe-banner-lang-btn active" data-lang-btn="es">ES</button>
+          <button type="button" class="subscribe-banner-lang-btn" data-lang-btn="en">EN</button>
+        </div>
+
+        <button type="submit" class="subscribe-banner-submit" data-subscribe-submit>
+          Suscribirse
+        </button>
+      </div>
+
+      {tags.length > 0 && (
+        <div class="subscribe-banner-tags">
+          <span class="subscribe-banner-tags-label">Categorías de interés:</span>
+          <div class="subscribe-banner-tags-list">
+            {tags.map((tag) => (
+              <label class="subscribe-banner-tag">
+                <input type="checkbox" name="tags" value={tag.id} />
+                <span>{tag.name}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div class="subscribe-banner-status" data-subscribe-status aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.querySelector('.subscribe-banner') as HTMLElement;
+    if (!banner) return;
+
+    const form = banner.querySelector('[data-subscribe-form]') as HTMLFormElement;
+    const emailInput = banner.querySelector('[data-subscribe-email]') as HTMLInputElement;
+    const status = banner.querySelector('[data-subscribe-status]') as HTMLElement;
+    const submitBtn = banner.querySelector('[data-subscribe-submit]') as HTMLButtonElement;
+    const langBtns = banner.querySelectorAll('[data-lang-btn]');
+    const langContainer = banner.querySelector('[data-subscribe-lang]') as HTMLElement;
+    const payloadUrl = banner.dataset.payloadUrl || '';
+
+    let selectedLang = 'es';
+
+    langBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        selectedLang = (btn as HTMLElement).dataset.langBtn || 'es';
+        langContainer.dataset.subscribeLang = selectedLang;
+        langBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email) return;
+
+      const checkedTags = Array.from(
+        form.querySelectorAll<HTMLInputElement>('input[name="tags"]:checked')
+      ).map((cb) => cb.value);
+
+      submitBtn.disabled = true;
+      status.textContent = '';
+      status.className = 'subscribe-banner-status';
+
+      try {
+        const res = await fetch(`${payloadUrl}/api/subscribers/subscribe`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, tags: checkedTags, language: selectedLang }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          status.textContent = selectedLang === 'en'
+            ? 'Check your email to confirm your subscription!'
+            : 'Revisa tu correo para confirmar tu suscripcion!';
+          status.classList.add('subscribe-banner-status--success');
+          emailInput.value = '';
+        } else {
+          status.textContent = data.error || 'Error al suscribirse';
+          status.classList.add('subscribe-banner-status--error');
+        }
+      } catch {
+        status.textContent = 'Error de conexion. Intenta de nuevo.';
+        status.classList.add('subscribe-banner-status--error');
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  });
+</script>

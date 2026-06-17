@@ -1,0 +1,173 @@
+/* situacioncards.css */
+
+:root {
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+.hidden-initial {
+  opacity: 0;
+}
+
+/* ===========================
+   CONTENEDOR PRINCIPAL
+=========================== */
+.situacion-cards-container {
+  background-color: var(--dark-blue-color);
+  padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(3rem, 6vw, 4rem);
+}
+
+/* ===========================
+   TÍTULO DE SECCIÓN
+=========================== */
+.situacion-cards-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.situacion-cards-title .highlight {
+  color: var(--yellow-color);
+}
+
+.situacion-cards-title .underline {
+  text-decoration: underline;
+  text-decoration-color: var(--yellow-color);
+  text-underline-offset: 8px;
+  text-decoration-thickness: 3px;
+}
+
+/* ===========================
+   GRID DE TARJETAS
+=========================== */
+.situacion-cards-grid {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(2rem, 4vw, 3rem);
+  align-items: stretch;
+}
+
+/* ===========================
+   ARTÍCULO (card-item)
+=========================== */
+.situacion-card-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+/* ===========================
+   CARD GLOW WRAPPER
+=========================== */
+.situacion-card-glow {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-shadow:
+    0 0 25px rgba(255, 255, 255, 0.12),
+    0 0 10px rgba(250, 208, 44, 0.3);
+  overflow: hidden;
+}
+
+/* ===========================
+   PARTE SUPERIOR (amarilla)
+=========================== */
+.situacion-card-top {
+  background-color: var(--yellow-color);
+  color: var(--dark-blue-color);
+  padding: clamp(1.5rem, 3vw, 2.5rem) 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  flex: 1 1 50%;
+}
+
+.situacion-card-title {
+  font-size: clamp(1.2rem, 2vw, 1.4rem);
+  font-weight: 800;
+  margin: 0;
+  color: var(--dark-blue-color);
+}
+
+.situacion-card-subtitle {
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.4;
+  color: var(--dark-blue-color);
+}
+
+.situacion-card-icon {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  margin-top: auto;
+  color: var(--dark-blue-color);
+}
+
+/* ===========================
+   PARTE INFERIOR (blanca)
+=========================== */
+.situacion-card-bottom {
+  background-color: #ffffff;
+  color: var(--dark-blue-color);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  text-align: center;
+  flex: 1 1 50%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.situacion-card-bottom p {
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  line-height: 1.6;
+  margin: 0;
+  width: 100%;
+  color: var(--dark-blue-color);
+}
+
+/* ===========================
+   FLECHA INFERIOR
+=========================== */
+.situacion-card-arrow {
+  color: var(--yellow-color);
+  font-size: 3rem;
+}
+
+/* ===========================
+   HOVER
+=========================== */
+@media (hover: hover) and (pointer: fine) {
+  .situacion-card-glow {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .situacion-card-glow:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 0 30px rgba(255, 255, 255, 0.18),
+      0 0 16px rgba(250, 208, 44, 0.45);
+  }
+}
+
+/* ===========================
+   REDUCED MOTION
+=========================== */
+@media (prefers-reduced-motion: reduce) {
+  .situacion-card-glow {
+    transition: none;
+  }
+}

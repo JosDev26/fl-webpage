@@ -1,0 +1,174 @@
+---
+import '../styles/businesssteps.css';
+---
+
+<!-- Paso 1: Primeros Pasos -->
+<section class="business-steps-container">
+    <div class="business-steps-grid">
+        <div class="business-steps-title-block">
+            <h2 class="business-steps-title hidden-initial">Primeros<br>Pasos</h2>
+        </div>
+        <div class="business-steps-divider" aria-hidden="true">
+            <div class="business-steps-divider-line hidden-initial"></div>
+        </div>
+        <div class="business-steps-list">
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-buildings"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Asesoría para Emprendedores</strong>
+                    Te ayudamos a elegir y constituir la mejor estructura legal para tu negocio (empresa individual, S.A.C., S.A., etc.).
+                </p>
+            </div>
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-hand-coins"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Derecho Tributario</strong>
+                    Asesoramiento para que empieces tu negocio con una planificación tributaria eficiente y sin sorpresas fiscales.
+                </p>
+            </div>
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-lightbulb"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Propiedad Intelectual</strong>
+                    Protege tu marca, logo, invenciones o contenido creativo desde el inicio. Te guiamos en el registro y uso correcto.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Paso 2: Formaliza Tu Negocio -->
+<section class="business-steps-container">
+    <div class="business-steps-grid">
+        <div class="business-steps-title-block">
+            <h2 class="business-steps-title hidden-initial">Formaliza<br>Tu Negocio</h2>
+        </div>
+        <div class="business-steps-divider" aria-hidden="true">
+            <div class="business-steps-divider-line hidden-initial"></div>
+        </div>
+        <div class="business-steps-list">
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-identification-card"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Servicios Regulatorios</strong>
+                    Te acompañamos en la obtención de licencias, permisos y autorizaciones según el giro de tu empresa.
+                </p>
+            </div>
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-bank"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Derecho Público</strong>
+                    Te orientamos en trámites con entidades nacionales, municipalidades o procesos de fiscalización.
+                </p>
+            </div>
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-briefcase"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Derecho Laboral</strong>
+                    Te asesoramos en la contratación de tu primer equipo: contratos, planilla, beneficios y cumplimiento laboral.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Paso 3: Protege Tu Inversión -->
+<section class="business-steps-container">
+    <div class="business-steps-grid">
+        <div class="business-steps-title-block">
+            <h2 class="business-steps-title hidden-initial">Protege Tu<br>Inversión</h2>
+        </div>
+        <div class="business-steps-divider" aria-hidden="true">
+            <div class="business-steps-divider-line hidden-initial"></div>
+        </div>
+        <div class="business-steps-list">
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-receipt"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Perfil Tributario</strong>
+                    Definición de las obligaciones ante el Ministerio de Hacienda y configuración inicial para el manejo de impuestos.
+                </p>
+            </div>
+            <div class="business-steps-item hidden-initial">
+                <div class="business-steps-item-icon">
+                    <i class="ph ph-file-text"></i>
+                </div>
+                <p class="business-steps-item-copy">
+                    <strong>Contratos Iniciales (Blindaje Operativo)</strong>
+                    Protege la continuidad de tu operación. Redactamos tus contratos de alquiler, proveedores y acuerdos de socios para poner reglas claras desde el día uno, evitando demandas o desalojos que pongan en riesgo tu inversión.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('.business-steps-container') as NodeListOf<HTMLElement>;
+        if (!sections.length) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            if (!(window as any).__bsObserved) (window as any).__bsObserved = new WeakSet<Element>();
+            sections.forEach((section) => {
+                if ((window as any).__bsObserved.has(section)) return;
+                (window as any).__bsObserved.add(section);
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const title = entry.target.querySelector('.business-steps-title') as HTMLElement;
+                            const dividerLine = entry.target.querySelector('.business-steps-divider-line') as HTMLElement;
+                            const items = entry.target.querySelectorAll('.business-steps-item') as NodeListOf<HTMLElement>;
+
+                            anime.timeline({ easing: 'easeOutCubic' })
+                                .add({
+                                    targets: title,
+                                    opacity: [0, 1],
+                                    translateX: [-30, 0],
+                                    duration: 600,
+                                })
+                                .add({
+                                    targets: dividerLine,
+                                    opacity: [0, 1],
+                                    scaleY: [0, 1],
+                                    duration: 500,
+                                    easing: 'easeOutQuart',
+                                }, '-=300')
+                                .add({
+                                    targets: Array.from(items),
+                                    opacity: [0, 1],
+                                    translateY: [25, 0],
+                                    duration: 600,
+                                    delay: anime.stagger(120),
+                                }, '-=200');
+
+                            observer.disconnect();
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                observer.observe(section);
+            });
+        }, delay);
+    });
+</script>

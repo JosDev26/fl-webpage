@@ -1,0 +1,160 @@
+---
+import '../styles/subscribe-popup.css';
+import { getTags } from '../lib/payload';
+import type { Tag } from '@fusion-legal/shared';
+
+let tags: Tag[] = [];
+try {
+  tags = await getTags();
+} catch {
+  // fallback
+}
+
+const payloadUrl = import.meta.env.PAYLOAD_URL || 'http://localhost:3000';
+---
+
+<div class="subscribe-popup-overlay" data-popup-overlay data-payload-url={payloadUrl} aria-hidden="true">
+  <div class="subscribe-popup" role="dialog" aria-label="Suscripcion al boletin">
+    <button type="button" class="subscribe-popup-close" data-popup-close aria-label="Cerrar">
+      <i class="ph ph-x" aria-hidden="true"></i>
+    </button>
+
+    <h3 class="subscribe-popup-title">
+      No te pierdas nuestro <span>contenido legal</span>
+    </h3>
+    <p class="subscribe-popup-copy">Suscribete y recibe articulos relevantes directo a tu correo.</p>
+
+    <form class="subscribe-popup-form" data-popup-form>
+      <div class="subscribe-popup-row">
+        <input
+          type="email"
+          class="subscribe-popup-input"
+          placeholder="tu@correo.com"
+          required
+          data-popup-email
+          autocomplete="email"
+        />
+        <div class="subscribe-popup-lang" data-popup-lang="es">
+          <button type="button" class="subscribe-popup-lang-btn active" data-popup-lang-btn="es">ES</button>
+          <button type="button" class="subscribe-popup-lang-btn" data-popup-lang-btn="en">EN</button>
+        </div>
+      </div>
+
+      {tags.length > 0 && (
+        <div class="subscribe-popup-tags">
+          <span class="subscribe-popup-tags-label">Temas de interes:</span>
+          <div class="subscribe-popup-tags-list">
+            {tags.map((tag) => (
+              <label class="subscribe-popup-tag">
+                <input type="checkbox" name="popup-tags" value={tag.id} />
+                <span>{tag.name}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <button type="submit" class="subscribe-popup-submit" data-popup-submit>
+        Suscribirse
+      </button>
+
+      <div class="subscribe-popup-status" data-popup-status aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.querySelector('[data-popup-overlay]') as HTMLElement;
+    if (!overlay) return;
+
+    // Check session storage — don't show again if already dismissed
+    if (sessionStorage.getItem('subscribe-popup-dismissed') === 'true') return;
+
+    const closeBtn = overlay.querySelector('[data-popup-close]') as HTMLButtonElement;
+    const form = overlay.querySelector('[data-popup-form]') as HTMLFormElement;
+    const emailInput = overlay.querySelector('[data-popup-email]') as HTMLInputElement;
+    const status = overlay.querySelector('[data-popup-status]') as HTMLElement;
+    const submitBtn = overlay.querySelector('[data-popup-submit]') as HTMLButtonElement;
+    const langBtns = overlay.querySelectorAll('[data-popup-lang-btn]');
+    const langContainer = overlay.querySelector('[data-popup-lang]') as HTMLElement;
+    const payloadUrl = overlay.dataset.payloadUrl || '';
+
+    let selectedLang = 'es';
+
+    const dismissPopup = () => {
+      overlay.classList.remove('visible');
+      overlay.setAttribute('aria-hidden', 'true');
+      sessionStorage.setItem('subscribe-popup-dismissed', 'true');
+    };
+
+    // Show popup after 7 seconds
+    setTimeout(() => {
+      overlay.classList.add('visible');
+      overlay.setAttribute('aria-hidden', 'false');
+    }, 7000);
+
+    closeBtn.addEventListener('click', dismissPopup);
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) dismissPopup();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('visible')) {
+        dismissPopup();
+      }
+    });
+
+    langBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        selectedLang = (btn as HTMLElement).dataset.popupLangBtn || 'es';
+        langContainer.dataset.popupLang = selectedLang;
+        langBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email) return;
+
+      const checkedTags = Array.from(
+        form.querySelectorAll<HTMLInputElement>('input[name="popup-tags"]:checked')
+      ).map((cb) => cb.value);
+
+      submitBtn.disabled = true;
+      status.textContent = '';
+      status.className = 'subscribe-popup-status';
+
+      try {
+        const res = await fetch(`${payloadUrl}/api/subscribers/subscribe`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, tags: checkedTags, language: selectedLang }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          status.textContent = selectedLang === 'en'
+            ? 'Check your email to confirm!'
+            : 'Revisa tu correo para confirmar!';
+          status.classList.add('subscribe-popup-status--success');
+          emailInput.value = '';
+          // Auto-dismiss after success
+          setTimeout(dismissPopup, 3000);
+        } else {
+          status.textContent = data.error || 'Error al suscribirse';
+          status.classList.add('subscribe-popup-status--error');
+        }
+      } catch {
+        status.textContent = 'Error de conexion. Intenta de nuevo.';
+        status.classList.add('subscribe-popup-status--error');
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  });
+</script>

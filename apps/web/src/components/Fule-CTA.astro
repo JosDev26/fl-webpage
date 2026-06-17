@@ -1,0 +1,55 @@
+---
+import '../styles/calltoaction-toolkit.css';
+---
+
+<section class="calltoaction-toolkit-container">
+  <div class="calltoaction-toolkit-content">
+    <h2 class="calltoaction-toolkit-title hidden-initial">
+      ¿Listo para un servicio transparente?
+    </h2>
+    <p class="calltoaction-toolkit-copy hidden-initial">
+      Nuestro equipo de abogados expertos está listo para ofrecerle una asesoría personalizada y proactiva. Contáctenos hoy para asegurar un manejo correcto de tu situación.
+    </p>
+    <a href="#contacto" class="calltoaction-toolkit-button hidden-initial" aria-label="Quiero asesoría personalizada">
+      Agendar Cita
+    </a>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+  declare const anime: any;
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.calltoaction-toolkit-container') as HTMLElement;
+    if (!section) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          anime.timeline({ easing: 'easeOutCubic' })
+            .add({
+              targets: '.calltoaction-toolkit-title',
+              opacity: [0, 1],
+              translateY: [20, 0],
+              duration: 600,
+            })
+            .add({
+              targets: '.calltoaction-toolkit-copy',
+              opacity: [0, 1],
+              translateY: [20, 0],
+              duration: 600,
+            }, '-=300')
+            .add({
+              targets: '.calltoaction-toolkit-button',
+              opacity: [0, 1],
+              translateY: [20, 0],
+              duration: 500,
+            }, '-=300');
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.2 });
+
+    observer.observe(section);
+  });
+</script>

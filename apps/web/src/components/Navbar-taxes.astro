@@ -1,0 +1,71 @@
+---
+import '../styles/navbar-toolkit.css';
+---
+
+<nav class="toolkit-navbar" aria-label="Navegación de toolkit">
+  <div class="toolkit-navbar-content">
+    <span class="toolkit-navbar-corner toolkit-navbar-corner-tl" aria-hidden="true"></span>
+
+    <ul class="toolkit-navbar-links">
+      <li class="toolkit-navbar-item">
+        <a href="#planificacion-estrategica" class="toolkit-navbar-link toolkit-navbar-link-active">
+          Planificación Estratégica
+        </a>
+      </li>
+      <li class="toolkit-navbar-item">
+        <a href="#cumplimiento-proactivo" class="toolkit-navbar-link">
+          Cumplimiento Proactivo
+        </a>
+      </li>
+      <li class="toolkit-navbar-item">
+        <a href="#defensa-fiscal" class="toolkit-navbar-link">
+          Defensa Fiscal
+        </a>
+      </li>
+      <li class="toolkit-navbar-item">
+        <a href="#servicios-especializados" class="toolkit-navbar-link">
+          Servicios Especializados
+        </a>
+      </li>
+    </ul>
+
+    <span class="toolkit-navbar-corner toolkit-navbar-corner-br" aria-hidden="true"></span>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>('.toolkit-navbar-link');
+    const sections = document.querySelectorAll<HTMLElement>('.toolkit-sections > *');
+
+    if (!navLinks.length || !sections.length) return;
+
+    /* Activar la primera seccion, ocultar las demas */
+    sections.forEach((section, index) => {
+      if (index === 0) {
+        section.classList.add('toolkit-section-active');
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href')?.replace('#', '');
+        if (!targetId) return;
+
+        /* Actualizar link activo */
+        navLinks.forEach((l) => l.classList.remove('toolkit-navbar-link-active'));
+        link.classList.add('toolkit-navbar-link-active');
+
+        /* Fade entre secciones */
+        sections.forEach((section) => {
+          if (section.id === targetId) {
+            section.classList.add('toolkit-section-active');
+          } else {
+            section.classList.remove('toolkit-section-active');
+          }
+        });
+      });
+    });
+  });
+</script>

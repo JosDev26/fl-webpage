@@ -1,0 +1,24 @@
+---
+export const prerender = false
+
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import CalcHero from '../components/Calculator-hero.astro';
+import Calculator from '../components/Calculator.astro';
+import CalcInfo from '../components/Calculator-info.astro';
+import NavbarCalc from '../components/Navbar-calculator.astro';
+import CalcImportancia from '../components/Calculator-importancia.astro';
+import CalcCTA from '../components/Taxes-CTA.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+    <Navbar/>
+    <CalcHero/>
+    <NavbarCalc/>
+    <Calculator/>
+    <CalcInfo/>
+    <CalcImportancia/>
+    <CalcCTA/>
+    <Footer/>
+</Layout>

@@ -1,0 +1,128 @@
+---
+import '../styles/Fule-info.css';
+
+const slides = [
+  {
+    title: 'Ventajas',
+    icon: 'ph-user-circle-check',
+    items: [
+      'Control de horas trabajadas en tiempo real.',
+      'Manténgase al tanto de las actualizaciones más recientes de su caso.',
+      'Reporte sus pagos, consulte su historial de comprobantes.'
+    ]
+  },
+  {
+    title: 'Seguimiento',
+    icon: 'ph-chart-line',
+    items: [
+      'Informe de avances en tiempo real.',
+      'Alertas cuando cambia el estado de su caso.',
+      'Historial de documentos y pagos.'
+    ]
+  }
+];
+---
+
+<section class="fule-info-container">
+  <h2 class="fule-info-title hidden-initial">
+    Sin filtros ni esperas: <span>Tu información legal al día</span>
+  </h2>
+
+  <div class="fule-info-video-wrapper hidden-initial">
+    <div class="fule-info-video">
+      Insert Video promocional*
+    </div>
+  </div>
+
+  <div class="fule-info-footer">
+    <button class="fule-info-nav-btn fule-info-nav-prev" aria-label="Anterior">
+      <i class="ph ph-caret-left"></i>
+    </button>
+
+    <div class="fule-info-card-block">
+      {slides.map((slide, index) => (
+        <div class={`fule-info-slide${index === 0 ? ' active' : ''}`} data-slide-index={index}>
+          <article class="fule-info-card">
+            <div class="fule-info-card-icon" aria-hidden="true">
+              <i class={`ph ${slide.icon}`}></i>
+            </div>
+            <h3 class="fule-info-card-title">{slide.title}</h3>
+          </article>
+
+          <div class="fule-info-copy">
+            <p>Optimice su tiempo y supervise cada detalle de su proceso con estas herramientas de seguimiento:</p>
+            <ul class="fule-info-list">
+              {slide.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <button class="fule-info-nav-btn fule-info-nav-next" aria-label="Siguiente">
+      <i class="ph ph-caret-right"></i>
+    </button>
+  </div>
+</section>
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.fule-info-container') as HTMLElement;
+        if (!section) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    anime.timeline({ easing: 'easeOutCubic' })
+                        .add({
+                            targets: '.fule-info-title',
+                            opacity: [0, 1],
+                            translateY: [-30, 0],
+                            duration: 700,
+                        })
+                        .add({
+                            targets: '.fule-info-video-wrapper',
+                            opacity: [0, 1],
+                            translateY: [20, 0],
+                            duration: 600,
+                        }, '-=400');
+
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(section);
+    });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.fule-info-slide');
+    const prevBtn = document.querySelector('.fule-info-nav-prev');
+    const nextBtn = document.querySelector('.fule-info-nav-next');
+    let currentIndex = 0;
+
+    const setSlide = (index: number) => {
+      slides.forEach((slide, i: number) => {
+        slide.classList.toggle('active', i === index);
+      });
+    };
+
+    prevBtn?.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      setSlide(currentIndex);
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      setSlide(currentIndex);
+    });
+
+    setSlide(currentIndex);
+  });
+</script>

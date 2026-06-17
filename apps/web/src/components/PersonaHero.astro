@@ -1,0 +1,71 @@
+---
+import '../styles/personahero.css';
+---
+
+<section class="persona-hero-container">
+    <div class="persona-hero-content">
+        <i class="ph ph-user persona-hero-icon hidden-initial"></i>
+        <h1 class="persona-hero-title hidden-initial">Soy una persona con una situación legal</h1>
+        <p class="persona-hero-subtitle hidden-initial">
+            Te ayudamos a desenredar esas situaciones legales cotidianas que parecen complicadas.
+            Ya sea una consulta puntual, un contrato personal o la protección de tu patrimonio,
+            te ofrecemos respuestas claras y soluciones prácticas para que dejes de preocuparte
+            y empieces a resolver.
+        </p>
+        <div class="persona-hero-divider hidden-initial"></div>
+    </div>
+</section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.persona-hero-container') as HTMLElement;
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.persona-hero-icon',
+                                opacity: [0, 1],
+                                scale: [0.5, 1],
+                                duration: 600,
+                                easing: 'easeOutBack',
+                            })
+                            .add({
+                                targets: '.persona-hero-title',
+                                opacity: [0, 1],
+                                translateY: [-30, 0],
+                                duration: 700,
+                            }, '-=300')
+                            .add({
+                                targets: '.persona-hero-subtitle',
+                                opacity: [0, 1],
+                                translateY: [20, 0],
+                                duration: 600,
+                            }, '-=400')
+                            .add({
+                                targets: '.persona-hero-divider',
+                                opacity: [0, 1],
+                                scaleX: [0, 1],
+                                duration: 500,
+                                easing: 'easeOutQuart',
+                            }, '-=300');
+
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>

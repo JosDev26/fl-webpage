@@ -1,0 +1,505 @@
+---
+export const prerender = false
+
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import SubscribeBanner from '../../components/SubscribeBanner.astro';
+import SubscribePopup from '../../components/SubscribePopup.astro';
+import { getBlogPosts } from '../../lib/payload';
+import type { BlogPost, Tag } from '@fusion-legal/shared';
+import '../../styles/blog.css';
+
+let posts: BlogPost[] = [];
+try {
+  posts = await getBlogPosts();
+} catch {
+  // Payload not available — show empty state
+}
+
+// Featured = most viewed post
+const sorted = [...posts].sort((a, b) => (b.views ?? 0) - (a.views ?? 0));
+const featured = sorted[0] ?? null;
+
+// Latest = 4 most recent (excluding featured)
+const latest = posts.filter(p => p.id !== featured?.id).slice(0, 4);
+const latestMain = latest[0] ?? null;
+const latestSide = latest.slice(1, 4);
+
+// Build a Map<tagName, BlogPost[]> — posts can appear in multiple tag groups
+const tagMap = new Map<string, { tag: Tag; posts: BlogPost[] }>();
+
+for (const post of posts) {
+  if (!post.tags || post.tags.length === 0) continue;
+  for (const tag of post.tags) {
+    if (!tagMap.has(tag.name)) {
+      tagMap.set(tag.name, { tag, posts: [] });
+    }
+    tagMap.get(tag.name)!.posts.push(post);
+  }
+}
+
+// Sort tag groups by number of posts (most first)
+const tagGroups = [...tagMap.values()].sort((a, b) => b.posts.length - a.posts.length);
+
+// All unique tags for the search
+const allTags = tagGroups.map(g => g.tag);
+---
+
+<Layout>
+  <Navbar />
+  <SubscribeBanner />
+  <section class="blog-container">
+
+    {posts.length === 0 ? (
+      <p class="blog-empty">No hay artículos publicados aún.</p>
+    ) : (
+      <>
+        {/* ===== Featured Hero (most viewed) ===== */}
+        {featured && (
+          <a href={`/blog/${featured.slug}`} class="blog-hero">
+            <div class="blog-hero-image">
+              {featured.cover_image && (
+                <img src={featured.cover_image.url} alt={featured.cover_image.alt || featured.title} loading="eager" />
+              )}
+            </div>
+            <div class="blog-hero-content">
+              {featured.tags && featured.tags.length > 0 && (
+                <div class="blog-tags">
+                  {featured.tags.map((tag) => (
+                    <span class="blog-tag">{tag.name}</span>
+                  ))}
+                </div>
+              )}
+              <time class="blog-hero-date" datetime={featured.published_date}>
+                {new Date(featured.published_date).toLocaleDateString('es-CR', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+              <h1 class="blog-hero-title">{featured.title}</h1>
+              {featured.excerpt && <p class="blog-hero-excerpt">{featured.excerpt}</p>}
+              <span class="blog-read-more">Leer más &rsaquo;</span>
+            </div>
+          </a>
+        )}
+
+        {/* ===== Últimas entradas ===== */}
+        {latest.length > 0 && (
+          <div class="blog-section">
+            <div class="blog-section-header">
+              <h2 class="blog-section-title">Últimas entradas</h2>
+            </div>
+
+            <div class="blog-latest-grid">
+              {latestMain && (
+                <a href={`/blog/${latestMain.slug}`} class="blog-latest-main">
+                  <div class="blog-latest-main-image">
+                    {latestMain.cover_image && (
+                      <img src={latestMain.cover_image.url} alt={latestMain.cover_image.alt || latestMain.title} loading="lazy" />
+                    )}
+                  </div>
+                  <div class="blog-latest-main-content">
+                    {latestMain.tags && latestMain.tags.length > 0 && (
+                      <div class="blog-tags">
+                        {latestMain.tags.map((tag) => (
+                          <span class="blog-tag">{tag.name}</span>
+                        ))}
+                      </div>
+                    )}
+                    <h3 class="blog-latest-main-title">{latestMain.title}</h3>
+                    {latestMain.excerpt && <p class="blog-latest-main-excerpt">{latestMain.excerpt}</p>}
+                  </div>
+                </a>
+              )}
+
+              {latestSide.length > 0 && (
+                <div class="blog-latest-side">
+                  {latestSide.map((post) => (
+                    <a href={`/blog/${post.slug}`} class="blog-latest-side-card">
+                      <div class="blog-latest-side-image">
+                        {post.cover_image && (
+                          <img src={post.cover_image.url} alt={post.cover_image.alt || post.title} loading="lazy" />
+                        )}
+                      </div>
+                      <div class="blog-latest-side-content">
+                        <h4 class="blog-latest-side-title">{post.title}</h4>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ===== Search by tags ===== */}
+        <div class="blog-search-section">
+          <div class="blog-search-bar">
+            <i class="ph ph-magnifying-glass blog-search-icon" aria-hidden="true"></i>
+            <input
+              type="text"
+              id="blog-tag-search"
+              class="blog-search-input"
+              placeholder="Buscar por etiqueta..."
+              autocomplete="off"
+            />
+          </div>
+          <div class="blog-search-tags" id="blog-search-tags">
+            {allTags.map((tag) => (
+              <button class="blog-search-tag-btn" data-tag={tag.name}>{tag.name}</button>
+            ))}
+          </div>
+        </div>
+
+        {/* ===== Tag Carousels ===== */}
+        <div id="blog-carousels">
+          {tagGroups.map((group) => (
+            <div class="blog-carousel-section" data-tag-section={group.tag.name}>
+              <div class="blog-carousel-header">
+                <h2 class="blog-carousel-tag-title">{group.tag.name}</h2>
+                <button class="blog-carousel-view-all" data-tag-filter={group.tag.name}>
+                  Ver todos &rsaquo;
+                </button>
+              </div>
+              <div class="blog-carousel-wrapper">
+                <button class="blog-carousel-arrow blog-carousel-arrow-left" aria-label="Anterior">
+                  <i class="ph ph-caret-left" aria-hidden="true"></i>
+                </button>
+                <div class="blog-carousel-track">
+                  {group.posts.map((post) => (
+                    <a href={`/blog/${post.slug}`} class="blog-carousel-card">
+                      <div class="blog-carousel-card-image">
+                        {post.cover_image ? (
+                          <img src={post.cover_image.url} alt={post.cover_image.alt || post.title} loading="lazy" />
+                        ) : (
+                          <div class="blog-carousel-card-placeholder"></div>
+                        )}
+                      </div>
+                      <div class="blog-carousel-card-body">
+                        <h3 class="blog-carousel-card-title">{post.title}</h3>
+                        <span class="blog-carousel-card-read">Leer más &rsaquo;</span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+                <button class="blog-carousel-arrow blog-carousel-arrow-right" aria-label="Siguiente">
+                  <i class="ph ph-caret-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ===== Expanded tag view (hidden by default) ===== */}
+        <div id="blog-tag-expanded" class="blog-tag-expanded" style="display:none;">
+          <div class="blog-tag-expanded-header">
+            <h2 class="blog-tag-expanded-title" id="blog-tag-expanded-title"></h2>
+            <button class="blog-tag-expanded-close" id="blog-tag-expanded-close">
+              <i class="ph ph-x" aria-hidden="true"></i> Volver
+            </button>
+          </div>
+          <div class="blog-tag-expanded-grid" id="blog-tag-expanded-grid"></div>
+        </div>
+      </>
+    )}
+
+  </section>
+  <Footer />
+  <SubscribePopup />
+</Layout>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script is:inline>
+document.addEventListener('DOMContentLoaded', () => {
+  /* ===== Animations ===== */
+  var isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+  var animDelay = isRestoring ? 150 : 0;
+
+  function observeAnimate(selector, animationProps, options) {
+    var el = document.querySelector(selector);
+    if (!el) return;
+    setTimeout(function () {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            if (typeof animationProps === 'function') {
+              animationProps();
+            } else {
+              anime(animationProps);
+            }
+            observer.disconnect();
+          }
+        });
+      }, { threshold: options && options.threshold || 0.15 });
+      observer.observe(el);
+    }, animDelay);
+  }
+
+  // Hero — fade in image from left, content from right
+  observeAnimate('.blog-hero', function () {
+    anime.timeline({ easing: 'easeOutCubic' })
+      .add({
+        targets: '.blog-hero-image',
+        opacity: [0, 1],
+        translateX: [-40, 0],
+        duration: 700,
+      })
+      .add({
+        targets: '.blog-hero-content',
+        opacity: [0, 1],
+        translateX: [40, 0],
+        duration: 700,
+      }, '-=500');
+    anime({ targets: '.blog-hero', opacity: [0, 1], duration: 1, easing: 'linear' });
+  });
+
+  // Latest entries section — fade up title then stagger cards
+  observeAnimate('.blog-section', function () {
+    anime({ targets: '.blog-section', opacity: [0, 1], duration: 1, easing: 'linear' });
+    anime.timeline({ easing: 'easeOutCubic' })
+      .add({
+        targets: '.blog-section-title',
+        opacity: [0, 1],
+        translateY: [20, 0],
+        duration: 500,
+      })
+      .add({
+        targets: '.blog-latest-main',
+        opacity: [0, 1],
+        translateY: [40, 0],
+        scale: [0.97, 1],
+        duration: 600,
+      }, '-=200')
+      .add({
+        targets: '.blog-latest-side-card',
+        opacity: [0, 1],
+        translateX: [30, 0],
+        duration: 500,
+        delay: anime.stagger(120),
+      }, '-=300');
+  });
+
+  // Search section — fade up
+  observeAnimate('.blog-search-section', function () {
+    anime({ targets: '.blog-search-section', opacity: [0, 1], duration: 1, easing: 'linear' });
+    anime.timeline({ easing: 'easeOutCubic' })
+      .add({
+        targets: '.blog-search-bar',
+        opacity: [0, 1],
+        translateY: [20, 0],
+        duration: 500,
+      })
+      .add({
+        targets: '.blog-search-tag-btn',
+        opacity: [0, 1],
+        translateY: [15, 0],
+        duration: 400,
+        delay: anime.stagger(50),
+      }, '-=200');
+  });
+
+  // Carousel sections — each observed independently
+  document.querySelectorAll('.blog-carousel-section').forEach(function (section) {
+    setTimeout(function () {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            anime({ targets: entry.target, opacity: [0, 1], duration: 1, easing: 'linear' });
+            anime.timeline({ easing: 'easeOutCubic' })
+              .add({
+                targets: entry.target.querySelector('.blog-carousel-header'),
+                opacity: [0, 1],
+                translateY: [20, 0],
+                duration: 500,
+              })
+              .add({
+                targets: entry.target.querySelectorAll('.blog-carousel-card'),
+                opacity: [0, 1],
+                translateY: [30, 0],
+                scale: [0.95, 1],
+                duration: 600,
+                delay: anime.stagger(100),
+              }, '-=250');
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(section);
+    }, animDelay);
+  });
+
+  /* ===== Carousel scrolling ===== */
+  document.querySelectorAll('.blog-carousel-wrapper').forEach((wrapper) => {
+    const track = wrapper.querySelector('.blog-carousel-track');
+    const leftBtn = wrapper.querySelector('.blog-carousel-arrow-left');
+    const rightBtn = wrapper.querySelector('.blog-carousel-arrow-right');
+    if (!track || !leftBtn || !rightBtn) return;
+
+    const scrollAmount = () => {
+      const card = track.querySelector('.blog-carousel-card');
+      return card ? card.offsetWidth + 16 : 300;
+    };
+
+    leftBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+    });
+    rightBtn.addEventListener('click', () => {
+      track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+    });
+  });
+
+  /* ===== Search / filter by tag ===== */
+  const searchInput = document.getElementById('blog-tag-search');
+  const searchTagsContainer = document.getElementById('blog-search-tags');
+  const carouselsContainer = document.getElementById('blog-carousels');
+  const sections = document.querySelectorAll('.blog-carousel-section');
+  const tagButtons = document.querySelectorAll('.blog-search-tag-btn');
+
+  if (!searchInput || !searchTagsContainer || !carouselsContainer) return;
+
+  // Normalize text for accent-insensitive search
+  function normalize(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+  }
+
+  // Pre-build normalized tag index for O(n) lookup
+  const tagIndex = [];
+  tagButtons.forEach((btn) => {
+    tagIndex.push({
+      el: btn,
+      name: btn.getAttribute('data-tag'),
+      normalized: normalize(btn.getAttribute('data-tag') || ''),
+    });
+  });
+
+  const sectionIndex = [];
+  sections.forEach((sec) => {
+    sectionIndex.push({
+      el: sec,
+      name: sec.getAttribute('data-tag-section'),
+      normalized: normalize(sec.getAttribute('data-tag-section') || ''),
+    });
+  });
+
+  // Animate sections appearing/disappearing on filter
+  function animateFilter(matchFn) {
+    sectionIndex.forEach(function (item) {
+      var matches = matchFn(item);
+      if (matches) {
+        if (item.el.style.display === 'none' || item.el.dataset.hidden === '1') {
+          item.el.style.display = '';
+          item.el.dataset.hidden = '0';
+          anime({
+            targets: item.el,
+            opacity: [0, 1],
+            translateY: [20, 0],
+            duration: 400,
+            easing: 'easeOutCubic',
+          });
+          anime({
+            targets: item.el.querySelectorAll('.blog-carousel-card'),
+            opacity: [0, 1],
+            translateY: [15, 0],
+            scale: [0.97, 1],
+            duration: 450,
+            delay: anime.stagger(60),
+            easing: 'easeOutCubic',
+          });
+        }
+      } else {
+        if (item.el.style.display !== 'none' && item.el.dataset.hidden !== '1') {
+          item.el.dataset.hidden = '1';
+          anime({
+            targets: item.el,
+            opacity: [1, 0],
+            translateY: [0, -10],
+            duration: 250,
+            easing: 'easeInCubic',
+            complete: function () {
+              item.el.style.display = 'none';
+            },
+          });
+        }
+      }
+    });
+  }
+
+  // Filter carousels and tag buttons as user types
+  searchInput.addEventListener('input', () => {
+    const query = normalize(searchInput.value);
+
+    // Filter tag buttons
+    tagIndex.forEach((item) => {
+      item.el.style.display = (!query || item.normalized.includes(query)) ? '' : 'none';
+    });
+
+    // Filter carousel sections with animation
+    animateFilter(function (item) {
+      return !query || item.normalized.includes(query);
+    });
+  });
+
+  // Clicking a tag button filters to that tag only
+  tagButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tagName = btn.getAttribute('data-tag');
+      const isActive = btn.classList.contains('active');
+
+      // Toggle off
+      if (isActive) {
+        btn.classList.remove('active');
+        searchInput.value = '';
+        tagIndex.forEach((item) => { item.el.style.display = ''; });
+        animateFilter(function () { return true; });
+        return;
+      }
+
+      // Deactivate all, activate this one
+      tagButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      searchInput.value = tagName;
+
+      const norm = normalize(tagName);
+      tagIndex.forEach((item) => { item.el.style.display = ''; });
+      animateFilter(function (item) {
+        return item.normalized === norm;
+      });
+    });
+  });
+
+  /* ===== "Ver todos" expanded view ===== */
+  const expandedSection = document.getElementById('blog-tag-expanded');
+  const expandedTitle = document.getElementById('blog-tag-expanded-title');
+  const expandedGrid = document.getElementById('blog-tag-expanded-grid');
+  const expandedClose = document.getElementById('blog-tag-expanded-close');
+
+  if (!expandedSection || !expandedTitle || !expandedGrid || !expandedClose) return;
+
+  document.querySelectorAll('.blog-carousel-view-all').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tagName = btn.getAttribute('data-tag-filter');
+      if (!tagName) return;
+
+      // Find the section's cards
+      const section = document.querySelector('[data-tag-section="' + tagName + '"]');
+      if (!section) return;
+
+      const cards = section.querySelectorAll('.blog-carousel-card');
+      expandedTitle.textContent = tagName;
+      expandedGrid.innerHTML = '';
+
+      cards.forEach((card) => {
+        const clone = card.cloneNode(true);
+        expandedGrid.appendChild(clone);
+      });
+
+      carouselsContainer.style.display = 'none';
+      expandedSection.style.display = 'block';
+      expandedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  expandedClose.addEventListener('click', () => {
+    expandedSection.style.display = 'none';
+    carouselsContainer.style.display = '';
+  });
+});
+</script>

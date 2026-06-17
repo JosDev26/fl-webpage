@@ -1,0 +1,365 @@
+﻿:root {
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+.taxes-info-container {
+  background: var(--dark-blue-color);
+  color: #fff;
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 6vw, 4rem);
+}
+
+.taxes-info-content {
+  max-width: min(1000px, 92vw);
+  margin: 0 auto;
+}
+
+.taxes-info-title {
+  margin: 0 0 1rem;
+  text-align: center;
+  color: var(--yellow-color);
+  font-size: clamp(1.9rem, 3vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.taxes-info-intro {
+  max-width: min(900px, 90vw);
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  line-height: 1.75;
+}
+
+.taxes-regimes-card {
+  border: clamp(2px, 0.2vw, 3px) solid rgba(250, 208, 44, 0.25);
+  padding: clamp(1.2rem, 3vw, 2rem);
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  align-items: center;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.taxes-regimes-title {
+  margin: 0 0 0.9rem;
+  color: var(--yellow-color);
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+  font-weight: 800;
+}
+
+.taxes-regimes-description {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: clamp(0.98rem, 1.1vw, 1.08rem);
+  line-height: 1.9;
+}
+
+.taxes-chart {
+  margin: 0;
+  display: grid;
+  place-items: center;
+  gap: 1.1rem;
+}
+
+.taxes-chart-ring-wrap {
+  position: relative;
+  width: clamp(200px, 24vw, 290px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.taxes-chart-ring {
+  width: 100%;
+  height: 100%;
+}
+
+.taxes-chart-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.12);
+  stroke-width: 42;
+}
+
+.taxes-chart-segment {
+  fill: none;
+  stroke-width: 42;
+  stroke-linecap: butt;
+  transition: opacity 0.25s ease, filter 0.25s ease;
+}
+
+.taxes-segment-tradicional {
+  stroke: #002e4a;
+}
+
+.taxes-segment-simplificado {
+  stroke: #f2cf2b;
+}
+
+.taxes-segment-agropecuario {
+  stroke: #a6cfe1;
+}
+
+.taxes-segment-rentas {
+  stroke: #cfd8dc;
+}
+
+.taxes-segment-bienes {
+  stroke: #bdbdbd;
+}
+
+.taxes-chart-center {
+  position: absolute;
+  width: 36%;
+  aspect-ratio: 1;
+  background: var(--dark-blue-color);
+  border-radius: 50%;
+  clip-path: circle(50% at 50% 50%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.86);
+}
+
+.taxes-chart-center-visible {
+  visibility: visible;
+  animation: taxesCenterReveal 0.28s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
+
+.taxes-chart-center-hiding {
+  visibility: visible;
+  animation: taxesCenterHide 0.24s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.taxes-chart-center-value {
+  color: var(--yellow-color);
+  font-size: clamp(1rem, 1.9vw, 1.5rem);
+  line-height: 1;
+  font-weight: 800;
+}
+
+@keyframes taxesCenterReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes taxesCenterHide {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.taxes-chart-center-label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.55rem, 0.9vw, 0.75rem);
+  font-weight: 700;
+  margin-top: 0.2rem;
+  max-width: 85%;
+}
+
+.taxes-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem 0.95rem;
+  max-width: 420px;
+}
+
+.taxes-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(0.86rem, 0.95vw, 1rem);
+  font-family: 'Nunito Sans Variable', sans-serif;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 0.2rem 0.3rem;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.taxes-legend-color {
+  width: 14px;
+  height: 14px;
+}
+
+.taxes-legend-tradicional {
+  background: #002e4a;
+}
+
+.taxes-legend-simplificado {
+  background: #f2cf2b;
+}
+
+.taxes-legend-agropecuario {
+  background: #a6cfe1;
+}
+
+.taxes-legend-rentas {
+  background: #cfd8dc;
+}
+
+.taxes-legend-bienes {
+  background: #bdbdbd;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .taxes-chart-segment:hover {
+    opacity: 0.9;
+    filter: brightness(1.08);
+  }
+
+  .taxes-legend-item:hover {
+    color: var(--yellow-color);
+    border-color: rgba(250, 208, 44, 0.4);
+  }
+}
+
+.taxes-legend-item:focus-visible {
+  outline: 3px solid var(--yellow-color);
+  outline-offset: 4px;
+}
+
+.taxes-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.4rem);
+  margin-bottom: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.taxes-service-card {
+  min-height: clamp(88px, 9vw, 105px);
+  border: clamp(2px, 0.25vw, 3px) solid var(--yellow-color);
+  background: transparent;          
+  font-family: inherit;             
+  cursor: pointer;                  
+  color: var(--yellow-color);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-weight: 700;
+  font-size: clamp(0.92rem, 1vw, 1.06rem);
+  text-align: center;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.taxes-service-card i {
+  font-size: clamp(1.35rem, 1.8vw, 1.8rem);
+}
+
+.taxes-service-card-active {
+  background: var(--yellow-color);
+  color: var(--dark-blue-color);
+  box-shadow: 0 10px 30px rgba(250, 208, 44, 0.3);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .taxes-service-card:hover {
+    background: var(--yellow-color);
+    color: var(--dark-blue-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(250, 208, 44, 0.3);
+  }
+}
+
+.taxes-service-card:focus-visible {
+  outline: 3px solid var(--yellow-color);
+  outline-offset: 4px;
+}
+
+.taxes-info-body {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(1rem, 1.05vw, 1.08rem);
+  line-height: 1.9;
+}
+
+.taxes-info-body p {
+  margin: 0 0 1rem;
+}
+
+.taxes-info-list {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.taxes-info-list li::marker {
+  color: var(--yellow-color);
+}
+
+.taxes-info-list strong {
+  color: var(--yellow-color);
+}
+
+.taxes-panel {
+  display: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(1rem, 1.05vw, 1.08rem);
+  line-height: 1.9;
+}
+
+.taxes-panel-active {
+  display: block;
+}
+
+.taxes-panel p {
+  margin: 0 0 1rem;
+}
+
+@media (max-width: 900px) {
+  .taxes-regimes-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .taxes-services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .taxes-info-title {
+    font-size: clamp(1.6rem, 6vw, 2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .taxes-chart-segment,
+  .taxes-legend-item,
+  .taxes-service-card {
+    transition: opacity 0.3s ease;
+  }
+
+  .taxes-chart-center-visible,
+  .taxes-chart-center-hiding {
+    animation: none;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .taxes-service-card:hover {
+    transform: none;
+  }
+}

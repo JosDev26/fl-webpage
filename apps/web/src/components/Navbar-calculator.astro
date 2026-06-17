@@ -1,0 +1,80 @@
+---
+import '../styles/navbar-toolkit.css';
+---
+
+<nav class="toolkit-navbar" aria-label="Navegaci�n de calculadora">
+  <div class="toolkit-navbar-content">
+    <span class="toolkit-navbar-corner toolkit-navbar-corner-tl" aria-hidden="true"></span>
+
+    <ul class="toolkit-navbar-links">
+      <li class="toolkit-navbar-item">
+        <a href="#calculadora" class="toolkit-navbar-link toolkit-navbar-link-active">
+          Calculadora
+        </a>
+      </li>
+      <li class="toolkit-navbar-item">
+        <a href="#requisitos" class="toolkit-navbar-link">
+          Requisitos
+        </a>
+      </li>
+      <li class="toolkit-navbar-item">
+        <a href="#guia-legal" class="toolkit-navbar-link">
+          Guía Legal
+        </a>
+      </li>
+      <li class="toolkit-navbar-item">
+        <a href="#importancia" class="toolkit-navbar-link">
+          Importancia
+        </a>
+      </li>
+    </ul>
+
+    <span class="toolkit-navbar-corner toolkit-navbar-corner-br" aria-hidden="true"></span>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>('.toolkit-navbar-link');
+    const sectionIds = ['calculadora', 'requisitos', 'guia-legal', 'importancia'];
+
+    /* Scroll suave al hacer click */
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e: Event) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href')?.replace('#', '');
+        if (!targetId) return;
+
+        const target = document.getElementById(targetId) as HTMLElement | null;
+        if (target) {
+          const navbarHeight = (document.querySelector('.glass-navbar') as HTMLElement | null)?.offsetHeight ?? 0;
+          const toolkitNavHeight = (document.querySelector('.toolkit-navbar') as HTMLElement | null)?.offsetHeight ?? 0;
+          const offset = navbarHeight + toolkitNavHeight + 16;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+
+        navLinks.forEach(l => l.classList.remove('toolkit-navbar-link-active'));
+        link.classList.add('toolkit-navbar-link-active');
+      });
+    });
+
+    /* Actualizar link activo segun scroll */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            const href = link.getAttribute('href')?.replace('#', '');
+            link.classList.toggle('toolkit-navbar-link-active', href === id);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  });
+</script>

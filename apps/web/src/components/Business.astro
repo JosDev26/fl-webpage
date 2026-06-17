@@ -1,0 +1,267 @@
+---
+// index.astro
+// Refactorizado como COMPONENTE PURO.
+// Se removieron las etiquetas <html> y <body> para integrarse sin problemas en tu layout.
+---
+
+<!-- Phosphor Icons (is:inline permite que Astro lo cargue correctamente en el head final) -->
+<script is:inline src="https://unpkg.com/@phosphor-icons/web"></script>
+
+<section class="legal-section">
+  <div class="page-container">
+    
+    <!-- HEADER SECTION -->
+    <header class="hero-section">
+      <i class="ph ph-rocket-launch hero-icon"></i>
+      <h1 class="hero-title">Quiero establecer un negocio en Costa Rica</h1>
+      <p class="hero-subtitle">
+        Transformamos la complejidad legal en una hoja de ruta clara para tu emprendimiento. Te
+        acompañamos desde la planificación tributaria hasta la protección de tu marca, asegurando que tu
+        negocio nazca blindado y listo para crecer sin riesgos innecesarios.
+      </p>
+      <div class="hero-divider"></div>
+    </header>
+
+    <!-- CONTENT SECTION -->
+    <div class="roadmap-container">
+      
+      <!-- STEP 1: Primeros Pasos -->
+      <article class="roadmap-step">
+        <div class="step-title-wrapper">
+          <h2 class="step-title">PRIMEROS PASOS</h2>
+        </div>
+        <div class="step-content">
+          
+          <div class="feature-item">
+            <i class="ph ph-buildings feature-icon"></i>
+            <p class="feature-text">
+              <strong>Asesoría para Emprendedores:</strong> Te ayudamos a elegir y constituir la mejor estructura legal
+              para tu negocio (empresa individual, S.A.C., S.A., etc.).
+            </p>
+          </div>
+
+          <div class="feature-item">
+            <i class="ph ph-hand-coins feature-icon"></i>
+            <p class="feature-text">
+              <strong>Derecho Tributario:</strong> Asesoramiento para que empieces tu negocio con una planificación
+              tributaria eficiente y sin sorpresas fiscales.
+            </p>
+          </div>
+
+          <div class="feature-item">
+            <i class="ph ph-lightbulb feature-icon"></i>
+            <p class="feature-text">
+              <strong>Propiedad Intelectual:</strong> Protege tu marca, logo, invenciones o contenido creativo desde el
+              inicio. Te guiamos en el registro y uso correcto.
+            </p>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- STEP 2: Formaliza Tu Negocio -->
+      <article class="roadmap-step">
+        <div class="step-title-wrapper">
+          <h2 class="step-title">FORMALIZA TU NEGOCIO</h2>
+        </div>
+        <div class="step-content">
+          
+          <div class="feature-item">
+            <i class="ph ph-identification-card feature-icon"></i>
+            <p class="feature-text">
+              <strong>Servicios Regulatorios:</strong> Te acompañamos en la obtención de licencias, permisos y
+              autorizaciones según el giro de tu empresa.
+            </p>
+          </div>
+
+          <div class="feature-item">
+            <i class="ph ph-bank feature-icon"></i>
+            <p class="feature-text">
+              <strong>Derecho Público:</strong> Te orientamos en trámites con entidades nacionales, municipalidades o
+              procesos de fiscalización.
+            </p>
+          </div>
+
+          <div class="feature-item">
+            <i class="ph ph-briefcase feature-icon"></i>
+            <p class="feature-text">
+              <strong>Derecho Laboral:</strong> Te asesoramos en la contratación de tu primer equipo: contratos,
+              planilla, beneficios y cumplimiento laboral.
+            </p>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- STEP 3: Protege Tu Inversión -->
+      <article class="roadmap-step">
+        <div class="step-title-wrapper">
+          <h2 class="step-title">PROTEGE TU INVERSIÓN</h2>
+        </div>
+        <div class="step-content">
+          
+          <div class="feature-item">
+            <i class="ph ph-receipt feature-icon"></i>
+            <p class="feature-text">
+              <strong>Perfil Tributario:</strong> Definición de las obligaciones ante el Ministerio de Hacienda y
+              configuración inicial para el manejo de impuestos.
+            </p>
+          </div>
+
+          <div class="feature-item">
+            <i class="ph ph-file-text feature-icon"></i>
+            <p class="feature-text">
+              <strong>Contratos Iniciales (Blindaje Operativo):</strong> Protege la continuidad de tu operación.
+              Redactamos tus contratos de alquiler, proveedores y acuerdos de socios para poner
+              reglas claras desde el día uno, evitando demandas o desalojos que pongan en riesgo tu
+              inversión.
+            </p>
+          </div>
+
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Importamos la fuente directamente en el CSS del componente para evitar ensuciar el <head> global */
+  @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,700;0,6..12,800&display=swap');
+
+  :root {
+    --color-bg: #1e2c3a;
+    --color-accent: #f0c13a;
+    --color-text-main: #ffffff;
+    --font-primary: 'Nunito Sans', sans-serif;
+  }
+
+  /* WRAPPER DEL COMPONENTE */
+  .legal-section {
+    width: 100%;
+    /* Flex-basis 100% ayuda a "romper" filas si está dentro de un contenedor flex wrap */
+    flex: 1 1 100%; 
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    font-family: var(--font-primary);
+    display: flex;
+    justify-content: center;
+    line-height: 1.5;
+    box-sizing: border-box;
+  }
+
+  /* CONTENEDOR PRINCIPAL */
+  .page-container {
+    width: 100%;
+    max-width: 1100px;
+    padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 6vw, 5rem);
+    box-sizing: border-box;
+  }
+
+  /* HEADER */
+  .hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
+  }
+
+  .hero-icon {
+    font-size: clamp(3rem, 8vw, 4.5rem);
+    color: var(--color-accent);
+  }
+
+  .hero-title {
+    color: var(--color-accent);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-weight: 400;
+    max-width: 800px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .hero-divider {
+    width: clamp(150px, 30vw, 350px);
+    height: 4px;
+    background-color: var(--color-accent);
+    margin-top: 1rem;
+    border-radius: 2px;
+  }
+
+  /* ROADMAP */
+  .roadmap-container {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(3rem, 6vw, 5rem);
+  }
+
+  .roadmap-step {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .step-title-wrapper {
+    flex: 1 1 250px; 
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; 
+  }
+
+  .step-title {
+    color: var(--color-accent);
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: right;
+    margin: 0;
+  }
+
+  .step-content {
+    flex: 3 1 300px; 
+    border-left: 4px solid var(--color-accent);
+    padding-left: clamp(1.5rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  /* ITEMS DE CARACTERÍSTICAS */
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .feature-icon {
+    font-size: 1.75rem;
+    color: var(--color-accent);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .feature-text {
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .feature-text strong {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+</style>

@@ -1,0 +1,148 @@
+---
+import '../styles/subscribe-ada.css';
+---
+
+<section class="subscribe-ada-container">
+    <div class="subscribe-ada-content">
+        <!-- Título -->
+        <h2 class="subscribe-ada-title hidden-initial">
+            <span class="highlight">ADA TE INFORMA:</span> SUSCRÍBETE AL BLOG
+        </h2>
+
+        <!-- Subtítulo -->
+        <p class="subscribe-ada-subtitle hidden-initial">
+            ¿Listo para estar al día? Únete a ADA y no te pierdas ninguna novedad del mundo legal.
+        </p>
+
+        <!-- Formulario -->
+        <form class="subscribe-ada-form hidden-initial">
+            <div class="subscribe-ada-form-row">
+                <!-- Nombre -->
+                <div class="subscribe-ada-form-group">
+                    <label for="subscribe-nombre" class="subscribe-ada-label">Nombre</label>
+                    <input
+                        type="text"
+                        id="subscribe-nombre"
+                        name="nombre"
+                        class="subscribe-ada-input"
+                        required
+                        placeholder=""
+                    />
+                </div>
+
+                <!-- Apellidos -->
+                <div class="subscribe-ada-form-group">
+                    <label for="subscribe-apellidos" class="subscribe-ada-label">Apellidos</label>
+                    <input
+                        type="text"
+                        id="subscribe-apellidos"
+                        name="apellidos"
+                        class="subscribe-ada-input"
+                        required
+                        placeholder=""
+                    />
+                </div>
+
+                <!-- Correo -->
+                <div class="subscribe-ada-form-group">
+                    <label for="subscribe-correo" class="subscribe-ada-label">Correo</label>
+                    <input
+                        type="email"
+                        id="subscribe-correo"
+                        name="correo"
+                        class="subscribe-ada-input"
+                        required
+                        placeholder=""
+                    />
+                </div>
+            </div>
+
+            <div class="subscribe-ada-form-row subscribe-ada-form-row-bottom">
+                <!-- Temas de Interés -->
+                <div class="subscribe-ada-form-group subscribe-ada-form-group-select">
+                    <label for="subscribe-temas" class="subscribe-ada-label">Temas de Interés:</label>
+                    <select id="subscribe-temas" name="temas" class="subscribe-ada-select">
+                        <option value="">Seleccionar tema...</option>
+                        <option value="corporativo">Derecho Corporativo</option>
+                        <option value="laboral">Derecho Laboral</option>
+                        <option value="tributario">Derecho Tributario</option>
+                        <option value="mercantil">Derecho Mercantil</option>
+                        <option value="civil">Derecho Civil</option>
+                        <option value="penal">Derecho Penal</option>
+                    </select>
+                </div>
+
+                <!-- Botón Suscribirse -->
+                <button type="submit" class="subscribe-ada-button">
+                    Suscribirse
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const targetElement = document.querySelector('.subscribe-ada-container');
+        if (!targetElement) return;
+
+        // Soporte para restauración de scroll
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Animar título
+                        anime({
+                            targets: '.subscribe-ada-title',
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            duration: 600,
+                            easing: 'easeOutCubic',
+                        });
+
+                        // Animar subtítulo
+                        anime({
+                            targets: '.subscribe-ada-subtitle',
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            duration: 600,
+                            easing: 'easeOutCubic',
+                            delay: 150,
+                        });
+
+                        // Animar formulario
+                        anime({
+                            targets: '.subscribe-ada-form',
+                            opacity: [0, 1],
+                            translateY: [30, 0],
+                            duration: 600,
+                            easing: 'easeOutCubic',
+                            delay: 300,
+                        });
+
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observer.observe(targetElement);
+        }, delay);
+
+        // Manejo del formulario
+        const form = document.querySelector('.subscribe-ada-form') as HTMLFormElement;
+        if (form) {
+            form.addEventListener('submit', (e: Event) => {
+                e.preventDefault();
+                // Aquí agregar lógica de envío del formulario
+                console.log('Formulario enviado');
+                // Redirigir a Payload CMS o enviar a un endpoint
+            });
+        }
+    });
+</script>

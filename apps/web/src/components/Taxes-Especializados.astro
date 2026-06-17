@@ -1,0 +1,99 @@
+---
+import '../styles/taxes-especializados.css';
+---
+
+<section class="especializados-container" id="servicios-especializados">
+  <div class="especializados-content">
+    <h2 class="especializados-title">Servicios Especializados de Alto Valor</h2>
+
+    <p class="especializados-intro">
+      Más allá de la planificación y el cumplimiento general, existen áreas de alta complejidad que requieren un conocimiento especializado. Estos servicios de alto valor agregado abordan normativas específicas y situaciones transaccionales complejas, ofreciendo soluciones sofisticadas para los desafíos tributarios más exigentes. La centralización de la información en TRIBU-CR también impacta la visibilidad de estas operaciones, haciendo que la asesoría en estas áreas sea aún más crucial.
+    </p>
+
+        <div class="especializados-grid">
+      <button type="button" class="especializados-card especializados-card-active" data-panel="precios">
+        <i class="ph ph-swap"></i>
+        <span>Precios de Transferencia</span>
+      </button>
+
+      <button type="button" class="especializados-card" data-panel="ganancias">
+        <i class="ph ph-chart-line-up"></i>
+        <span>Gestión de Ganancias de Capital</span>
+      </button>
+
+      <button type="button" class="especializados-card" data-panel="iva">
+        <i class="ph ph-receipt"></i>
+        <span>Optimización del IVA</span>
+      </button>
+
+      <button type="button" class="especializados-card" data-panel="rtbf">
+        <i class="ph ph-shield-check"></i>
+        <span>Cumplimiento del RTBF</span>
+      </button>
+
+      <button type="button" class="especializados-card" data-panel="diligencia">
+        <i class="ph ph-magnifying-glass"></i>
+        <span>Debida Diligencia</span>
+      </button>
+    </div>
+
+        <div class="especializados-panels">
+        <div class="especializados-panel especializados-panel-active" data-panel="precios">
+        <p>
+            Asesoría para asegurar que las transacciones entre partes relacionadas se valoren a precios de mercado, evitando ajustes fiscales. Incluye la preparación de estudios de precios de transferencia y la negociación de Acuerdos Anticipados de Precios (APA) con la Administración Tributaria para dar certeza a las operaciones intercompañía.
+        </p>
+        </div>
+
+        <div class="especializados-panel" data-panel="ganancias">
+        <p>
+            Optimización de la tributación en la venta de activos como acciones, bienes inmuebles e intangibles. Se analiza la aplicación de tasas reducidas, la compensación de pérdidas y la correcta integración de estas rentas al régimen general cuando corresponda.
+        </p>
+        </div>
+
+        <div class="especializados-panel" data-panel="iva">
+        <p>
+            Asesoría en la correcta aplicación de créditos fiscales y la gestión de la regla de proporcionalidad para empresas con ventas a diferentes tarifas de IVA. El objetivo es maximizar la recuperación del IVA pagado en compras y evitar pagos indebidos.
+        </p>
+        </div>
+
+        <div class="especializados-panel" data-panel="rtbf">
+        <p>
+            Asistencia integral en la declaración anual del Registro de Transparencia y Beneficiarios Finales (RTBF) a través de "Central Directo". Este servicio es crucial para evitar las severas multas y restricciones registrales asociadas al incumplimiento, especialmente para sociedades inactivas, dada la mayor visibilidad que TRIBU-CR proporcionará.
+        </p>
+        </div>
+
+        <div class="especializados-panel" data-panel="diligencia">
+        <p>
+            Realización de auditorías fiscales exhaustivas en procesos de fusiones y adquisiciones. Se identifican contingencias fiscales ocultas, se evalúa el nivel de cumplimiento del objetivo de compra y se cuantifican los riesgos para proteger la inversión y negociar los términos de la transacción de manera informada.
+        </p>
+        </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll<HTMLButtonElement>('.especializados-card[data-panel]');
+    const panels = document.querySelectorAll<HTMLDivElement>('.especializados-panel[data-panel]');
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const target = card.getAttribute('data-panel');
+        if (!target) return;
+
+        /* Actualizar card activa */
+        cards.forEach((c) => c.classList.remove('especializados-card-active'));
+        card.classList.add('especializados-card-active');
+
+        /* Animar paneles */
+        panels.forEach((p) => {
+          if (p.getAttribute('data-panel') === target) {
+            p.classList.add('especializados-panel-active');
+          } else {
+            p.classList.remove('especializados-panel-active');
+          }
+        });
+      });
+    });
+  });
+</script>

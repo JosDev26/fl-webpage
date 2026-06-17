@@ -1,0 +1,44 @@
+---
+import '../styles/calculator-importancia.css';
+---
+
+<section class="calcimportancia-container" id="importancia">
+  <div class="calcimportancia-box hidden-initial" role="note">
+    <i class="ph ph-warning-circle calcimportancia-icon" aria-hidden="true"></i>
+    <p class="calcimportancia-text">
+      Realizar un traspaso de propiedad va más allá de un simple cálculo de costos. Una debida diligencia exhaustiva es su mejor defensa contra riesgos ocultos, sorpresas fiscales, gravámenes inesperados y fraudes. Identificar y mitigar estos riesgos a tiempo le ahorrará dolores de cabeza y dinero a largo plazo.
+  </div>
+</section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+  declare const anime: any;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.querySelector('.calcimportancia-container') as HTMLElement;
+    if (!section) return;
+
+    const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+    const delay = isRestoring ? 150 : 0;
+
+    setTimeout(() => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            anime({
+              targets: '.calcimportancia-box',
+              opacity: [0, 1],
+              scale: [0.97, 1],
+              duration: 700,
+              easing: 'easeOutCubic',
+            });
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+
+      observer.observe(section);
+    }, delay);
+  });
+</script>

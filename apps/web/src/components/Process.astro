@@ -1,0 +1,169 @@
+---
+import '../styles/process.css';
+---
+
+<section class="process-container">
+    <h2 class="process-title hidden-initial">¿Cómo <span>trabajamos</span>?</h2>
+    <p class="process-subtitle hidden-initial">Nuestro proceso paso a paso para resolver tu caso</p>
+    <div class="process-timeline">
+        <!-- Pasos del proceso -->
+        <div class="process-step hidden-initial">
+            <div class="process-number">1</div>
+            <div class="process-content">
+                <h3>Consulta gratuita</h3>
+                <p>Contactanos y contanos tu situación. Evaluamos tu caso sin costo ni compromiso.</p>
+            </div>
+        </div>
+        <div class="process-step hidden-initial">
+            <div class="process-number">2</div>
+            <div class="process-content">
+                <h3>Análisis del caso</h3>
+                <p>Estudiamos a fondo tu situación y determinamos las mejores opciones legales.</p>
+            </div>
+        </div>
+        <div class="process-step hidden-initial">
+            <div class="process-number">3</div>
+            <div class="process-content">
+                <h3>Estrategia personalizada</h3>
+                <p>Diseñamos un plan de acción adaptado a las particularidades de tu caso.</p>
+            </div>
+        </div>
+        <div class="process-step hidden-initial">
+            <div class="process-number">4</div>
+            <div class="process-content">
+                <h3>Ejecución y gestión</h3>
+                <p>Ponemos en marcha la estrategia y gestionamos todos los trámites necesarios.</p>
+            </div>
+        </div>
+        <div class="process-step hidden-initial">
+            <div class="process-number">5</div>
+            <div class="process-content">
+                <h3>Seguimiento continuo</h3>
+                <p>Te mantenemos informado del avance y ajustamos según sea necesario.</p>
+            </div>
+        </div>
+        <div class="process-step hidden-initial">
+            <div class="process-number">6</div>
+            <div class="process-content">
+                <h3>Resolución exitosa</h3>
+                <p>Obtenemos el mejor resultado posible y cerramos tu caso satisfactoriamente.</p>
+            </div>
+        </div>
+        <!-- Línea zigzag SVG (posicionada absolutamente, no afecta nth-child de los steps) -->
+        <svg class="process-zigzag" aria-hidden="true">
+            <polyline class="process-line" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </div>
+</section>
+
+<!-- Animaciones con Anime.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.process-container') as HTMLElement;
+        const timelineEl = document.querySelector('.process-timeline') as HTMLElement;
+        const zigzagSvg = document.querySelector('.process-zigzag') as SVGSVGElement;
+        const polyline = document.querySelector('.process-line') as SVGPolylineElement;
+        const numbers = document.querySelectorAll('.process-number') as NodeListOf<HTMLElement>;
+        if (!section || !timelineEl || !zigzagSvg || !polyline || numbers.length === 0) return;
+
+        // Calcular posiciones de los números y actualizar el SVG polyline
+        const updateZigzag = () => {
+            const timelineRect = timelineEl.getBoundingClientRect();
+            const points: string[] = [];
+
+            numbers.forEach((num) => {
+                const numRect = num.getBoundingClientRect();
+                const x = numRect.left - timelineRect.left + numRect.width / 2;
+                const y = numRect.top - timelineRect.top + numRect.height / 2;
+                points.push(`${x},${y}`);
+            });
+
+            zigzagSvg.setAttribute('width', String(timelineRect.width));
+            zigzagSvg.setAttribute('height', String(timelineRect.height));
+            polyline.setAttribute('points', points.join(' '));
+        };
+
+        // Animación de entrada
+        const runAnimation = () => {
+            // Calcular zigzag con los elementos en su posición final
+            updateZigzag();
+
+            // Preparar la línea para el dibujo progresivo (oculta por dash)
+            const length = polyline.getTotalLength();
+            polyline.style.strokeDasharray = String(length);
+            polyline.style.strokeDashoffset = String(length);
+            zigzagSvg.style.opacity = '1';
+
+            const tl = anime.timeline({
+                easing: 'easeOutQuart',
+                complete: () => {
+                    // Limpiar dash styles para que ResizeObserver no tenga problemas
+                    polyline.style.strokeDasharray = '';
+                    polyline.style.strokeDashoffset = '';
+                },
+            });
+
+            // Título
+            tl.add({
+                targets: '.process-title',
+                opacity: [0, 1],
+                translateY: [-30, 0],
+                duration: 600,
+                easing: 'easeOutCubic',
+            })
+            // Subtítulo
+            .add({
+                targets: '.process-subtitle',
+                opacity: [0, 1],
+                translateY: [-20, 0],
+                duration: 500,
+                easing: 'easeOutCubic',
+            }, '-=300')
+            // Pasos del proceso (staggered)
+            .add({
+                targets: '.process-step',
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 600,
+                delay: anime.stagger(150),
+                easing: 'easeOutBack',
+            }, '-=200')
+            // Dibujo progresivo de la línea zigzag
+            .add({
+                targets: polyline,
+                strokeDashoffset: [length, 0],
+                duration: 1200,
+                easing: 'easeOutQuart',
+            }, '-=400');
+        };
+
+        // Intersection Observer para activar la animación al hacer scroll
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        runAnimation();
+                        observer.disconnect();
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px'
+            });
+
+            observer.observe(section);
+        }, delay);
+
+        // Recalcular zigzag al cambiar tamaño del contenedor
+        const resizeObserver = new ResizeObserver(() => {
+            updateZigzag();
+        });
+        resizeObserver.observe(timelineEl);
+    });
+</script>

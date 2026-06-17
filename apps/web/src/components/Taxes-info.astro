@@ -1,0 +1,243 @@
+﻿---
+import '../styles/taxes-info.css';
+---
+
+<section class="taxes-info-container" id="planificacion-estrategica">
+  <div class="taxes-info-content">
+    <h2 class="taxes-info-title">Planificación Estratégica</h2>
+
+    <p class="taxes-info-intro">
+      La planificación fiscal va más allá del cumplimiento; es un pilar fundamental para la salud financiera y el crecimiento sostenible de cualquier negocio. Esta sección explora cómo una asesoría proactiva permite optimizar la carga tributaria, aprovechar incentivos y estructurar operaciones de manera eficiente, transformando las obligaciones fiscales en oportunidades estratégicas.
+    </p>
+
+    <article class="taxes-regimes-card" aria-labelledby="taxes-regimes-title">
+      <div class="taxes-regimes-text">
+        <h3 class="taxes-regimes-title" id="taxes-regimes-title">Análisis de Regímenes Tributarios</h3>
+        <p class="taxes-regimes-description">
+          Costa Rica ofrece diversos regímenes fiscales. La elección correcta depende del tipo de actividad, nivel de ingresos y estructura del negocio. Una selección inadecuada puede resultar en pagos excesivos o pérdida de beneficios. A continuación, se visualiza la complejidad y aplicabilidad de cada régimen para facilitar una decisión informada.
+        </p>
+      </div>
+
+      <figure class="taxes-chart" aria-label="Aplicabilidad general de regímenes tributarios">
+        <div class="taxes-chart-ring-wrap">
+          <svg class="taxes-chart-ring" viewBox="0 0 200 200" role="img" aria-label="Distribución por régimen tributario">
+            <circle class="taxes-chart-track" cx="100" cy="100" r="70"></circle>
+
+            <circle class="taxes-chart-segment taxes-segment-tradicional" cx="100" cy="100" r="70" stroke-dasharray="197.92 439.82" stroke-dashoffset="0" transform="rotate(-90 100 100)" data-regime="Tradicional" data-percent="45%"></circle>
+            <circle class="taxes-chart-segment taxes-segment-simplificado" cx="100" cy="100" r="70" stroke-dasharray="65.97 439.82" stroke-dashoffset="-197.92" transform="rotate(-90 100 100)" data-regime="Simplificado" data-percent="15%"></circle>
+            <circle class="taxes-chart-segment taxes-segment-agropecuario" cx="100" cy="100" r="70" stroke-dasharray="43.98 439.82" stroke-dashoffset="-263.89" transform="rotate(-90 100 100)" data-regime="Agropecuario" data-percent="10%"></circle>
+            <circle class="taxes-chart-segment taxes-segment-rentas" cx="100" cy="100" r="70" stroke-dasharray="87.96 439.82" stroke-dashoffset="-307.87" transform="rotate(-90 100 100)" data-regime="Rentas de Capital" data-percent="20%"></circle>
+            <circle class="taxes-chart-segment taxes-segment-bienes" cx="100" cy="100" r="70" stroke-dasharray="43.98 439.82" stroke-dashoffset="-395.83" transform="rotate(-90 100 100)" data-regime="Bienes Usados" data-percent="10%"></circle>
+          </svg>
+
+          <div class="taxes-chart-center" aria-live="polite">
+            <span class="taxes-chart-center-value" id="taxes-chart-value"></span>
+            <span class="taxes-chart-center-label" id="taxes-chart-label"></span>
+          </div>
+        </div>
+
+        <figcaption class="taxes-chart-legend">
+          <button class="taxes-legend-item" type="button" data-regime="Tradicional" data-percent="45%">
+            <span class="taxes-legend-color taxes-legend-tradicional" aria-hidden="true"></span>
+            Tradicional
+          </button>
+          <button class="taxes-legend-item" type="button" data-regime="Simplificado" data-percent="15%">
+            <span class="taxes-legend-color taxes-legend-simplificado" aria-hidden="true"></span>
+            Simplificado
+          </button>
+          <button class="taxes-legend-item" type="button" data-regime="Agropecuario" data-percent="10%">
+            <span class="taxes-legend-color taxes-legend-agropecuario" aria-hidden="true"></span>
+            Agropecuario
+          </button>
+          <button class="taxes-legend-item" type="button" data-regime="Rentas de Capital" data-percent="20%">
+            <span class="taxes-legend-color taxes-legend-rentas" aria-hidden="true"></span>
+            Rentas de Capital
+          </button>
+          <button class="taxes-legend-item" type="button" data-regime="Bienes Usados" data-percent="10%">
+            <span class="taxes-legend-color taxes-legend-bienes" aria-hidden="true"></span>
+            Bienes Usados
+          </button>
+        </figcaption>
+      </figure>
+    </article>
+
+    <div class="taxes-services-grid">
+      <button type="button" class="taxes-service-card taxes-service-card-active" data-panel="estructuracion">
+        <i class="ph ph-git-branch"></i>
+        <span>Estructuración Fiscal</span>
+      </button>
+
+      <button type="button" class="taxes-service-card" data-panel="maximizacion">
+        <i class="ph ph-trend-up"></i>
+        <span>Maximización de Incentivos</span>
+      </button>
+
+      <button type="button" class="taxes-service-card" data-panel="patrimonial">
+        <i class="ph ph-bank"></i>
+        <span>Planificación Patrimonial</span>
+      </button>
+    </div>
+
+    <div class="taxes-panel taxes-panel-active" data-panel="estructuracion">
+      <p>
+        Costa Rica ofrece diversos regímenes fiscales. La elección correcta depende del tipo de actividad, nivel de ingresos y estructura del negocio. Una selección inadecuada puede resultar en pagos excesivos o pérdida de beneficios. A continuación, se visualiza la complejidad y aplicabilidad de cada régimen para facilitar una decisión informada:
+      </p>
+
+      <ul class="taxes-info-list">
+        <li>
+          <strong>Nuevas Inversiones:</strong> Análisis de la figura legal óptima (persona física vs. jurídica) y el régimen tributario aplicable antes de iniciar operaciones.
+        </li>
+        <li>
+          <strong>Reorganizaciones:</strong> Planificación fiscal para fusiones, escisiones y adquisiciones para minimizar el impacto tributario de la transacción.
+        </li>
+        <li>
+          <strong>Operaciones Internacionales:</strong> Estructuración para optimizar la carga fiscal global y cumplir con normativas de precios de transferencia.
+        </li>
+      </ul>
+    </div>
+
+    <div class="taxes-panel" data-panel="maximizacion">
+      <p>
+        La legislación costarricense contempla una serie de incentivos fiscales diseñados para impulsar sectores estratégicos, fomentar la inversión y promover el desarrollo económico. Identificar y aprovechar estos beneficios de forma oportuna puede generar ahorros significativos y mejorar la competitividad del negocio:
+      </p>
+
+      <ul class="taxes-info-list">
+        <li>
+          <strong>Zonas Francas:</strong> Evaluación de elegibilidad y asistencia en el proceso de ingreso al régimen de zona franca, con beneficios como exoneración del impuesto sobre la renta, importaciones y otros tributos.
+        </li>
+        <li>
+          <strong>Créditos Tributarios:</strong> Identificación y aplicación de créditos fiscales disponibles, incluyendo incentivos por investigación y desarrollo, capacitación y reinversión de utilidades.
+        </li>
+        <li>
+          <strong>Exoneraciones Sectoriales:</strong> Aprovechamiento de exoneraciones específicas para sectores como turismo, agricultura, tecnología y energía renovable conforme a la normativa vigente.
+        </li>
+      </ul>
+    </div>
+
+    <div class="taxes-panel" data-panel="patrimonial">
+      <p>
+        Una planificación patrimonial adecuada permite proteger los activos, facilitar la transición generacional y optimizar la carga tributaria asociada a la tenencia y transferencia de bienes. Este enfoque integral asegura la continuidad del patrimonio familiar y empresarial:
+      </p>
+
+      <ul class="taxes-info-list">
+        <li>
+          <strong>Sucesión Empresarial:</strong> Diseño de estrategias para la transferencia ordenada del negocio a la siguiente generación, minimizando el impacto fiscal y asegurando la continuidad operativa.
+        </li>
+        <li>
+          <strong>Fideicomisos:</strong> Estructuración de fideicomisos de administración, garantía o inversión como herramienta para proteger activos, planificar herencias y optimizar la tributación.
+        </li>
+        <li>
+          <strong>Estructuras de Holding:</strong> Creación y gestión de sociedades holding para centralizar la administración de activos, facilitar operaciones entre empresas relacionadas y mejorar la eficiencia fiscal del grupo.
+        </li>
+      </ul>
+    </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    /* ── Donut chart: hover / focus ── */
+    const valueElement = document.getElementById('taxes-chart-value');
+    const labelElement = document.getElementById('taxes-chart-label');
+    const centerElement = document.querySelector('.taxes-chart-center') as HTMLDivElement | null;
+
+    const interactiveItems = document.querySelectorAll('.taxes-legend-item, .taxes-chart-segment');
+
+    if (valueElement && labelElement && centerElement && interactiveItems.length) {
+      let resetTimeout: number | undefined;
+      let countAnimationFrame: number | undefined;
+      let currentValue = 0;
+
+      const animatePercentage = (targetPercent: number) => {
+        if (countAnimationFrame) {
+          window.cancelAnimationFrame(countAnimationFrame);
+        }
+
+        const startValue = currentValue;
+        const difference = targetPercent - startValue;
+        const duration = 280;
+        const startTime = performance.now();
+
+        const step = (time: number) => {
+          const elapsed = time - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easedProgress = 1 - Math.pow(1 - progress, 3);
+          const nextValue = Math.round(startValue + difference * easedProgress);
+
+          valueElement.textContent = `${nextValue}%`;
+
+          if (progress < 1) {
+            countAnimationFrame = window.requestAnimationFrame(step);
+            return;
+          }
+
+          currentValue = targetPercent;
+        };
+
+        countAnimationFrame = window.requestAnimationFrame(step);
+      };
+
+      const showCenterData = (element: Element) => {
+        const regime = element.getAttribute('data-regime');
+        const percentText = element.getAttribute('data-percent');
+
+        if (!regime || !percentText) return;
+
+        const targetPercent = Number.parseInt(percentText, 10);
+        if (Number.isNaN(targetPercent)) return;
+
+        if (resetTimeout) {
+          window.clearTimeout(resetTimeout);
+        }
+
+        centerElement.classList.remove('taxes-chart-center-hiding');
+        centerElement.classList.add('taxes-chart-center-visible');
+        labelElement.textContent = regime;
+        animatePercentage(targetPercent);
+      };
+
+      const hideCenterData = () => {
+        centerElement.classList.remove('taxes-chart-center-visible');
+        centerElement.classList.add('taxes-chart-center-hiding');
+
+        resetTimeout = window.setTimeout(() => {
+          centerElement.classList.remove('taxes-chart-center-hiding');
+          if (!centerElement.classList.contains('taxes-chart-center-visible')) {
+            valueElement.textContent = '';
+            labelElement.textContent = '';
+            currentValue = 0;
+          }
+        }, 240);
+      };
+
+      interactiveItems.forEach((item) => {
+        item.addEventListener('mouseenter', () => showCenterData(item));
+        item.addEventListener('focus', () => showCenterData(item));
+        item.addEventListener('click', () => showCenterData(item));
+        item.addEventListener('mouseleave', hideCenterData);
+        item.addEventListener('blur', hideCenterData);
+      });
+    }
+
+    /* ── Tabs: service cards ── */
+    const serviceCards = document.querySelectorAll<HTMLButtonElement>('.taxes-service-card[data-panel]');
+    const panels = document.querySelectorAll<HTMLDivElement>('.taxes-panel[data-panel]');
+
+    serviceCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const target = card.getAttribute('data-panel');
+        if (!target) return;
+
+        serviceCards.forEach((c) => c.classList.remove('taxes-service-card-active'));
+        card.classList.add('taxes-service-card-active');
+
+        panels.forEach((p) => {
+          if (p.getAttribute('data-panel') === target) {
+            p.classList.add('taxes-panel-active');
+          } else {
+            p.classList.remove('taxes-panel-active');
+          }
+        });
+      });
+    });
+  });
+</script>

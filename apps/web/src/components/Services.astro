@@ -1,0 +1,120 @@
+---
+import '../styles/services.css';
+import { getServices } from '../lib/payload';
+import type { Service } from '@fusion-legal/shared';
+
+let services: Service[] = [];
+try {
+  services = await getServices();
+} catch {
+  services = [
+    { id: '1', title: 'Estoy iniciando un negocio o empresa', icon_class: 'ph-rocket-launch', link_target: 'negocio-nuevo', position: 0, is_wide: false },
+    { id: '2', title: 'Ya tengo una empresa funcionando', icon_class: 'ph-buildings', link_target: 'empresa-funcionando', position: 1, is_wide: false },
+    { id: '3', title: 'Soy una persona con una consulta legal', icon_class: 'ph-user', link_target: 'persona-individual', position: 2, is_wide: false },
+    { id: '4', title: 'Necesito solucionar una situación legal', icon_class: 'ph-gavel', link_target: 'situacion-legal', position: 3, is_wide: false },
+  ];
+}
+---
+<section class="services-container">
+    <div class="services-content">
+        <h2 class="services-title hidden-initial">
+            LO LEGAL NO TIENE QUE SER COMPLICADO,<br>
+            SOLO <span class="highlight">BIEN HECHO.</span>
+        </h2>
+        
+        <p class="services-subtitle hidden-initial">
+            Empresa nueva, en marcha o una persona que necesita respaldo. 
+            <span class="underline-text">Hacé clic en la opción que mejor describa tu situación.</span>
+        </p>
+        
+        <div class="services-grid">
+            {services.map((service) => (
+            <a href={service.link_target} class={`service-card${service.is_wide ? ' service-card-wide' : ''} hidden-initial`} tabindex="0">
+                <div class="service-icon">
+                    <i class={`ph ${service.icon_class}`}></i>
+                </div>
+                <span class="service-text">{service.title}</span>
+            </a>
+            ))}
+        </div>
+    </div>
+</section>
+
+<script>
+    declare const anime: any;
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const servicesTitle = document.querySelector('.services-title');
+        const servicesSubtitle = document.querySelector('.services-subtitle');
+        const serviceCards = document.querySelectorAll('.service-card');
+        
+        if (!servicesTitle) return;
+        
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+        
+        setTimeout(() => {
+            // Observer para el título
+            const titleObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime({
+                            targets: '.services-title',
+                            opacity: [0, 1],
+                            translateY: [-35, 0],
+                            duration: 700,
+                            easing: 'easeOutCubic',
+                        });
+                        
+                        // Animar el subtítulo después
+                        anime({
+                            targets: '.services-subtitle',
+                            opacity: [0, 1],
+                            translateY: [20, 0],
+                            duration: 600,
+                            delay: 200,
+                            easing: 'easeOutCubic',
+                        });
+                        
+                        titleObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            titleObserver.observe(servicesTitle);
+            
+            // Observer para las tarjetas
+            serviceCards.forEach((card, index) => {
+                const cardObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            anime({
+                                targets: entry.target,
+                                opacity: [0, 1],
+                                translateY: [30, 0],
+                                scale: [0.95, 1],
+                                duration: 600,
+                                delay: 300 + (index * 120),
+                                easing: 'easeOutCubic',
+                            });
+                            
+                            // Animar el icono
+                            anime({
+                                targets: entry.target.querySelector('.service-icon'),
+                                scale: [0.8, 1],
+                                rotate: ['-10deg', '0deg'],
+                                duration: 500,
+                                delay: 450 + (index * 120),
+                                easing: 'easeOutBack',
+                            });
+                            
+                            cardObserver.disconnect();
+                        }
+                    });
+                }, { threshold: 0.3 });
+                
+                cardObserver.observe(card);
+            });
+        }, delay);
+    });
+</script>

@@ -1,0 +1,95 @@
+---
+import '../styles/experience.css';
+---
+<section class="experience-container">
+    <h2 class="hidden-initial">Podés confiar en nosotros</h2>
+    <div class="experience-items">
+        <div class="background-line hidden-initial"></div>
+        <div class="experience-item hidden-initial">
+            <div class="card-front">
+                <h2>+150</h2>
+                <p>Casos resueltos con éxito</p>
+            </div>
+            <div class="card-back">
+                <h2>+200</h2>
+                <p>Conciliaciones</p>
+            </div>
+        </div>
+        <div class="experience-item hidden-initial">
+            <div class="card-front">
+                <h2>+5</h2>
+                <p>Años de experiencia</p>
+            </div>
+            <div class="card-back">
+                <p>Experiencia en Conciliación Judicial y Extrajudicial</p>
+            </div>
+        </div>
+        <div class="experience-item hidden-initial">
+            <div class="card-front">
+                <h2>+50</h2>
+                <p>Clientes satisfechos</p>
+            </div>
+            <div class="card-back">
+                <h2>+15</h2>
+                <p>Años gestionando procesos de litigio y protección de activos</p>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+  declare const anime: any;
+  
+  // Función para ejecutar la animación
+  const runAnimation = () => {
+    anime.timeline({ easing: 'easeOutCubic' })
+      .add({
+        targets: '.experience-container > h2',
+        opacity: [0, 1],
+        translateY: [-30, 0],
+        duration: 600,
+      })
+      .add({
+        targets: '.background-line',
+        opacity: [0, 1],
+        scaleX: [0, 1],
+        duration: 800,
+        easing: 'easeOutQuint',
+      }, '-=200')
+      .add({
+        targets: '.experience-item',
+        opacity: [0, 1],
+        translateY: [50, 0],
+        scale: [0.95, 1],
+        duration: 700,
+        delay: anime.stagger(180),
+      }, '-=400');
+  };
+  
+  // Observar la sección cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', () => {
+    const experienceSection = document.querySelector('.experience-container');
+    if (!experienceSection) return;
+    
+    // Si estamos restaurando scroll, esperar antes de iniciar el observer
+    const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+    const delay = isRestoring ? 150 : 0;
+    
+    setTimeout(() => {
+      // Intersection Observer para activar la animación cuando la sección sea visible
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            runAnimation();
+            observer.disconnect();
+          }
+        });
+      }, {
+        threshold: 0.2,
+        rootMargin: '0px'
+      });
+      
+      observer.observe(experienceSection);
+    }, delay);
+  });
+</script>

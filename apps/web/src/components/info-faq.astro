@@ -1,0 +1,90 @@
+---
+import '../styles/info-faq.css';
+---
+
+<section class="info-faq-container">
+  <div class="info-faq-content">
+    <h2 class="info-faq-title hidden-initial">
+      El error común: <span>Confundir Teletrabajo con Servicios Profesionales</span>
+    </h2>
+
+    <div class="info-faq-grid">
+      <article class="info-faq-card info-faq-card-left">
+        <div class="info-faq-card-front">
+          <h3 class="info-faq-card-label">Teletrabajo:</h3>
+          <p class="info-faq-card-copy">
+            Un colaborador de una empresa de software que trabaja desde casa
+            desarrollando programas y reportando a un jefe. El colaborador
+            trabaja con la computadora de la empresa y debe estar disponible en
+            el horario de trabajo, además usa uniforme y va dos veces por semana al site.
+          </p>
+        </div>
+        <div class="info-faq-card-back">
+          <ul class="info-faq-list">
+            <li>Relación Laboral</li>
+            <li>Subordinación</li>
+            <li>Dependencia Económica</li>
+            <li>Continuidad</li>
+            <li>Ajenidad</li>
+            <li>Horario</li>
+            <li>Insumos de la Empresa</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="info-faq-card info-faq-card-right">
+        <div class="info-faq-card-front">
+          <h3 class="info-faq-card-label">Contrato por servicios profesionales:</h3>
+          <p class="info-faq-card-copy">
+            Un diseñador gráfico autónomo que trabaja para varias empresas, creando logotipos y páginas web según proyectos específicos. Utiliza sus propios equipos y trabaja exclusivamente por entregables. Este profesional no cumple ningún horario ni tiene una relación de subordinación laboral.
+          </p>
+        </div>
+        <div class="info-faq-card-back">
+          <ul class="info-faq-list">
+            <li>Relación contractual.</li>
+            <li>Autonomía</li>
+            <li>Independencia económica</li>
+            <li>Temporalidad</li>
+            <li>Emisión de factura por SP</li>
+            <li>Libertad horaria</li>
+            <li>Insumos propios</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.info-faq-container') as HTMLElement;
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.info-faq-title',
+                                opacity: [0, 1],
+                                translateY: [-25, 0],
+                                duration: 700,
+                            });
+
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>

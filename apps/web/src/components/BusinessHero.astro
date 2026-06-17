@@ -1,0 +1,70 @@
+---
+import '../styles/businesshero.css';
+---
+
+<section class="business-hero-container">
+    <div class="business-hero-content">
+        <i class="ph ph-rocket-launch business-hero-icon hidden-initial"></i>
+        <h1 class="business-hero-title hidden-initial">Quiero establecer un negocio en Costa Rica</h1>
+        <p class="business-hero-subtitle hidden-initial">
+            Transformamos la complejidad legal en una hoja de ruta clara para tu emprendimiento. Te
+            acompañamos desde la planificación tributaria hasta la protección de tu marca, asegurando que tu
+            negocio nazca blindado y listo para crecer sin riesgos innecesarios.
+        </p>
+        <div class="business-hero-divider hidden-initial"></div>
+    </div>
+</section>
+
+<!-- Animaciones -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
+<script>
+    declare const anime: any;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const section = document.querySelector('.business-hero-container') as HTMLElement;
+        if (!section) return;
+
+        const isRestoring = sessionStorage.getItem('isRestoring') === 'true';
+        const delay = isRestoring ? 150 : 0;
+
+        setTimeout(() => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime.timeline({ easing: 'easeOutCubic' })
+                            .add({
+                                targets: '.business-hero-icon',
+                                opacity: [0, 1],
+                                scale: [0.5, 1],
+                                duration: 600,
+                                easing: 'easeOutBack',
+                            })
+                            .add({
+                                targets: '.business-hero-title',
+                                opacity: [0, 1],
+                                translateY: [-30, 0],
+                                duration: 700,
+                            }, '-=300')
+                            .add({
+                                targets: '.business-hero-subtitle',
+                                opacity: [0, 1],
+                                translateY: [20, 0],
+                                duration: 600,
+                            }, '-=400')
+                            .add({
+                                targets: '.business-hero-divider',
+                                opacity: [0, 1],
+                                scaleX: [0, 1],
+                                duration: 500,
+                                easing: 'easeOutQuart',
+                            }, '-=300');
+
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(section);
+        }, delay);
+    });
+</script>
