@@ -1,39 +1,65 @@
 type Language = 'es' | 'en'
 
-function baseLayout(content: string, preheader?: string): string {
+// rgba equivalents over #19304B background:
+// rgba(255,255,255,0.5) → #8C97A5
+// rgba(255,255,255,0.6) → #9BA6B0
+// rgba(255,255,255,0.1) border → #324A65
+
+function baseLayout(content: string, preheader?: string, logoUrl?: string): string {
+  const headerContent = logoUrl
+    ? `<!--[if !mso]><!--><img src="${logoUrl}" alt="Fusion Legal" height="56" style="display:block;margin:0 auto;border:0;outline:0;max-height:56px;" /><!--<![endif]--><!--[if mso]><h1 style="margin:0;color:#FAD02C;font-size:24px;font-weight:bold;font-family:Arial,sans-serif;">Fusion Legal</h1><![endif]-->`
+    : `<h1 style="margin:0;color:#FAD02C;font-size:24px;font-weight:bold;letter-spacing:0.02em;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">Fusion Legal</h1>`
   return `<!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--[if mso]>
+  <xml>
+    <o:OfficeDocumentSettings>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
+    </o:OfficeDocumentSettings>
+  </xml>
+  <![endif]-->
   <title>Fusion Legal</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap');
     body { margin: 0; padding: 0; background-color: #f4f4f4; font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-    .email-wrapper { width: 100%; background-color: #f4f4f4; padding: 40px 0; }
-    .email-container { max-width: 600px; margin: 0 auto; background-color: #19304B; font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-    .email-header { padding: 32px 40px 24px; text-align: center; border-bottom: 3px solid #FAD02C; }
-    .email-header h1 { margin: 0; color: #FAD02C; font-size: 24px; font-weight: 800; letter-spacing: 0.02em; font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-    .email-body { padding: 32px 40px; color: #ffffff; font-size: 16px; line-height: 1.7; font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-    .email-body p { margin: 0 0 16px; }
-    .email-body a { color: #FAD02C; }
-    .email-cta { display: inline-block; padding: 14px 32px; background-color: #FAD02C; color: #19304B; font-size: 16px; font-weight: 700; text-decoration: none; margin: 8px 0 16px; font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-    .email-footer { padding: 24px 40px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.1); font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
-    .email-footer a { color: rgba(255,255,255,0.5); text-decoration: underline; }
     .preheader { display: none !important; visibility: hidden; mso-hide: all; font-size: 1px; line-height: 1px; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; }
+    @media only screen and (max-width: 620px) {
+      .email-container { width: 100% !important; }
+      .email-cell { padding: 24px 20px !important; }
+    }
   </style>
+  <!--[if mso]>
+  <style type="text/css">
+    body, table, td, a, p, h1, h2, h3 { font-family: Arial, sans-serif !important; }
+  </style>
+  <![endif]-->
 </head>
-<body>
-  ${preheader ? `<span class="preheader">${preheader}</span>` : ''}
-  <div class="email-wrapper">
-    <div class="email-container">
-      <div class="email-header">
-        <h1>Fusion Legal</h1>
-      </div>
-      ${content}
-    </div>
-  </div>
+<body bgcolor="#f4f4f4" style="margin:0;padding:0;background-color:#f4f4f4;">
+  ${preheader ? `<div class="preheader" style="display:none !important;visibility:hidden;mso-hide:all;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">${preheader}</div>` : ''}
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f4f4f4" style="background-color:#f4f4f4;">
+    <tr>
+      <td align="center" style="padding:40px 0;">
+        <!--[if mso]>
+        <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" align="center"><tr><td>
+        <![endif]-->
+        <table class="email-container" role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#19304B" style="max-width:600px;width:100%;background-color:#19304B;">
+          <tr>
+            <td align="center" bgcolor="#19304B" style="padding:24px 40px;text-align:center;border-bottom:3px solid #FAD02C;background-color:#19304B;">
+              ${headerContent}
+            </td>
+          </tr>
+          ${content}
+        </table>
+        <!--[if mso]>
+        </td></tr></table>
+        <![endif]-->
+      </td>
+    </tr>
+  </table>
 </body>
 </html>`
 }
@@ -93,22 +119,35 @@ export function confirmationTemplate(
   language: Language,
   token: string,
   siteUrl: string,
+  logoUrl?: string,
 ): { subject: string; html: string } {
   const t = i18n.confirmation[language]
   const confirmUrl = `${siteUrl}/api/subscribers/confirm?token=${encodeURIComponent(token)}`
 
   const content = `
-    <div class="email-body">
-      <p><strong>${t.heading}</strong></p>
-      <p>${t.body}</p>
-      <p><a href="${confirmUrl}" style="display:inline-block;padding:14px 32px;background-color:#FAD02C;color:#19304B !important;font-size:16px;font-weight:700;text-decoration:none;margin:8px 0 16px;">${t.cta}</a></p>
-      <p style="font-size: 13px; color: rgba(255,255,255,0.6);">${t.ignore}</p>
-    </div>
-    <div class="email-footer">
-      <p>Fusion Legal</p>
-    </div>`
+    <tr>
+      <td class="email-cell" bgcolor="#19304B" style="padding:32px 40px;color:#ffffff;font-size:16px;line-height:1.7;background-color:#19304B;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <p style="margin:0;padding-bottom:16px;color:#ffffff;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;"><strong>${t.heading}</strong></p>
+        <p style="margin:0;padding-bottom:16px;color:#ffffff;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${t.body}</p>
+        <div style="padding-bottom:16px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td bgcolor="#FAD02C" style="background-color:#FAD02C;padding:14px 32px;">
+                <a href="${confirmUrl}" style="color:#19304B;font-size:16px;font-weight:bold;text-decoration:none;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${t.cta}</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <p style="margin:0;font-size:13px;color:#9BA6B0;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${t.ignore}</p>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#19304B" style="padding:24px 40px;text-align:center;font-size:12px;color:#8C97A5;border-top:1px solid #324A65;background-color:#19304B;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <p style="margin:0;color:#8C97A5;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">Fusion Legal</p>
+      </td>
+    </tr>`
 
-  return { subject: t.subject, html: baseLayout(content, t.preheader) }
+  return { subject: t.subject, html: baseLayout(content, t.preheader, logoUrl) }
 }
 
 export function newTagTemplate(
@@ -116,6 +155,7 @@ export function newTagTemplate(
   tagName: string,
   unsubscribeToken: string,
   siteUrl: string,
+  logoUrl?: string,
 ): { subject: string; html: string } {
   const t = i18n.newTag[language]
   const unsub = i18n.unsubscribe[language]
@@ -123,17 +163,29 @@ export function newTagTemplate(
   const blogUrl = `${siteUrl}/blog`
 
   const content = `
-    <div class="email-body">
-      <p><strong>${t.heading}</strong></p>
-      <p>${t.body(tagName)}</p>
-      <p><a href="${blogUrl}" style="display:inline-block;padding:14px 32px;background-color:#FAD02C;color:#19304B !important;font-size:16px;font-weight:700;text-decoration:none;margin:8px 0 16px;">${t.cta}</a></p>
-    </div>
-    <div class="email-footer">
-      <p>Fusion Legal</p>
-      <p><a href="${unsubUrl}">${unsub}</a></p>
-    </div>`
+    <tr>
+      <td class="email-cell" bgcolor="#19304B" style="padding:32px 40px;color:#ffffff;font-size:16px;line-height:1.7;background-color:#19304B;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <p style="margin:0;padding-bottom:16px;color:#ffffff;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;"><strong>${t.heading}</strong></p>
+        <p style="margin:0;padding-bottom:16px;color:#ffffff;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${t.body(tagName)}</p>
+        <div style="padding-bottom:16px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td bgcolor="#FAD02C" style="background-color:#FAD02C;padding:14px 32px;">
+                <a href="${blogUrl}" style="color:#19304B;font-size:16px;font-weight:bold;text-decoration:none;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${t.cta}</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#19304B" style="padding:24px 40px;text-align:center;font-size:12px;color:#8C97A5;border-top:1px solid #324A65;background-color:#19304B;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <p style="margin:0;padding-bottom:8px;color:#8C97A5;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">Fusion Legal</p>
+        <p style="margin:0;"><a href="${unsubUrl}" style="color:#8C97A5;text-decoration:underline;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${unsub}</a></p>
+      </td>
+    </tr>`
 
-  return { subject: t.subject(tagName), html: baseLayout(content, t.preheader(tagName)) }
+  return { subject: t.subject(tagName), html: baseLayout(content, t.preheader(tagName), logoUrl) }
 }
 
 export function campaignTemplate(
@@ -142,20 +194,25 @@ export function campaignTemplate(
   unsubscribeToken: string,
   siteUrl: string,
   language: Language = 'es',
+  logoUrl?: string,
 ): string {
   const unsub = i18n.unsubscribe[language]
   const unsubUrl = `${siteUrl}/api/subscribers/unsubscribe?token=${encodeURIComponent(unsubscribeToken)}`
 
   const content = `
-    <div class="email-body">
-      ${bodyHtml}
-    </div>
-    <div class="email-footer">
-      <p>Fusion Legal</p>
-      <p><a href="${unsubUrl}">${unsub}</a></p>
-    </div>`
+    <tr>
+      <td class="email-cell" bgcolor="#19304B" style="padding:32px 40px;color:#ffffff;font-size:16px;line-height:1.7;background-color:#19304B;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        ${bodyHtml}
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#19304B" style="padding:24px 40px;text-align:center;font-size:12px;color:#8C97A5;border-top:1px solid #324A65;background-color:#19304B;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <p style="margin:0;padding-bottom:8px;color:#8C97A5;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">Fusion Legal</p>
+        <p style="margin:0;"><a href="${unsubUrl}" style="color:#8C97A5;text-decoration:underline;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${unsub}</a></p>
+      </td>
+    </tr>`
 
-  return baseLayout(content, subject)
+  return baseLayout(content, subject, logoUrl)
 }
 
 export function blogPostTemplate(
@@ -166,55 +223,91 @@ export function blogPostTemplate(
   unsubscribeToken: string,
   siteUrl: string,
   language: Language = 'es',
+  imageUrl?: string,
+  logoUrl?: string,
 ): string {
   const ctaLabel = i18n.blogPost[language].cta
   const unsub = i18n.unsubscribe[language]
   const unsubUrl = `${siteUrl}/api/subscribers/unsubscribe?token=${encodeURIComponent(unsubscribeToken)}`
 
-  const content = `
-    <div class="email-body">
-      <p><strong>${subject}</strong></p>
-      <p>${bodyText}</p>
-      <p><a href="${ctaUrl}" style="display:inline-block;padding:14px 32px;background-color:#FAD02C;color:#19304B !important;font-size:16px;font-weight:700;text-decoration:none;margin:8px 0 16px;">${ctaLabel}</a></p>
-    </div>
-    <div class="email-footer">
-      <p>Fusion Legal</p>
-      <p><a href="${unsubUrl}">${unsub}</a></p>
-    </div>`
+  const imageRow = imageUrl
+    ? `<tr>
+      <td bgcolor="#19304B" style="padding:0;background-color:#19304B;font-size:0;line-height:0;">
+        <img src="${imageUrl}" alt="" width="600" style="display:block;width:100%;max-width:600px;height:auto;border:0;outline:0;text-decoration:none;" />
+      </td>
+    </tr>`
+    : ''
 
-  return baseLayout(content, preheader || subject)
+  const content = `
+    ${imageRow}
+    <tr>
+      <td class="email-cell" bgcolor="#19304B" style="padding:32px 40px;color:#ffffff;font-size:16px;line-height:1.7;background-color:#19304B;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <p style="margin:0;padding-bottom:16px;color:#ffffff;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;"><strong>${subject}</strong></p>
+        <p style="margin:0;padding-bottom:16px;color:#ffffff;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${bodyText}</p>
+        <div style="padding-bottom:16px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td bgcolor="#FAD02C" style="background-color:#FAD02C;padding:14px 32px;">
+                <a href="${ctaUrl}" style="color:#19304B;font-size:16px;font-weight:bold;text-decoration:none;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${ctaLabel}</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#19304B" style="padding:24px 40px;text-align:center;font-size:12px;color:#8C97A5;border-top:1px solid #324A65;background-color:#19304B;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <p style="margin:0;padding-bottom:8px;color:#8C97A5;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">Fusion Legal</p>
+        <p style="margin:0;"><a href="${unsubUrl}" style="color:#8C97A5;text-decoration:underline;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${unsub}</a></p>
+      </td>
+    </tr>`
+
+  return baseLayout(content, preheader || subject, logoUrl)
 }
 
 export function contactFormTemplate(
   name: string,
   email: string,
   message: string,
+  logoUrl?: string,
 ): { subject: string; html: string } {
   const subject = `Nuevo mensaje de contacto — ${name}`
   const escapedMessage = message.replace(/\n/g, '<br>')
 
   const content = `
-    <div class="email-body">
-      <p><strong>Nuevo mensaje desde el formulario de contacto</strong></p>
-      <table style="width:100%;border-collapse:collapse;margin:16px 0;">
-        <tr>
-          <td style="padding:8px 0;color:rgba(255,255,255,0.6);vertical-align:top;width:120px;">Nombre</td>
-          <td style="padding:8px 0;color:#fff;">${name}</td>
-        </tr>
-        <tr>
-          <td style="padding:8px 0;color:rgba(255,255,255,0.6);vertical-align:top;">Correo</td>
-          <td style="padding:8px 0;"><a href="mailto:${email}" style="color:#FAD02C;">${email}</a></td>
-        </tr>
-        <tr>
-          <td style="padding:8px 0;color:rgba(255,255,255,0.6);vertical-align:top;">Mensaje</td>
-          <td style="padding:8px 0;color:#fff;">${escapedMessage}</td>
-        </tr>
-      </table>
-      <p><a href="mailto:${email}" style="display:inline-block;padding:14px 32px;background-color:#FAD02C;color:#19304B !important;font-size:16px;font-weight:700;text-decoration:none;margin:8px 0 16px;">Responder</a></p>
-    </div>
-    <div class="email-footer">
-      <p>Fusion Legal</p>
-    </div>`
+    <tr>
+      <td class="email-cell" bgcolor="#19304B" style="padding:32px 40px;color:#ffffff;font-size:16px;line-height:1.7;background-color:#19304B;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <p style="margin:0;padding-bottom:16px;color:#ffffff;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;"><strong>Nuevo mensaje desde el formulario de contacto</strong></p>
+        <table role="presentation" style="width:100%;border-collapse:collapse;margin:16px 0;">
+          <tr>
+            <td style="padding:8px 0;color:#9BA6B0;vertical-align:top;width:120px;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">Nombre</td>
+            <td style="padding:8px 0;color:#ffffff;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${name}</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0;color:#9BA6B0;vertical-align:top;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">Correo</td>
+            <td style="padding:8px 0;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;"><a href="mailto:${email}" style="color:#FAD02C;">${email}</a></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 0;color:#9BA6B0;vertical-align:top;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">Mensaje</td>
+            <td style="padding:8px 0;color:#ffffff;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">${escapedMessage}</td>
+          </tr>
+        </table>
+        <div style="padding-bottom:16px;">
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td bgcolor="#FAD02C" style="background-color:#FAD02C;padding:14px 32px;">
+                <a href="mailto:${email}" style="color:#19304B;font-size:16px;font-weight:bold;text-decoration:none;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">Responder</a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#19304B" style="padding:24px 40px;text-align:center;font-size:12px;color:#8C97A5;border-top:1px solid #324A65;background-color:#19304B;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">
+        <p style="margin:0;color:#8C97A5;font-family:'Nunito Sans','Helvetica Neue',Helvetica,Arial,sans-serif;">Fusion Legal</p>
+      </td>
+    </tr>`
 
-  return { subject, html: baseLayout(content, subject) }
+  return { subject, html: baseLayout(content, subject, logoUrl) }
 }

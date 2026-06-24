@@ -417,6 +417,36 @@ async function sendBlogEmail(
     const bodyText = doc.emailBodyText || doc.excerpt || ''
     const ctaUrl = `${siteUrl}/blog/${doc.slug}`
     const language = doc.emailTargetLanguage === 'en' ? 'en' : 'es'
+    const logoUrl = `${cmsUrl}/fl_logo.webp`
+
+    // Resolve cover image URL from filename (reliable with S3 storage)
+    let coverImageUrl: string | undefined
+    if (doc.cover_image) {
+      let filename: string | undefined
+      if (typeof doc.cover_image === 'object' && doc.cover_image.filename) {
+        filename = doc.cover_image.filename as string
+      } else {
+        // Bare ID — fetch just the filename from the DB
+        try {
+          const media = await payload.findByID({
+            collection: 'media',
+            id: typeof doc.cover_image === 'object' ? (doc.cover_image as any).id : doc.cover_image,
+            depth: 0,
+            overrideAccess: true,
+          })
+          if (media?.filename) filename = media.filename as string
+        } catch { /* ignore */ }
+      }
+      if (filename) {
+        // Mirror the generateFileURL logic in payload.config.ts
+        if (process.env.S3_BUCKET && process.env.S3_PUBLIC_URL) {
+          coverImageUrl = `${process.env.S3_PUBLIC_URL}/object/public/${process.env.S3_BUCKET}/${filename}`
+        } else {
+          // Local storage fallback (dev without S3)
+          coverImageUrl = `${cmsUrl}/media/${filename}`
+        }
+      }
+    }
 
     let sentCount = 0
 
@@ -432,6 +462,8 @@ async function sendBlogEmail(
           sub.unsubscribeToken,
           cmsUrl,
           language,
+          coverImageUrl,
+          logoUrl,
         )
         const emailResult = await sendEmail({ to: email, subject, html })
         if (emailResult.success) sentCount++

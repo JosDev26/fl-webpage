@@ -28,4 +28,5 @@ pnpm-debug.log*
 .idea/
 
 # Payload CMS
+apps/cms/email-previews/
 media/

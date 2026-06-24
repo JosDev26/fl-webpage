@@ -8,7 +8,7 @@ const MAX_MESSAGE = 5000
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function getContactEmail(): string {
-  return process.env.CONTACT_EMAIL || 'josueherreradev@gmail.com'
+  return process.env.CONTACT_EMAIL || 'carlos.mena@fusionlegalcr.com'
 }
 
 export const ContactMessages: CollectionConfig = {
