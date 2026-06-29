@@ -18,8 +18,8 @@ function getCmsUrl(): string {
 export const Subscribers: CollectionConfig = {
   slug: 'subscribers',
   admin: {
-    useAsTitle: 'emailHash',
-    defaultColumns: ['emailHash', 'status', 'language', 'confirmedAt'],
+    useAsTitle: 'emailDecrypted',
+    defaultColumns: ['emailDecrypted', 'status', 'language', 'confirmedAt'],
     description: 'Suscriptores al boletín de email marketing',
   },
   access: {
@@ -298,7 +298,7 @@ export const Subscribers: CollectionConfig = {
       index: true,
       label: 'Email (hash)',
       admin: {
-        readOnly: true,
+        hidden: true,
         description: 'SHA-256 del correo — usado para buscar duplicados',
       },
     },

@@ -12,6 +12,8 @@ import '@fontsource-variable/nunito-sans';
     <title>Fusión Legal</title>
     <!-- Phosphor Icons -->
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+    <!-- Marca JS activo antes del primer paint para ocultar elementos con .hidden-initial -->
+    <script is:inline>document.documentElement.classList.add('js')</script>
   </head>
   <body>
     <slot />
@@ -43,19 +45,25 @@ import '@fontsource-variable/nunito-sans';
   ::-webkit-scrollbar {
     width: 12px;
   }
-  
+
   ::-webkit-scrollbar-track {
     background: var(--dark-blue-color);
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background: var(--yellow-color);
     border-radius: 6px;
     border: 2px solid var(--dark-blue-color);
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
     background: #f5d957;
+  }
+
+  /* Salvaguarda anti-FOUC: ocultar elementos animados solo si JS está activo.
+     Si JS falla, los elementos quedan visibles (graceful degradation). */
+  html.js .hidden-initial {
+    opacity: 0;
   }
   
   body {

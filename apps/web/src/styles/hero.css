@@ -119,3 +119,10 @@
 @media (max-width: 900px) {
   .hero .rectangle-border { display: none; }
 }
+
+/* Estado inicial de transform para evitar salto antes del primer frame de anime.js.
+   Los valores coinciden con los "from" de la timeline de Header.astro. */
+.logo-hero.hidden-initial { transform: translateY(30px) scale(0.9); }
+.info-hero h1.hidden-initial { transform: translateY(25px); }
+.subtext-hero.hidden-initial { transform: translateY(20px); }
+.cta-hero.hidden-initial { transform: translateY(15px) scale(0.95); }

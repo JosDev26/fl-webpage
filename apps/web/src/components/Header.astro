@@ -11,15 +11,14 @@ import '@fontsource-variable/nunito-sans';
           <div class="border-hero border2-hero no-mobile hidden-initial"></div>
         </div>
         <div class="info-hero">
-            <Image src={import.meta.env.BASE_URL + '../../fllogocropped.webp'} alt="Logo Fusión Legal" class="logo-hero" width="100" height="100" />
-            <h1>Experiencia que resuelve problemas</h1> 
-            <p class="subtext-hero">Te ayudamos a solucionar todas las situaciones legales que te dan dolores de cabeza, ya sea si eres una empresa consolidada, o una persona que necesita orientación clara y confiable.</p> 
-            <a class="cta-hero" href="https://wa.me/50686887520?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20cita%20para%20recibir%20asesor%C3%ADa%20legal.%20Quedo%20atento%20a%20su%20respuesta" target="_blank" rel="noopener noreferrer">Agenda una cita</a>
+            <Image src={import.meta.env.BASE_URL + '../../fllogocropped.webp'} alt="Logo Fusión Legal" class="logo-hero hidden-initial" width="100" height="100" />
+            <h1 class="hidden-initial">Experiencia que resuelve problemas</h1> 
+            <p class="subtext-hero hidden-initial">Te ayudamos a solucionar todas las situaciones legales que te dan dolores de cabeza, ya sea si eres una empresa consolidada, o una persona que necesita orientación clara y confiable.</p> 
+            <a class="cta-hero hidden-initial" href="https://wa.me/50686887520?text=Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20cita%20para%20recibir%20asesor%C3%ADa%20legal.%20Quedo%20atento%20a%20su%20respuesta" target="_blank" rel="noopener noreferrer">Agenda una cita</a>
         </div>
     </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" is:inline></script>
 <script>
-  declare const anime: any;
+  import anime from 'animejs';
   document.addEventListener('DOMContentLoaded', () => {
     // Timeline para coordinar las animaciones
     const timeline = anime.timeline({
