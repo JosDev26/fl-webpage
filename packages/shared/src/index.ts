@@ -21,6 +21,16 @@ export interface Tag {
   name: string;
 }
 
+export interface Author {
+  id: string;
+  name: string;
+  cargo: string;
+  email: string;
+  phone: string;
+  phrase: string;
+  photo?: Media;
+}
+
 export interface BlogPost {
   id: string;
   title: string;
@@ -31,6 +41,7 @@ export interface BlogPost {
   published_date: string;
   status: 'draft' | 'published';
   tags?: Tag[];
+  author?: Author;
   views?: number;
   meta_title?: string;
   meta_description?: string;
