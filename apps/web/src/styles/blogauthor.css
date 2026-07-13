@@ -1,0 +1,106 @@
+:root {
+  --yellow-color: #FAD02C;
+  --dark-blue-color: #19304B;
+}
+
+.blog-author-container {
+  max-width: 780px;
+  margin: clamp(2rem, 4vw, 3rem) auto 0;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  border-top: clamp(2px, 0.25vw, 3px) solid var(--yellow-color);
+}
+
+.blog-author-photo {
+  flex-shrink: 0;
+  width: clamp(90px, 18vw, 140px);
+  height: clamp(90px, 18vw, 140px);
+  overflow: hidden;
+  border: clamp(2px, 0.25vw, 3px) solid var(--yellow-color);
+}
+
+.blog-author-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.blog-author-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.blog-author-name {
+  color: #fff;
+  font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 0.25rem;
+}
+
+.blog-author-cargo {
+  color: var(--yellow-color);
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.blog-author-phrase {
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.blog-author-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+.blog-author-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.blog-author-contact-link:hover {
+  color: var(--yellow-color);
+}
+
+.blog-author-contact-link:focus-visible {
+  outline: 3px solid var(--yellow-color);
+  outline-offset: 4px;
+}
+
+.blog-author-contact-link i {
+  font-size: 1.125rem;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 600px) {
+  .blog-author-container {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .blog-author-contact {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-author-contact-link {
+    transition: none;
+  }
+}
