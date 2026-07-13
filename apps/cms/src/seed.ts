@@ -128,40 +128,54 @@ const authors = [
   },
 ]
 
+async function seedCollection(
+  payload: any,
+  collection: string,
+  items: any[],
+  keyField: string,
+): Promise<number> {
+  let created = 0
+  for (const item of items) {
+    const existing = await payload.find({
+      collection,
+      where: { [keyField]: { equals: item[keyField] } },
+      limit: 1,
+      depth: 0,
+    })
+    if (existing.totalDocs > 0) continue
+    await payload.create({ collection, data: item })
+    created++
+  }
+  return created
+}
+
 async function seed() {
   const payload = await getPayload({ config })
 
   console.log('Seeding reviews...')
-  for (const review of reviews) {
-    await payload.create({
-      collection: 'reviews',
-      data: review,
-    })
-  }
-  console.log(`✓ ${reviews.length} reviews created`)
+  const reviewsCreated = await seedCollection(payload, 'reviews', reviews, 'reviewer_name')
+  console.log(`✓ ${reviewsCreated} reviews created`)
 
   console.log('Seeding services...')
-  for (const service of services) {
-    await payload.create({
-      collection: 'services',
-      data: service,
-    })
-  }
-  console.log(`✓ ${services.length} services created`)
+  const servicesCreated = await seedCollection(payload, 'services', services, 'title')
+  console.log(`✓ ${servicesCreated} services created`)
 
   console.log('Seeding tags...')
-  for (const tag of tags) {
-    await payload.create({
-      collection: 'tags',
-      data: tag,
-    })
-  }
-  console.log(`✓ ${tags.length} tags created`)
+  const tagsCreated = await seedCollection(payload, 'tags', tags, 'name')
+  console.log(`✓ ${tagsCreated} tags created`)
 
   console.log('Seeding authors...')
-  const logoPath = path.resolve(__dirname, 'public', 'fl_logo.webp')
+  const logoPath = path.resolve(__dirname, '..', 'public', 'fl_logo.webp')
   const logoBuffer = fs.readFileSync(logoPath)
+  let authorsCreated = 0
   for (const author of authors) {
+    const existing = await payload.find({
+      collection: 'authors',
+      where: { name: { equals: author.name } },
+      limit: 1,
+      depth: 0,
+    })
+    if (existing.totalDocs > 0) continue
     // Upload a media photo for this author
     const media = await payload.create({
       collection: 'media',
@@ -180,8 +194,9 @@ async function seed() {
         photo: media.id,
       },
     })
+    authorsCreated++
   }
-  console.log(`✓ ${authors.length} authors created`)
+  console.log(`✓ ${authorsCreated} authors created`)
 
   console.log('Seed complete!')
   process.exit(0)
