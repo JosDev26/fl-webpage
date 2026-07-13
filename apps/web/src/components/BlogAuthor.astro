@@ -11,11 +11,11 @@ const { author } = Astro.props;
 
 {author && (
   <section class="blog-author-container" aria-label="Autor del artículo">
-    <div class="blog-author-photo">
-      {author.photo && (
+    {author.photo && (
+      <div class="blog-author-photo">
         <img src={author.photo.url} alt={author.photo.alt || author.name} loading="lazy" />
-      )}
-    </div>
+      </div>
+    )}
     <div class="blog-author-info">
       <h2 class="blog-author-name">{author.name}</h2>
       <p class="blog-author-cargo">{author.cargo}</p>
