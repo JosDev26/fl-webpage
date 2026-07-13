@@ -1,5 +1,11 @@
 import { getPayload } from 'payload'
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import config from './payload.config'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const reviews = [
   {
@@ -105,6 +111,23 @@ const tags = [
   { name: 'Contratos' },
 ]
 
+const authors = [
+  {
+    name: 'Carlos Mena',
+    cargo: 'Abogado Socio',
+    email: 'carlos.mena@fusionlegal.cr',
+    phone: '+506 8888-1111',
+    phrase: 'El derecho es la herramienta para construir confianza.',
+  },
+  {
+    name: 'Daniela Rojas',
+    cargo: 'Especialista en Derecho Laboral',
+    email: 'daniela.rojas@fusionlegal.cr',
+    phone: '+506 8888-2222',
+    phrase: 'Cada caso es una persona, no un expediente.',
+  },
+]
+
 async function seed() {
   const payload = await getPayload({ config })
 
@@ -134,6 +157,31 @@ async function seed() {
     })
   }
   console.log(`✓ ${tags.length} tags created`)
+
+  console.log('Seeding authors...')
+  const logoPath = path.resolve(__dirname, 'public', 'fl_logo.webp')
+  const logoBuffer = fs.readFileSync(logoPath)
+  for (const author of authors) {
+    // Upload a media photo for this author
+    const media = await payload.create({
+      collection: 'media',
+      data: { alt: `Foto de ${author.name}` },
+      file: {
+        data: logoBuffer,
+        mimetype: 'image/webp',
+        name: `author-${author.name.toLowerCase().replace(/\s+/g, '-')}.webp`,
+        size: logoBuffer.length,
+      },
+    })
+    await payload.create({
+      collection: 'authors',
+      data: {
+        ...author,
+        photo: media.id,
+      },
+    })
+  }
+  console.log(`✓ ${authors.length} authors created`)
 
   console.log('Seed complete!')
   process.exit(0)
