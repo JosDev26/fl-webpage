@@ -75,6 +75,7 @@ export interface Config {
     subscribers: Subscriber;
     'email-campaigns': EmailCampaign;
     'contact-messages': ContactMessage;
+    authors: Author;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -91,6 +92,7 @@ export interface Config {
     subscribers: SubscribersSelect<false> | SubscribersSelect<true>;
     'email-campaigns': EmailCampaignsSelect<false> | EmailCampaignsSelect<true>;
     'contact-messages': ContactMessagesSelect<false> | ContactMessagesSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -231,6 +233,10 @@ export interface BlogPost {
    */
   tags?: (number | Tag)[] | null;
   /**
+   * Selecciona el autor de este artículo
+   */
+  author?: (number | null) | Author;
+  /**
    * Contador de visitas del artículo
    */
   views?: number | null;
@@ -272,6 +278,27 @@ export interface Tag {
    * Enviar un correo masivo a todos los suscriptores confirmados al crear esta etiqueta
    */
   notifySubscribers?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  name: string;
+  /**
+   * Título profesional, ej: Abogado Socio
+   */
+  cargo: string;
+  email: string;
+  phone: string;
+  /**
+   * Frase o lema del autor
+   */
+  phrase: string;
+  photo: number | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -443,6 +470,10 @@ export interface PayloadLockedDocument {
         value: number | ContactMessage;
       } | null)
     | ({
+        relationTo: 'authors';
+        value: number | Author;
+      } | null)
+    | ({
         relationTo: 'users';
         value: number | User;
       } | null);
@@ -527,6 +558,7 @@ export interface BlogPostsSelect<T extends boolean = true> {
   published_date?: T;
   status?: T;
   tags?: T;
+  author?: T;
   views?: T;
   meta_title?: T;
   meta_description?: T;
@@ -613,6 +645,20 @@ export interface ContactMessagesSelect<T extends boolean = true> {
   email?: T;
   message?: T;
   status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  name?: T;
+  cargo?: T;
+  email?: T;
+  phone?: T;
+  phrase?: T;
+  photo?: T;
   updatedAt?: T;
   createdAt?: T;
 }

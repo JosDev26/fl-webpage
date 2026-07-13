@@ -243,6 +243,15 @@ export const BlogPosts: CollectionConfig = {
       },
     },
     {
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'authors',
+      label: 'Autor',
+      admin: {
+        description: 'Selecciona el autor de este artículo',
+      },
+    },
+    {
       name: 'views',
       type: 'number',
       label: 'Visitas',
