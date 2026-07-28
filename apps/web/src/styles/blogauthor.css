@@ -3,14 +3,20 @@
   --dark-blue-color: #19304B;
 }
 
-.blog-author-container {
+.blog-author-list {
   max-width: 780px;
   margin: clamp(2rem, 4vw, 3rem) auto 0;
   padding: clamp(1.5rem, 3vw, 2.5rem);
   display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2rem);
+  border-top: clamp(2px, 0.25vw, 3px) solid var(--yellow-color);
+}
+
+.blog-author-card {
+  display: flex;
   align-items: center;
   gap: clamp(1.5rem, 3vw, 2.5rem);
-  border-top: clamp(2px, 0.25vw, 3px) solid var(--yellow-color);
 }
 
 .blog-author-photo {
@@ -86,9 +92,9 @@
   font-size: 1.125rem;
 }
 
-/* Responsive: stack on small screens */
+/* Responsive: stack each card internally on small screens */
 @media (max-width: 600px) {
-  .blog-author-container {
+  .blog-author-card {
     flex-direction: column;
     text-align: center;
     align-items: center;

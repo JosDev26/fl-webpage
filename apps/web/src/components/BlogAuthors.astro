@@ -1,0 +1,40 @@
+---
+import '../styles/blogauthor.css';
+import type { Author } from '@fusion-legal/shared';
+
+interface Props {
+  authors?: Author[] | null;
+}
+
+const { authors } = Astro.props;
+const list = (authors ?? []).filter((a): a is Author => Boolean(a && a.id));
+---
+
+{list.length > 0 && (
+  <section class="blog-author-list" aria-label="Autores del artículo">
+    {list.map((author) => (
+      <article class="blog-author-card">
+        {author.photo && (
+          <div class="blog-author-photo">
+            <img src={author.photo.url} alt={author.photo.alt || author.name} loading="lazy" />
+          </div>
+        )}
+        <div class="blog-author-info">
+          <h2 class="blog-author-name">{author.name}</h2>
+          <p class="blog-author-cargo">{author.cargo}</p>
+          <p class="blog-author-phrase">{author.phrase}</p>
+          <div class="blog-author-contact">
+            <a href={`mailto:${author.email}`} class="blog-author-contact-link">
+              <i class="ph ph-envelope"></i>
+              <span>{author.email}</span>
+            </a>
+            <a href={`tel:${author.phone}`} class="blog-author-contact-link">
+              <i class="ph ph-phone"></i>
+              <span>{author.phone}</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    ))}
+  </section>
+)}

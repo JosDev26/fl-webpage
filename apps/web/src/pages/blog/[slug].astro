@@ -4,7 +4,7 @@ export const prerender = false
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
-import BlogAuthor from '../../components/BlogAuthor.astro';
+import BlogAuthors from '../../components/BlogAuthors.astro';
 import { getBlogPost } from '../../lib/payload';
 import { lexicalToHtml } from '../../lib/lexical';
 import '../../styles/blog.css';
@@ -43,7 +43,7 @@ const pageDescription = post.meta_description || post.excerpt || '';
 
     <div class="blog-post-content" set:html={contentHtml} />
   </article>
-  <BlogAuthor author={post.author} />
+  <BlogAuthors authors={post.authors} />
   <Footer />
 
   <script is:inline data-cms-url={import.meta.env.PAYLOAD_URL || 'http://localhost:3000'}>

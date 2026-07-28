@@ -41,7 +41,7 @@ export interface BlogPost {
   published_date: string;
   status: 'draft' | 'published';
   tags?: Tag[];
-  author?: Author;
+  authors?: Author[];
   views?: number;
   meta_title?: string;
   meta_description?: string;
