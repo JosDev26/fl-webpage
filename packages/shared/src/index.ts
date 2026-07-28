@@ -41,6 +41,7 @@ export interface BlogPost {
   published_date: string;
   status: 'draft' | 'published';
   tags?: Tag[];
+  // ponytail: assumes depth >= 2 in payload query; shallow fetches return number[]
   authors?: Author[];
   views?: number;
   meta_title?: string;
