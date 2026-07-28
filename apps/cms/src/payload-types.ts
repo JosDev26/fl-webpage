@@ -233,9 +233,9 @@ export interface BlogPost {
    */
   tags?: (number | Tag)[] | null;
   /**
-   * Selecciona el autor de este artículo
+   * Selecciona uno o varios autores. El primero es el principal.
    */
-  author?: (number | null) | Author;
+  authors?: (number | Author)[] | null;
   /**
    * Contador de visitas del artículo
    */
@@ -558,7 +558,7 @@ export interface BlogPostsSelect<T extends boolean = true> {
   published_date?: T;
   status?: T;
   tags?: T;
-  author?: T;
+  authors?: T;
   views?: T;
   meta_title?: T;
   meta_description?: T;

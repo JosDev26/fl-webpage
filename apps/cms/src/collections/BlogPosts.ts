@@ -243,12 +243,13 @@ export const BlogPosts: CollectionConfig = {
       },
     },
     {
-      name: 'author',
+      name: 'authors',
       type: 'relationship',
       relationTo: 'authors',
-      label: 'Autor',
+      hasMany: true,
+      label: 'Autores',
       admin: {
-        description: 'Selecciona el autor de este artículo',
+        description: 'Selecciona uno o varios autores. El primero es el principal.',
       },
     },
     {
