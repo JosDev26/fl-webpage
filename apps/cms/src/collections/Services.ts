@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { trimString } from '../hooks/trimString'
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -14,6 +15,8 @@ export const Services: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      unique: true,
+      hooks: { beforeValidate: [trimString] },
       label: 'Título del servicio',
     },
     {

@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { notifySubscribersAboutNewTag } from './Subscribers'
+import { trimString } from '../hooks/trimString'
 
 export const Tags: CollectionConfig = {
   slug: 'tags',
@@ -26,6 +27,7 @@ export const Tags: CollectionConfig = {
       type: 'text',
       required: true,
       unique: true,
+      hooks: { beforeValidate: [trimString] },
       label: 'Nombre',
     },
     {

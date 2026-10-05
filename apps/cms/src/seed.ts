@@ -134,6 +134,11 @@ async function seedCollection(
   items: any[],
   keyField: string,
 ): Promise<number> {
+  const { totalDocs } = await payload.count({ collection })
+  if (totalDocs > 0) {
+    console.log(`- ${collection} ya tiene ${totalDocs} registros, se omite`)
+    return 0
+  }
   let created = 0
   for (const item of items) {
     const existing = await payload.find({
@@ -150,6 +155,13 @@ async function seedCollection(
 }
 
 async function seed() {
+  if (process.env.ALLOW_SEED !== 'true') {
+    console.error(
+      'Seed bloqueado: esta base de datos puede tener datos reales. Para continuar ejecuta con ALLOW_SEED=true.',
+    )
+    process.exit(1)
+  }
+
   const payload = await getPayload({ config })
 
   console.log('Seeding reviews...')
@@ -165,6 +177,13 @@ async function seed() {
   console.log(`✓ ${tagsCreated} tags created`)
 
   console.log('Seeding authors...')
+  const authorsCount = await payload.count({ collection: 'authors' })
+  if (authorsCount.totalDocs > 0) {
+    console.log(`- authors ya tiene ${authorsCount.totalDocs} registros, se omite`)
+    console.log('Seed complete!')
+    process.exit(0)
+  }
+
   const logoPath = path.resolve(__dirname, '..', 'public', 'fl_logo.webp')
   const logoBuffer = fs.readFileSync(logoPath)
   let authorsCreated = 0

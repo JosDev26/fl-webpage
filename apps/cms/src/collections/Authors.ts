@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { trimString } from '../hooks/trimString'
 
 export const Authors: CollectionConfig = {
   slug: 'authors',
@@ -14,6 +15,8 @@ export const Authors: CollectionConfig = {
       name: 'name',
       type: 'text',
       required: true,
+      unique: true,
+      hooks: { beforeValidate: [trimString] },
       label: 'Nombre',
     },
     {
