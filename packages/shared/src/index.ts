@@ -58,6 +58,15 @@ export interface Media {
   height?: number;
   filename: string;
   mimeType: string;
+  sizes?: {
+    og?: MediaSize;
+  };
+}
+
+export interface MediaSize {
+  url?: string | null;
+  width?: number | null;
+  height?: number | null;
 }
 
 export interface Subscriber {
