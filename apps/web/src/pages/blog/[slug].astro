@@ -19,9 +19,21 @@ if (!post) {
 const contentHtml = lexicalToHtml(post.content);
 const pageTitle = post.meta_title || post.title;
 const pageDescription = post.meta_description || post.excerpt || '';
+// Payload may return a root-relative media URL; resolve it against the CMS
+const coverUrl = post.cover_image?.url
+  ? new URL(post.cover_image.url, import.meta.env.PAYLOAD_URL || 'http://localhost:3000').href
+  : undefined;
 ---
 
-<Layout>
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  image={coverUrl}
+  imageAlt={post.cover_image?.alt || post.title}
+  imageWidth={post.cover_image?.width}
+  imageHeight={post.cover_image?.height}
+  type="article"
+>
   <Navbar />
   <article class="blog-post-container">
     <header class="blog-post-header">

@@ -28,12 +28,15 @@ export const BlogPosts: CollectionConfig = {
         // Prevent re-triggering when we update linkedCampaignId
         if (req?.context?.skipEmailHook) return doc
 
+        const isPublished = doc.status === 'published'
         const justPublished =
-          doc.status === 'published' &&
-          (operation === 'create' || previousDoc?.status === 'draft')
+          isPublished && (operation === 'create' || previousDoc?.status === 'draft')
+        // Checkbox turned on for a post that was already published
+        const justEnabled =
+          isPublished && operation === 'update' && !previousDoc?.sendEmailCampaign
 
         if (
-          !justPublished ||
+          !(justPublished || justEnabled) ||
           !doc.sendEmailCampaign ||
           doc.linkedCampaignId
         ) {
@@ -45,7 +48,10 @@ export const BlogPosts: CollectionConfig = {
           ? doc.tags.map((t: any) => (typeof t === 'object' ? t.id : t))
           : []
 
-        if (postTagIds.length === 0) return doc
+        if (postTagIds.length === 0) {
+          console.log(`[BlogEmail] "${doc.title}" has no tags, email not sent`)
+          return doc
+        }
 
         // Fire async
         void sendBlogEmail(doc, postTagIds, req.payload)
@@ -281,7 +287,8 @@ export const BlogPosts: CollectionConfig = {
       label: 'Iniciar email marketing para este blog',
       defaultValue: false,
       admin: {
-        description: 'Activa para enviar un email a los suscriptores cuando publiques este artículo',
+        description:
+          'Activa para enviar un email a los suscriptores al publicar este artículo (o al guardar, si ya está publicado). Se envía una sola vez.',
       },
     },
     {

@@ -247,7 +247,7 @@ export interface BlogPost {
   meta_title?: string | null;
   meta_description?: string | null;
   /**
-   * Activa para enviar un email a los suscriptores cuando publiques este artículo
+   * Activa para enviar un email a los suscriptores al publicar este artículo (o al guardar, si ya está publicado). Se envía una sola vez.
    */
   sendEmailCampaign?: boolean | null;
   /**

@@ -1,5 +1,30 @@
 ---
 import '@fontsource-variable/nunito-sans';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Absolute or root-relative URL of the share preview image */
+  image?: string;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  type?: 'website' | 'article';
+}
+
+const {
+  title = 'Fusión Legal',
+  description = '',
+  image = '/fl_logo.webp',
+  imageAlt = 'Fusión Legal',
+  imageWidth,
+  imageHeight,
+  type = 'website',
+} = Astro.props;
+
+const base = Astro.site ?? Astro.url;
+const pageUrl = new URL(Astro.url.pathname, base).href;
+const imageUrl = new URL(image, base).href;
 ---
 
 <!doctype html>
@@ -9,7 +34,23 @@ import '@fontsource-variable/nunito-sans';
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/webp" href="/fl_logo.webp" />
     <meta name="generator" content={Astro.generator} />
-    <title>Fusión Legal</title>
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={pageUrl} />
+    <!-- Open Graph / link previews (WhatsApp, Facebook, LinkedIn...) -->
+    <meta property="og:site_name" content="Fusión Legal" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:alt" content={imageAlt} />
+    {imageWidth && <meta property="og:image:width" content={String(imageWidth)} />}
+    {imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    <meta name="twitter:image" content={imageUrl} />
     <!-- Phosphor Icons -->
     <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
     <!-- Marca JS activo antes del primer paint para ocultar elementos con .hidden-initial -->
